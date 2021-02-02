@@ -41,10 +41,11 @@ export default class Login extends Component<any, LoginState> {
 
         try {
             let userLoginDetails = new UserLoginDetails(this.state.userName, this.state.password);
-            // const response =  await axios.post<UserLoginDetails[]>("http://localhost:3001/users/login", userLoginDetails);
-            // const serverResponse = response.data;
-            console.log(this.state.userName);
-            console.log(this.state.password);
+            const response =  await axios.post<UserLoginDetails[]>("http://localhost:3001/users/login", userLoginDetails);
+            const serverResponse = response.data;
+            console.log(serverResponse);
+            // console.log(this.state.userName);
+            // console.log(this.state.password);
 
         }
         catch (err) {
