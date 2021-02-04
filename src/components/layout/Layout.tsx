@@ -11,12 +11,6 @@ import "./Layout.css";
 export default class Layout extends Component {
   public render() {
     return (
-      // <div className="layout">
-      //   <header><Header /></header>
-      //   <menu><Menu /></menu>
-      //   <Login><Login /></Login>
-      //   <footer><Footer /></footer>
-      // </div>
       <BrowserRouter>
         <div className="layout">
 
