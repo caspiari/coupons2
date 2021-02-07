@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import About from '../about/About';
 import Coupons from '../coupons/Coupons';

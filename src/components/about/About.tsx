@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import "./About.css";
 
 export default class About extends Component {
