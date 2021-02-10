@@ -22,12 +22,16 @@ export default class Customer extends Component<any, CustomerState> {
 
     // componentDidMount = ngOnInit in angular (a reserved word)
     public async componentDidMount() {
-        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
+        try {
+            const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
 
-        // response.data = all the coupons that were returned from the server
-        this.setState({ coupons: response.data });
+            // response.data = all the coupons that were returned from the server
+            this.setState({ coupons: response.data });
+        } catch (err) {
+            console.log(err.message);
+        }
     }
-
+    
     public render() {
         return (
             <div className="Customer">
@@ -36,14 +40,9 @@ export default class Customer extends Component<any, CustomerState> {
                 <br></br>
                 {<ol>
                     {this.state.coupons.filter(coupon => {
-                        // There's no condition and so - YES TO ALL
                         if (this.state.companyNameFilter == "") {
                             return true;
                         }
-
-                        // include is a boolean function, which says true/false, if the object "contains"
-                        // the parameter.
-                        // For example : "aviva".includes("avi") <--- true
                         return coupon.name.includes(this.state.companyNameFilter.toLowerCase())
                     }
                     ).map(coupon => <div key={coupon.id}><h6>Name: {coupon.name} -- Price: {coupon.price} -- Amount: {coupon.amount}</h6></div>)}
