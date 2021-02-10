@@ -44,7 +44,7 @@ export default class Customer extends Component<any, CustomerState> {
                         // include is a boolean function, which says true/false, if the object "contains"
                         // the parameter.
                         // For example : "aviva".includes("avi") <--- true
-                        return coupon.name.includes(this.state.companyNameFilter)
+                        return coupon.name.includes(this.state.companyNameFilter.toLowerCase())
                     }
                     ).map(coupon => <div key={coupon.id}><h6>Name: {coupon.name} -- Price: {coupon.price} -- Amount: {coupon.amount}</h6></div>)}
                 </ol>}
