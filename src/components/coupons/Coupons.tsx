@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { Coupon } from '../../models/Coupon';
+import Card from '../card/Card';
 import "./Coupons.css";
 
 interface CouponsState {
@@ -25,7 +26,14 @@ export default class Coupons extends Component<any, CouponsState> {
   public render() {
     return (
       <div className="Coupons">
-        {this.state.coupons.map(coupon => <div key={coupon.name}><h1>Name: {coupon.name} -- Price: {coupon.price} -- Amount: {coupon.amount}</h1></div>)}
+        {/* {this.state.coupons.map(coupon => <div key={coupon.name}><h1>Name: {coupon.name} -- Price: {coupon.price} -- Amount: {coupon.amount}</h1></div>)} */}
+        <div className="card">
+          <Card id={1} name={'rrrrRR'} /><br/>
+        </div><div className="card">
+          <Card id={1} name={'rrrrRR'} /><br/>
+        </div><div className="card">
+          <Card id={1} name={'rrrrRR'} /><br/>
+        </div>
       </div>
     );
   }
