@@ -24,5 +24,7 @@
 }
 
 .layout>main {
-  grid-column: span 10;   
+  grid-column: span 10;
+  overflow-y: auto;
+
 } 

@@ -30,9 +30,9 @@ export default class Coupons extends Component<any, CouponsState> {
         <div className="card">
           <Card id={1} name={'rrrrRR'} /><br/>
         </div><div className="card">
-          <Card id={1} name={'rrrrRR'} /><br/>
+          <Card id={2} name={'ggggGG'} /><br/>
         </div><div className="card">
-          <Card id={1} name={'rrrrRR'} /><br/>
+          <Card id={3} name={'vvvvvVV'} /><br/>
         </div>
       </div>
     );
