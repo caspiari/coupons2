@@ -35,11 +35,6 @@ export default class Login extends Component<any, LoginState> {
     private login = async () => {
         console.log("Entered login");
 
-        // fetch("http://localhost:3002/products")
-        //     .then(response => response.json())
-        //     .then(products => this.setState({ products }))
-        //     .catch(err => alert(err.message));
-
         try {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);

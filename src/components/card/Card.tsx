@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Component } from 'react';
 
 interface ICardProps {
@@ -12,6 +13,17 @@ export default class Card extends Component<ICardProps> {
     public constructor(props: ICardProps) {
         super(props);
     }
+
+      // componentDidMount = ngOnInit in angular (a reserved word)
+  public async componentDidMount() {
+    try {
+      const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
+      // response.data = all the coupons that were returned from the server
+      this.setState({ coupons: response.data });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
 
     public render() {
         return (

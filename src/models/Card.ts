@@ -1,4 +1,4 @@
-export class Coupon{
+export class Card{
     public constructor(
         public id:number,
         public name:string,
