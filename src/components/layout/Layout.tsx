@@ -10,6 +10,8 @@ import Header from '../header/Header';
 import Login from '../login/Login';
 import Menu from '../menu/Menu';
 import "./Layout.css";
+import Customer from '../customer/Customer';
+import Register from '../register/Register';
 
 export default class Layout extends Component {
   public render() {
@@ -31,6 +33,8 @@ export default class Layout extends Component {
               <Route path="/home" component={Login} exact />
               <Route path="/coupons" component={Coupons} exact />
               <Route path="/admin" component={Admin} exact />
+              <Route path="/customer" component={Customer} exact />
+              <Route path="/register" component={Register} exact />
               {/* <Route path="/company" component={Company} exact /> */}
               <Route path="/couponDetails/:id" component={CouponDetails} exact />                            
               <Redirect from="/" to="/home" exact />

@@ -3,6 +3,10 @@ import { Component } from 'react'
 import { Coupon } from '../../models/Coupon';
 import "./CouponDetails.css";
 
+// axios.defaults.baseURL = 'http://localhost:3001/';
+// let token = "a4234fa234GJSD2R53";
+// axios.defaults.headers.common = {'Authorization': `bearer ${token}`};
+
 interface CouponDetailsState {
   coupon: Coupon;
 }
@@ -45,6 +49,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h1>Amount: {this.state.coupon.amount}</h1> <br />
         <h1>Start date: {this.state.coupon.startDate}</h1> <br />
         <h1>End date: {this.state.coupon.endDate}</h1> <br />
+        {this.props.match.params.userType == "ADMIN" && <input type="button" value="Delete" />}
         {/* {<ol>
           {this.state.coupons.filter(coupon=> coupon.name.includes(this.state.companyNameFilter) ).
                     map(coupon => <Card key = {coupon.id} {...coupon}/>)}

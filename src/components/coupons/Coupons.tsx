@@ -20,6 +20,7 @@ export default class Coupons extends Component<any, CouponsState> {
     this.state = { cards: [], coupons: [], companies: [], companyNameFilter: "" };
   }
 
+
   // componentDidMount = ngOnInit in angular (a reserved word)
   public async componentDidMount() {
     try {

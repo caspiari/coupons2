@@ -1,0 +1,14 @@
+
+
+.card {
+    height: 150px;
+    width: 300px;
+    display: inline-block;
+    margin: 1px;
+    background-color: pink;
+    overflow-y: auto;
+    word-wrap: break-word;
+    max-width: 100%;
+    overflow-x: hidden;
+
+}

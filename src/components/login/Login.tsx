@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Login.css";
 import { UserLoginDetails } from '../../models/UserLoginDetails';
 import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServerResponse';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface LoginState {
     username: string,
@@ -71,6 +73,9 @@ export default class Login extends Component<any, LoginState> {
                 <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 <input type="button" value="login" onClick={this.login} />
+                <NavLink to={"/register"}>
+                    <input type="button" value="register" />
+                </NavLink>
             </div>
         );
     }

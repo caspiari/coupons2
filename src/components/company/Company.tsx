@@ -1,31 +1,30 @@
 import React, { Component } from 'react'
-// import "./Admin.css"
+import "./Company.css"
 import axios from "axios";
 import { Coupon } from '../../models/Coupon';
 import Card from '../card/Card';
 
-interface AdminState {
+interface CompanyState {
     coupons: Coupon[];
-    companyNameFilter: string;
+    nameFilter: string;
 }
 
-export default class Admin extends Component<any, AdminState> {
+export default class Company extends Component<any, CompanyState> {
 
     constructor(props: any) {
         super(props);
-        this.state = { coupons: [], companyNameFilter: "" };
+        this.state = { coupons: [], nameFilter: "" };
     }
 
     public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         let text = event.target.value;
-        this.setState({ companyNameFilter: text });
+        this.setState({ nameFilter: text });
     }
 
     // componentDidMount = ngOnInit in angular (a reserved word)
     public async componentDidMount() {
         try {
             const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
-
             // response.data = all the coupons that were returned from the server
             this.setState({ coupons: response.data });
         } catch (err) {
@@ -35,11 +34,11 @@ export default class Admin extends Component<any, AdminState> {
 
     public render() {
         return (
-            <div className="admin">
+            <div className="Company">
                 <br />
                 Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
                 {<ol>
-                    {this.state.coupons.filter(coupon => coupon.name.includes(this.state.companyNameFilter.toLowerCase())).
+                    {this.state.coupons.filter(coupon => coupon.name.includes(this.state.nameFilter.toLowerCase())).
                         map(coupon => <Card key={coupon.id} {...coupon} />)}
                 </ol>}
             </div>
