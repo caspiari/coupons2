@@ -1,9 +1,9 @@
-export class Card{
+export class Company {
     public constructor(
         public id:number,
         public name:string,
-        public amount?:number,
-        public price?:number,    
+        public phone:number,
+        public address:string,
     ){}
 
 }

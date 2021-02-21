@@ -1,11 +1,15 @@
 import axios from 'axios';
+import React from 'react';
 import { Component } from 'react'
-import { Card } from '../../models/Card';
+import { Company } from '../../models/Company';
+import { Coupon } from '../../models/Coupon';
 import Card from '../card/Card';
 import "./Coupons.css";
 
 interface CouponsState {
   cards: Card[];
+  coupons: Coupon[];
+  companies: Company[];
   companyNameFilter: string;
 }
 
@@ -13,15 +17,16 @@ export default class Coupons extends Component<any, CouponsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { cards: [], companyNameFilter: "" };
+    this.state = { cards: [], coupons: [], companies: [], companyNameFilter: "" };
   }
 
   // componentDidMount = ngOnInit in angular (a reserved word)
   public async componentDidMount() {
     try {
-      const response = await axios.get<Card[]>("http://localhost:8080/coupons");
+      const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
+      const companiesResponse = await axios.get<Company[]>("http://localhost:8080/companies")
       // response.data = all the coupons that were returned from the server
-      this.setState({ cards: response.data });
+      this.setState({ coupons: response.data, companies: companiesResponse.data });
     } catch (err) {
       console.log(err.message);
     }
@@ -35,27 +40,12 @@ export default class Coupons extends Component<any, CouponsState> {
   public render() {
     return (
       <div className="Coupons">
-        Search by name :<input type="text" onChange={this.onCouponsPipeChanged} />
-        <br></br>
+        <br />
+        Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {<ol>
-          {this.state.cards.filter(card => {
-            if (this.state.companyNameFilter == "") {
-              return true;
-            }
-            return card.name.includes(this.state.companyNameFilter.toLowerCase())
-          }
-          ).map(card => <div className="card" key={card.id}><Card id={1} name={'rrrrRR'} />
-            
-            <h6>Name: {card.name} -- Price: {card.price} -- Amount: {card.amount}</h6></div>)}
+          {this.state.coupons.filter(coupon=> coupon.name.includes(this.state.companyNameFilter.toLowerCase())).
+                    map(coupon => <Card key = {coupon.id} {...coupon}/>)}
         </ol>}
-        {/* {this.state.coupons.map(coupon => <div key={coupon.name}><h1>Name: {coupon.name} -- Price: {coupon.price} -- Amount: {coupon.amount}</h1></div>)} */}
-        {/* <div className="card">
-          <Card id={1} name={'rrrrRR'} /><br />
-        </div><div className="card">
-          <Card id={2} name={'ggggGG'} /><br />
-        </div><div className="card">
-          <Card id={3} name={'vvvvvVV'} /><br />
-        </div> */}
       </div>
     );
   }

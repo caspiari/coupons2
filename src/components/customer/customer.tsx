@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 // import "./customer.css"
-import { Card } from '../../models/Card';
 import axios from "axios";
+import { Coupon } from '../../models/Coupon';
 
 interface CustomerState {
-    coupons: Card[];
+    coupons: Coupon[];
     companyNameFilter: string;
 }
 
@@ -23,7 +23,7 @@ export default class Customer extends Component<any, CustomerState> {
     // componentDidMount = ngOnInit in angular (a reserved word)
     public async componentDidMount() {
         try {
-            const response = await axios.get<Card[]>("http://localhost:8080/coupons");
+            const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
 
             // response.data = all the coupons that were returned from the server
             this.setState({ coupons: response.data });
