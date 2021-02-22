@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { Component, MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Company } from '../../models/Company';
 
@@ -15,9 +15,9 @@ interface ICardState {
   companyName: string;
 }
 
-export default class Card extends Component<ICardProps, ICardState> {
+export default class Card extends Component<any, ICardState> {
 
-  public constructor(props: ICardProps) {
+  public constructor(props: any) {
     super(props);
     this.state = { companyName: "" };
   }
@@ -44,10 +44,16 @@ export default class Card extends Component<ICardProps, ICardState> {
   //   }
   // }
 
+  private couponClick = () => {
+    // this.props.history.push('/couponDetails/' + this.props.id)
+  }
+
+
+
   public render() {
     return (
-      <NavLink to={"/couponDetails/" + this.props.id}>
-        <div className="card">
+      // <NavLink to={"/couponDetails/" + this.props.id}>
+        <div className="card" onClick={this.couponClick}>
           {`Company: ${this.state.companyName}`}
           <br />
           {`ID: ${this.props.id}`}
@@ -58,7 +64,7 @@ export default class Card extends Component<ICardProps, ICardState> {
           <br />
           {`Price: ${this.props.price}`}
         </div>
-      </NavLink>
+      // </NavLink>
     )
   }
 }

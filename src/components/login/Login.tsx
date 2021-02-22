@@ -22,9 +22,6 @@ export default class Login extends Component<any, LoginState> {
     }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
-        // args = אובייקט המכיל מידע בנוגע לארוע שהתרחש
-        // args.target = אובייקט המתאר את הרכיב שהעלה את הארוע
-        // args.target.value = של הרכיב שהעלה את הארוע value-זהו מאפיין ה
         const username = event.target.value;
         this.setState({ username });
     }

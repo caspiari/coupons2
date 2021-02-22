@@ -7,74 +7,97 @@ import { User } from '../../models/User';
 
 
 interface RegisterState {
-    user: User;
-    isClearable: boolean;
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    userType: string;
+    id?: number;
+    companyId?: number;
 }
 
 export default class Register extends Component<any, RegisterState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { user: new User("", "", "", "", ["CUSTOMER", "COMPANY"]), isClearable : true };
+        this.state = { username : "", password : "", firstName : "", lastName : "", userType : "" };
     }
 
-    private setUser = (event: ChangeEvent<HTMLInputElement>) => {
-        // args = אובייקט המכיל מידע בנוגע לארוע שהתרחש
-        // args.target = אובייקט המתאר את הרכיב שהעלה את הארוע
-        // args.target.value = של הרכיב שהעלה את הארוע value-זהו מאפיין ה
-        // const user = event.target.value;
-        // this.setState({ user });
+    private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
+        const username = event.target.value;
+        this.setState({ username });
+    }
+
+    private setPassword = (event: ChangeEvent<HTMLInputElement>) => {
+        const password = event.target.value;
+        this.setState({ password });
+    }
+
+    private setFirstName = (event: ChangeEvent<HTMLInputElement>) => {
+        const firstName = event.target.value;
+        this.setState({ firstName });
+    }
+
+    private setLastName = (event: ChangeEvent<HTMLInputElement>) => {
+        const lastName = event.target.value;
+        this.setState({ lastName });
+    }
+
+    private setUserType = (event: ChangeEvent<HTMLInputElement>) => {
+        const userType = event.target.value;
+        this.setState({ userType });
+    }
+
+    private setId = (event: ChangeEvent<HTMLInputElement>) => {
+        const id = +event.target.value;
+        this.setState({ id });
+    }
+    
+    private setCompanyId = (event: ChangeEvent<HTMLInputElement>) => {
+        const companyId = +event.target.value;
+        this.setState({ companyId });
     }
 
     private register = async () => {
         console.log("Entered register");
 
-        // try {
-        //     let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
-        //     const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
-        //     const serverResponse = response.data;
-        //     sessionStorage.setItem("token", serverResponse.token);
-        //     sessionStorage.setItem("userType",serverResponse.userType);
-        //     axios.defaults.headers.common["Authorization"]= serverResponse.token;
-        //     console.log(serverResponse);
-        // 
-        //     if (serverResponse.userType === "ADMIN") {
-        //         this.props.history.push('/admin')
-        //         sessionStorage.setItem("userType", "ADMIN");
-        //     }
-        //     else if (serverResponse.userType === "CUSTOMER") {
-        //         this.props.history.push('/customer')
-        //         sessionStorage.setItem("userType", "CUSTOMER");
-        //     }
-        //     else{
-        //         this.props.history.push('/company')
-        //         sessionStorage.setItem("userType", "COMPANY");
-        //     }
-        // 
-        // }
-        // catch (err) {
-        //     alert(err.message);
-        //     console.log(JSON.stringify(err));
-        // }
+        try {
+            let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
+                this.state.userType, this.state.companyId);
+            if(this.state.userType == null) {
+                user.userType = "CUSTOMER";
+            }
+            const response =  await axios.post<number>("http://localhost:8080/users", user);
+            const serverResponse = response.data;
+            user.id = serverResponse;
+            alert("Successful registration! Your user id is: " + serverResponse);
+        
+        }
+        catch (err) {
+            alert(err.message);
+            console.log(JSON.stringify(err));
+        }
         console.log("Register ended");
     }
 
     public render() {
         return (
             <div className="register">
-                <h1> nla blabla</h1>
-                User name: <input type="text" name="username" value={this.state.user.username} onChange={this.setUser} /><br />
-                Password: <input type="password" name="password" value={this.state.user.password} onChange={this.setUser} /><br />
-                First name: <input type="text" name="firstName" value={this.state.user.firstName} onChange={this.setUser} /><br />
-                Last name: <input type="text" name="lastName" value={this.state.user.lastName} onChange={this.setUser} /><br />
-                User type: <select name="userType">
-                                <option value ={this.state.user.userType[0]}>Customer</option>
-                                <option value ={this.state.user.userType[1]}>Company</option>
-                           </select>
-                           <br />
-                Company id: <input type="password" name="password" value={this.state.user.password} onChange={this.setUser} /><br />
+                <h1>Register new user</h1>
+                User name: <input type="text" name="username" value={this.state.username} onChange={this.setUsername} /><br />
+                Password: <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
+                First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
+                Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
 
-                {/* <input type="button" value="login" onClick={this.login} /> */}
+                {/* If the user is admin...: */}
+                {/* User type: <select name="userType">
+                                <option value ={this.state.user.userType}>Customer</option>
+                                <option value ={this.state.user.userType}>Company</option>
+                           </select> */}
+                           {/* <br /> */}
+                {/* Company id: <input type="password" name="password" value={this.state.user.password} onChange={this.setUser} /><br /> */}
+
+                <input type="button" value="register" onClick={this.register} />
             </div>
         );
     }

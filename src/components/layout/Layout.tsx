@@ -4,7 +4,7 @@ import { Coupon } from '../../models/Coupon';
 import About from '../about/About';
 import Admin from '../admin/admin';
 import Coupons from '../coupons/Coupons';
-import CouponDetails from '../coupon/CouponDetails';
+import CouponDetails from '../couponDetails/CouponDetails';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import Login from '../login/Login';
