@@ -20,7 +20,6 @@ export default class Coupons extends Component<any, CouponsState> {
     this.state = { cards: [], coupons: [], companies: [], nameFilter: "" };
   }
 
-
   // componentDidMount = ngOnInit in angular (a reserved word)
   public async componentDidMount() {
     try {
@@ -35,10 +34,6 @@ export default class Coupons extends Component<any, CouponsState> {
   public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     let text = event.target.value;
     this.setState({ nameFilter: text });
-  }
-
-  private couponClick = async () => {
-    this.props.history.push(`/couponDetails/${this.props.id}`)
   }
 
   public render() {

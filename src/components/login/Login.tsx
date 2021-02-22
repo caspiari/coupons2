@@ -42,24 +42,17 @@ export default class Login extends Component<any, LoginState> {
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType",serverResponse.userType);
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
-            // const userResponse =  await axios.get<User>("http://localhost:8080/users/" + 0);
-            // sessionStorage.setItem("userId", userResponse.data.id.toString());
-
             console.log(serverResponse);
             
             if (serverResponse.userType === "ADMIN") {
                 this.props.history.push('/admin')
-                sessionStorage.setItem("userType", "ADMIN");
             }
             else if (serverResponse.userType === "CUSTOMER") {
                 this.props.history.push('/customer')
-                sessionStorage.setItem("userType", "CUSTOMER");
             }
             else{
                 this.props.history.push('/company')
-                sessionStorage.setItem("userType", "COMPANY");
             }
-
         }
         catch (err) {
             alert(err.message);
@@ -73,9 +66,9 @@ export default class Login extends Component<any, LoginState> {
             <div className="login">
                 <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
-                <input type="button" value="login" onClick={this.login} />
+                <input type="button" value="Login" onClick={this.login} />
                 <NavLink to={"/register"}>
-                    <input type="button" value="register" />
+                    <input type="button" className="register" value="Register" />
                 </NavLink>
             </div>
         );
