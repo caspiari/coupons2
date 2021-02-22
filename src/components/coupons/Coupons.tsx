@@ -37,6 +37,10 @@ export default class Coupons extends Component<any, CouponsState> {
     this.setState({ nameFilter: text });
   }
 
+  private couponClick = async () => {
+    this.props.history.push(`/couponDetails/${this.props.id}`)
+  }
+
   public render() {
     return (
       <div className="Coupons">
@@ -44,7 +48,7 @@ export default class Coupons extends Component<any, CouponsState> {
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon=> coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
-                    map(coupon => <Card key = {coupon.id} {...coupon}/>)}
+                    map(coupon => <Card key = {coupon.id} {...coupon} /> )}
         </ol>}
       </div>
     );

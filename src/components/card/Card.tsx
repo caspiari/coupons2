@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { Component, MouseEvent } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Route , withRouter} from 'react-router-dom';
 import { Company } from '../../models/Company';
 
 interface ICardProps {
@@ -44,16 +45,10 @@ export default class Card extends Component<any, ICardState> {
   //   }
   // }
 
-  private couponClick = () => {
-    // this.props.history.push('/couponDetails/' + this.props.id)
-  }
-
-
-
   public render() {
     return (
-      // <NavLink to={"/couponDetails/" + this.props.id}>
-        <div className="card" onClick={this.couponClick}>
+      <NavLink to={`/couponDetails/${this.props.id}`}>
+        <div className="card">
           {`Company: ${this.state.companyName}`}
           <br />
           {`ID: ${this.props.id}`}
@@ -63,8 +58,9 @@ export default class Card extends Component<any, ICardState> {
           {`Amount: ${this.props.amount}`}
           <br />
           {`Price: ${this.props.price}`}
+          {/* <input type="button" value="Show details" onClick={this.couponClick}></input> */}
         </div>
-      // </NavLink>
+      </NavLink>
     )
   }
 }

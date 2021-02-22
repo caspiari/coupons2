@@ -5,6 +5,7 @@ import { UserLoginDetails } from '../../models/UserLoginDetails';
 import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServerResponse';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { User } from '../../models/User';
 
 interface LoginState {
     username: string,
@@ -41,6 +42,9 @@ export default class Login extends Component<any, LoginState> {
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType",serverResponse.userType);
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
+            // const userResponse =  await axios.get<User>("http://localhost:8080/users/" + 0);
+            // sessionStorage.setItem("userId", userResponse.data.id.toString());
+
             console.log(serverResponse);
             
             if (serverResponse.userType === "ADMIN") {

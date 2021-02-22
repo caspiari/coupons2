@@ -22,7 +22,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   public async componentDidMount() {
     try {
-      alert(this.props.params.userId);
       const id = this.props.match.params.id;
       const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + id);
       const userId = this.props.params.userId;
