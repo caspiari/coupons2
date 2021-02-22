@@ -7,20 +7,31 @@ import { User } from '../../models/User';
 
 
 interface RegisterState {
+    isAdmin: boolean;
     username: string;
     password: string;
     firstName: string;
     lastName: string;
     userType: string;
-    id?: number;
     companyId?: number;
+    id?: number;
 }
 
 export default class Register extends Component<any, RegisterState> {
 
+    userType2 = sessionStorage.getItem("userType");
+
     public constructor(props: any) {
         super(props);
-        this.state = { username : "", password : "", firstName : "", lastName : "", userType : "" };
+        this.state = { isAdmin: false, username: "", password: "", firstName: "", lastName: "", userType: "" };
+    }
+
+    public async componentDidMount() {
+        const userType = sessionStorage.getItem("userType");
+        const newState = { ...this.state };
+
+        userType === "ADMIN" ? newState.isAdmin = true : newState.isAdmin = false;
+
     }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,14 +59,15 @@ export default class Register extends Component<any, RegisterState> {
         this.setState({ userType });
     }
 
+    private setCompanyId = (event: ChangeEvent<HTMLInputElement>) => {
+        const companyId = +event.target.value;
+        this.
+            setState({ companyId });
+    }
+
     private setId = (event: ChangeEvent<HTMLInputElement>) => {
         const id = +event.target.value;
         this.setState({ id });
-    }
-    
-    private setCompanyId = (event: ChangeEvent<HTMLInputElement>) => {
-        const companyId = +event.target.value;
-        this.setState({ companyId });
     }
 
     private register = async () => {
@@ -64,14 +76,14 @@ export default class Register extends Component<any, RegisterState> {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
                 this.state.userType, this.state.companyId);
-            if(this.state.userType == null) {
+            if (this.state.userType == "") {
                 user.userType = "CUSTOMER";
             }
-            const response =  await axios.post<number>("http://localhost:8080/users", user);
-            const serverResponse = response.data;
-            user.id = serverResponse;
-            alert("Successful registration! Your user id is: " + serverResponse);
-        
+            const response = await axios.post<number>("http://localhost:8080/users", user);
+            // const serverResponse = response.data;
+            user.id = response.data;
+            alert("Successful registration! Your user id is: " + response.data);
+
         }
         catch (err) {
             alert(err.message);
@@ -88,15 +100,13 @@ export default class Register extends Component<any, RegisterState> {
                 Password: <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-
-                {/* If the user is admin...: */}
-                {/* User type: <select name="userType">
-                                <option value ={this.state.user.userType}>Customer</option>
-                                <option value ={this.state.user.userType}>Company</option>
-                           </select> */}
-                           {/* <br /> */}
-                {/* Company id: <input type="password" name="password" value={this.state.user.password} onChange={this.setUser} /><br /> */}
-
+                User type: <select name="userType">
+                    <option value="CUSTOMER">Customer</option>
+                    <option value="COMPANY">Company</option>
+                    <option value="ADMIN">Company</option>
+                </select><br/ >
+                Company id: <input type="number" name="companyId" onChange={this.setCompanyId} />
+                <br />
                 <input type="button" value="register" onClick={this.register} />
             </div>
         );

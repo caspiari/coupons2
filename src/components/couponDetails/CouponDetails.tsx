@@ -24,7 +24,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
     if (token == null) {
-      alert("Please login to see coupon details and purchase");
+      alert("Please login to see coupon details and to purchase");
       this.props.history.push('/coupons');
     }
     axios.defaults.headers.common["Authorization"] = token;
