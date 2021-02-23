@@ -1,5 +1,5 @@
 // import { Component, ChangeEvent } from 'react'
-import React, { Component, Fragment, ChangeEvent } from 'react';
+import React, { Component, Fragment, ChangeEvent, FormEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
@@ -19,8 +19,6 @@ interface RegisterState {
 
 export default class Register extends Component<any, RegisterState> {
 
-    userType2 = sessionStorage.getItem("userType");
-
     public constructor(props: any) {
         super(props);
         this.state = { isAdmin: false, username: "", password: "", firstName: "", lastName: "", userType: "" };
@@ -31,7 +29,7 @@ export default class Register extends Component<any, RegisterState> {
         const newState = { ...this.state };
 
         userType === "ADMIN" ? newState.isAdmin = true : newState.isAdmin = false;
-
+        this.setState(newState);
     }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
@@ -100,11 +98,12 @@ export default class Register extends Component<any, RegisterState> {
                 Password: <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                User type: <select name="userType">
-                    <option value="CUSTOMER">Customer</option>
-                    <option value="COMPANY">Company</option>
-                    <option value="ADMIN">Company</option>
-                </select><br/ >
+                {/* {this.state.isAdmin &&  */}
+                User type: <select name="userType" value="userType">
+                                <option value="CUSTOMER">Customer</option>
+                                <option value="COMPANY">Company</option>
+                                <option value="ADMIN">Admin</option>
+                            </select><br />
                 Company id: <input type="number" name="companyId" onChange={this.setCompanyId} />
                 <br />
                 <input type="button" value="register" onClick={this.register} />
