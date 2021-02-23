@@ -99,12 +99,12 @@ export default class Register extends Component<any, RegisterState> {
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {/* {this.state.isAdmin &&  */}
-                User type: <select name="userType" value="userType">
-                                <option value="CUSTOMER">Customer</option>
-                                <option value="COMPANY">Company</option>
-                                <option value="ADMIN">Admin</option>
-                            </select><br />
-                Company id: <input type="number" name="companyId" onChange={this.setCompanyId} />
+                {/* // User type: <select name="userType" value="userType" onChange>
+                //                 <option value="CUSTOMER">Customer</option>
+                //                 <option value="COMPANY">Company</option>
+                //                 <option value="ADMIN">Admin</option>
+                //             </select><br />
+                // Company id: <input type="number" name="companyId" onChange={this.setCompanyId} /> } */}
                 <br />
                 <input type="button" value="register" onClick={this.register} />
             </div>
