@@ -2,7 +2,6 @@ import { Component } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Coupon } from '../../models/Coupon';
 import About from '../about/About';
-import Admin from '../admin/admin';
 import Coupons from '../coupons/Coupons';
 import CouponDetails from '../couponDetails/CouponDetails';
 import Footer from '../footer/Footer';
@@ -12,6 +11,7 @@ import Menu from '../menu/Menu';
 import "./Layout.css";
 import Customer from '../customer/Customer';
 import Register from '../register/Register';
+import Admin from '../admin/Admin';
 
 export default class Layout extends Component {
   public render() {

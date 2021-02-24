@@ -39,6 +39,7 @@ export default class Login extends Component<any, LoginState> {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
             const serverResponse = response.data;
+            sessionStorage.setItem("id",serverResponse.id);
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType",serverResponse.userType);
             axios.defaults.headers.common["Authorization"]= serverResponse.token;

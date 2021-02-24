@@ -1,48 +1,70 @@
-import React, { Component } from 'react'
-// import "./customer.css"
-import axios from "axios";
+import axios from 'axios';
+import './Customer.css';
+import React from 'react';
+import { Component } from 'react'
+import { Unsubscribe } from 'redux';
+import { Company } from '../../models/Company';
 import { Coupon } from '../../models/Coupon';
+import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServerResponse';
+import { store } from '../../redux/store';
 import Card from '../card/Card';
 
-interface CustomerState {
-    coupons: Coupon[];
-    nameFilter: string;
+interface ICustomerState {
+  coupons: Coupon[];
+  nameFilter: string;
 }
 
-export default class Customer extends Component<any, CustomerState> {
+export default class Customer extends Component<any, ICustomerState> {
 
-    constructor(props: any) {
-        super(props);
-        this.state = { coupons: [], nameFilter: "" };
-    }
+  private unsubscribeStore: Unsubscribe;
 
-    public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let text = event.target.value;
-        this.setState({ nameFilter: text });
-    }
+  constructor(props: any) {
+    super(props);
+    this.state = { coupons: [], nameFilter: "" };
 
-    // componentDidMount = ngOnInit in angular (a reserved word)
-    public async componentDidMount() {
-        try {
-            const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
+    this.unsubscribeStore = store.subscribe(
+      () => this.setState(
+        {})
+    );
+  }
 
-            // response.data = all the coupons that were returned from the server
-            this.setState({ coupons: response.data });
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
+  public async componentDidMount() {
+    // if (store.getState().isLoggedIn) {
+      const id = sessionStorage.getItem("id");
+      console.log("ID from storage: " + id);
+      try {
+        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/" + id);
+        const newState = {...this.state};
+        newState.coupons = response.data;
+        this.setState(newState);
+      } catch (err) {
+        console.log(err.message);
+      }
+    // } else {
+    //   alert("Please log in first");
+    //   this.props.history.push('/home');
+    // }
+  }
 
-    public render() {
-        return (
-            <div className="customer">
-                <br />
-                Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
-                {<ol>
-                    {this.state.coupons.filter(coupon => coupon.name.includes(this.state.nameFilter.toLowerCase())).
-                        map(coupon => <Card key={coupon.id} {...coupon} />)}
-                </ol>}
-            </div>
-        );
-    }
+  componentWillUnmount() {
+    this.unsubscribeStore();
+  }
+
+  public onCustomerPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let text = event.target.value;
+    this.setState({ nameFilter: text });
+  }
+
+  public render() {
+    return (
+      <div className="Customer">
+        <br />
+        Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
+        {<ol>
+          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
+            map(coupon => <Card key={coupon.id} {...coupon} />)}
+        </ol>}
+      </div>
+    );
+  }
 }

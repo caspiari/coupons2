@@ -20,11 +20,9 @@ export default class Coupons extends Component<any, CouponsState> {
     this.state = { cards: [], coupons: [], companies: [], nameFilter: "" };
   }
 
-  // componentDidMount = ngOnInit in angular (a reserved word)
   public async componentDidMount() {
     try {
       const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
-      // const companiesResponse = await axios.get<Company[]>("http://localhost:8080/companies")
       this.setState({ coupons: response.data});
     } catch (err) {
       console.log(err.message);

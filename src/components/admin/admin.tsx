@@ -1,19 +1,23 @@
 import React, { Component } from 'react'
-// import "./Admin.css"
+import "./Admin.css"
 import axios from "axios";
 import { Coupon } from '../../models/Coupon';
-import Card from '../card/Card';
+import { Unsubscribe } from 'redux';
+import { store } from '../../redux/store';
 
-interface AdminState {
-    coupons: Coupon[];
-    companyNameFilter: string;
-}
+export default class Admin extends Component<any> {
 
-export default class Admin extends Component<any, AdminState> {
+    private unsubscribeStore: Unsubscribe;
 
     constructor(props: any) {
         super(props);
-        this.state = { coupons: [], companyNameFilter: "" };
+
+        this.unsubscribeStore = store.subscribe(
+            () => this.setState(
+            {
+                // coupons: store.getState().coupons
+            })
+        );
     }
 
     public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,27 +25,25 @@ export default class Admin extends Component<any, AdminState> {
         this.setState({ companyNameFilter: text });
     }
 
-    // componentDidMount = ngOnInit in angular (a reserved word)
     public async componentDidMount() {
         try {
-            const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
+            // const response = await axios.get<Coupon[]>("http://localhost:3001/coupons");
+            // store.dispatch({ type: ActionType.GetAllCoupons, payload: response.data});
 
-            // response.data = all the coupons that were returned from the server
-            this.setState({ coupons: response.data });
         } catch (err) {
             console.log(err.message);
         }
+    }
+
+    componentWillUnmount(){
+        this.unsubscribeStore();
     }
 
     public render() {
         return (
             <div className="admin">
                 <br />
-                Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
-                {<ol>
-                    {this.state.coupons.filter(coupon => coupon.name.includes(this.state.companyNameFilter.toLowerCase())).
-                        map(coupon => <Card key={coupon.id} {...coupon} />)}
-                </ol>}
+                Admin page
             </div>
         );
     }
