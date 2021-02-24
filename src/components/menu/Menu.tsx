@@ -9,6 +9,7 @@ export default class Menu extends Component {
                 <NavLink to="/home" exact>Home</NavLink>
                 <span> | </span>
                 <NavLink to="/coupons" exact>Coupons</NavLink>
+                {/* ({store.getState().coupons.length}) */}
                 <span> | </span>
                 <NavLink to="/about" exact>About</NavLink>
             </div>
