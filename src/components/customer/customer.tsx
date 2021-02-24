@@ -30,10 +30,11 @@ export default class Customer extends Component<any, ICustomerState> {
 
   public async componentDidMount() {
     // if (store.getState().isLoggedIn) {
-      const id = sessionStorage.getItem("id");
-      console.log("ID from storage: " + id);
+      const id = +sessionStorage.getItem("id");
+      const token = sessionStorage.getItem("token");
       try {
-        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/" + id);
+        axios.defaults.headers.common["Authorization"]= token;
+        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/?id=" + id);
         const newState = {...this.state};
         newState.coupons = response.data;
         this.setState(newState);
@@ -59,6 +60,7 @@ export default class Customer extends Component<any, ICustomerState> {
     return (
       <div className="Customer">
         <br />
+        <h3>Your coupons:</h3><br/>
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).

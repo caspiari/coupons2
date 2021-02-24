@@ -9,7 +9,7 @@ export function reduce(oldAppState: AppState, action: Action): AppState {
 
     switch (action.type) {
         case ActionType.Login:
-            newAppState.isLoggedIn = true;
+            newAppState.isLoggedIn = action.payload;
             break;
         case ActionType.GetAllCoupons:
             newAppState.coupons = action.payload;

@@ -1,6 +1,6 @@
 export class SuccessfulLoginServerResponse{
     public constructor(
-        public id:string,
+        public id:number,
         public token:string,       
         public userType:string
     ){}
