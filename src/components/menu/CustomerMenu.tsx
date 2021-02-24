@@ -6,12 +6,17 @@ import { ActionType } from '../../redux/action-type';
 import { store } from '../../redux/store';
 import "./Menu.css";
 
-export default class Menu extends Component<any, any> {
+interface ICustomerMenuState {
+
+}
+
+export default class CustomerMenu extends Component<any, ICustomerMenuState> {
 
   private unsubscribeStore: Unsubscribe;
 
   constructor(props: any) {
     super(props);
+    this.state = {}
 
     this.unsubscribeStore = store.subscribe(
       () => this.setState(
@@ -32,9 +37,9 @@ export default class Menu extends Component<any, any> {
 
   public render() {
     return (
-      <div className="customerMenu">
+      <div className="menu">
         <span> | </span>
-        <NavLink to="/myCoupons" exact>My coupons</NavLink>
+        <NavLink to="/customer" exact>My coupons</NavLink>
         <span> | </span>
         <a href="#" onClick={this.logOut}>Log out</a>
       </div>

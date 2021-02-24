@@ -5,12 +5,16 @@ import { store } from '../../redux/store';
 import CustomerMenu from './CustomerMenu';
 import "./Menu.css";
 
-export default class Menu extends Component {
+interface IMenuState {
+}
+
+export default class Menu extends Component<any, IMenuState> {
 
     private unsubscribeStore: Unsubscribe;
 
     constructor(props: any) {
       super(props);
+      this.state = {}
   
       this.unsubscribeStore = store.subscribe(
         () => this.setState(
