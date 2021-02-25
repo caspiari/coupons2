@@ -8,10 +8,6 @@ interface ICustomerProps {
 
 export default class CustomerMenu extends Component<ICustomerProps> {
 
-  constructor(props: ICustomerProps) {
-    super(props);
-  }
-
   public render() {
     return (
       <div className="customerMenu">

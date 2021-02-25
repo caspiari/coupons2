@@ -22,7 +22,7 @@ export default class Register extends Component<any, RegisterState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { isAdmin: false, username: "", password: "", firstName: "", lastName: "", userType: "" };
+        this.state = { isAdmin: false, username: "", password: "", firstName: "", lastName: "", userType: null };
     }
 
     public async componentDidMount() {

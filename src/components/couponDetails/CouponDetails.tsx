@@ -17,7 +17,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupon: new Coupon(0, "", ""), userType: "", isAdminOrCompany: false };
+    this.state = { coupon: new Coupon(0, "", "", ""), userType: "", isAdminOrCompany: false };
   }
 
   public async componentDidMount() {
@@ -46,6 +46,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     return (
       <div className="CouponDetails">
         <br />
+        <h3>Company: {this.state.coupon.companyName}</h3>
         <h3>Category: {this.state.coupon.category}</h3>
         <h3>Name: {this.state.coupon.name}</h3>
         <h3>Description: {this.state.coupon.description}</h3>

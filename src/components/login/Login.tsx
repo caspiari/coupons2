@@ -51,6 +51,7 @@ export default class Login extends Component<any, ILoginState> {
                 this.props.history.push('/admin')
             }
             else if (serverResponse.userType === "CUSTOMER") {
+                console.log("login props: " + JSON.stringify(this.props));
                 this.props.history.push('/customer')
             }
             else{

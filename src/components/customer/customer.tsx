@@ -23,10 +23,9 @@ export default class Customer extends Component<any, ICustomerState> {
 
   public async componentDidMount() {
     this.unsubscribeStore = store.subscribe(
-      () => this.setState(
-        {})
+      () => this.setState({})
     );
-    // if (store.getState().isLoggedIn) {
+    if (store.getState().isLoggedIn) {
       const id = +sessionStorage.getItem("id");
       const token = sessionStorage.getItem("token");
       try {
@@ -38,10 +37,10 @@ export default class Customer extends Component<any, ICustomerState> {
       } catch (err) {
         console.log(err.message);
       }
-    // } else {
-    //   alert("Please log in first");
-    //   this.props.history.push('/home');
-    // }
+    } else {
+      alert("Please log in first");
+      this.props.history.push('/home');
+    }
   }
 
   componentWillUnmount() {

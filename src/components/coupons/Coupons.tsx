@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import { Component } from 'react'
-import { Company } from '../../models/Company';
 import { Coupon } from '../../models/Coupon';
 import Card from '../card/Card';
 import "./Coupons.css";
@@ -9,7 +8,6 @@ import "./Coupons.css";
 interface CouponsState {
   cards: Card[];
   coupons: Coupon[];
-  companies: Company[];
   nameFilter: string;
 }
 
@@ -17,7 +15,7 @@ export default class Coupons extends Component<any, CouponsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { cards: [], coupons: [], companies: [], nameFilter: "" };
+    this.state = { cards: [], coupons: [], nameFilter: "" };
   }
 
   public async componentDidMount() {
