@@ -3,6 +3,7 @@ import React, { Component, Fragment, ChangeEvent, FormEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
+import ForAdmin from './ForAdmin';
 // import Select from 'react-select';
 
 
@@ -52,7 +53,7 @@ export default class Register extends Component<any, RegisterState> {
         this.setState({ lastName });
     }
 
-    private setUserType = (event: ChangeEvent<HTMLInputElement>) => {
+    private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
         const userType = event.target.value;
         this.setState({ userType });
     }
@@ -98,13 +99,8 @@ export default class Register extends Component<any, RegisterState> {
                 Password: <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {/* {this.state.isAdmin &&  */}
-                {/* // User type: <select name="userType" value="userType" onChange>
-                //                 <option value="CUSTOMER">Customer</option>
-                //                 <option value="COMPANY">Company</option>
-                //                 <option value="ADMIN">Admin</option>
-                //             </select><br />
-                // Company id: <input type="number" name="companyId" onChange={this.setCompanyId} /> } */}
+                {this.state.isAdmin && <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onOptionSelected={this.setUserType} /> }
+                
                 <br />
                 <input type="button" value="register" onClick={this.register} />
             </div>
