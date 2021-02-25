@@ -1,5 +1,5 @@
 // import { Component, ChangeEvent } from 'react'
-import React, { Component, Fragment, ChangeEvent, FormEvent } from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
@@ -60,8 +60,7 @@ export default class Register extends Component<any, RegisterState> {
 
     private setCompanyId = (event: ChangeEvent<HTMLInputElement>) => {
         const companyId = +event.target.value;
-        this.
-            setState({ companyId });
+        this.setState({ companyId });
     }
 
     private setId = (event: ChangeEvent<HTMLInputElement>) => {
@@ -74,10 +73,7 @@ export default class Register extends Component<any, RegisterState> {
 
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-                this.state.userType, this.state.companyId);
-            if (this.state.userType == "") {
-                user.userType = "CUSTOMER";
-            }
+            this.state.userType, this.state.companyId);
             const response = await axios.post<number>("http://localhost:8080/users", user);
             // const serverResponse = response.data;
             user.id = response.data;

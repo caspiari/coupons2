@@ -1,4 +1,3 @@
-import { Company } from "../models/Company";
 import { Coupon } from "../models/Coupon";
 
 export class AppState {

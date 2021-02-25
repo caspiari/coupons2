@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr); 
   grid-template-rows: 15vh 75vh 10vh; 
+  font-family: arial, sans-serif;
 }
 
 .layout> * {
@@ -22,6 +23,8 @@
 
 .layout>aside {
   grid-column: span 2;
+  overflow-y: auto;
+
 }
 
 .layout>main {

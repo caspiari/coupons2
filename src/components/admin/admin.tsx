@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import "./Admin.css"
-import axios from "axios";
-import { Coupon } from '../../models/Coupon';
 import { Unsubscribe } from 'redux';
 import { store } from '../../redux/store';
 

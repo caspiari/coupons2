@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { Component } from 'react'
 import { Coupon } from '../../models/Coupon';
-import { User } from '../../models/User';
 import "./CouponDetails.css";
 
 // axios.defaults.baseURL = 'http://localhost:3001/';
@@ -54,7 +53,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Amount: {this.state.coupon.amount}</h3>
         <h3>Start date: {this.state.coupon.startDate}</h3>
         <h3>End date: {this.state.coupon.endDate}</h3>
-        {this.state.isAdminOrCompany == true && <input type="button" value="Delete" />}
+        {this.state.isAdminOrCompany === true && <input type="button" value="Delete" />}
         {/* {<ol>
           {this.state.coupons.filter(coupon=> coupon.name.includes(this.state.companyNameFilter) ).
                     map(coupon => <Card key = {coupon.id} {...coupon}/>)}

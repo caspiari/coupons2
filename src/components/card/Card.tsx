@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Route , withRouter} from 'react-router-dom';
 import { Company } from '../../models/Company';
 
 interface ICardProps {
@@ -16,9 +15,9 @@ interface ICardState {
   companyName: string;
 }
 
-export default class Card extends Component<any, ICardState> {
+export default class Card extends Component<ICardProps, ICardState> {
 
-  public constructor(props: any) {
+  public constructor(props: ICardProps) {
     super(props);
     this.state = { companyName: "" };
   }

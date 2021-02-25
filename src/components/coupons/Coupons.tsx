@@ -40,8 +40,8 @@ export default class Coupons extends Component<any, CouponsState> {
         <br />
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {<ol>
-          {this.state.coupons.filter(coupon=> coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
-                    map(coupon => <Card key = {coupon.id} {...coupon} /> )}
+          {this.state.coupons.filter(coupon=> coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
+          .map(coupon => <Card key = {coupon.id} {...coupon} /> )}
         </ol>}
       </div>
     );

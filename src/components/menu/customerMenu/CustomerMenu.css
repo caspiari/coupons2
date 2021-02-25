@@ -1,17 +1,17 @@
 
-.menu {
+.customerMenu {
     overflow-y: auto;
     word-wrap: break-word;
     align-items: center;
 }
-.menu > a {
+.customerMenu > a {
     display: block;
     color:blue;
     font-size: large;
     margin: 10%
 }
 
-.menu > input[type=button]{
+.customerMenu > input[type=button]{
     display: block;
     color:blue;
     font-size: large;

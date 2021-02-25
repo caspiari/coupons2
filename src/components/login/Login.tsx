@@ -5,16 +5,15 @@ import { UserLoginDetails } from '../../models/UserLoginDetails';
 import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServerResponse';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { User } from '../../models/User';
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
 
-interface LoginState {
+interface ILoginState {
     username: string,
     password: string
 }
 
-export default class Login extends Component<any, LoginState> {
+export default class Login extends Component<any, ILoginState> {
 
     public constructor(props: any) {
         super(props);
