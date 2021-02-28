@@ -27,4 +27,10 @@
     align-content: center;
 }
 
+.customerMenu {
+    display: 'flex';
+    align-items: 'center';
+    align-content: 'center';
+
+}
 

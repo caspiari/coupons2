@@ -13,43 +13,44 @@ interface IMenuState {
 
 export default class Menu extends Component<any, IMenuState> {
 
-    private unsubscribeStore: Unsubscribe;
+  private unsubscribeStore: Unsubscribe;
 
-    constructor(props: any) {
-      super(props);
-      console.log(this.props);
-      this.state = { isLoggedIn : false }
-    }
+  constructor(props: any) {
+    super(props);
+    console.log(this.props);
+    this.state = { isLoggedIn: false }
+  }
 
-    componentDidMount() {
-      this.unsubscribeStore = store.subscribe(
-        () => this.setState(
-          { isLoggedIn : store.getState().isLoggedIn })
-      );
-    }
-  
-    componentWillUnmount() {
-      this.unsubscribeStore();
-    }
+  componentDidMount() {
+    this.unsubscribeStore = store.subscribe(
+      () => this.setState(
+        { isLoggedIn: store.getState().isLoggedIn })
+    );
+  }
 
-    private logOut = () => {
-      this.props.history.push("/home");
-      sessionStorage.clear();
-      store.dispatch({ type: ActionType.Login, payload: false });
-      axios.defaults.headers.common["Authorization"] = "";
-    }
+  componentWillUnmount() {
+    this.unsubscribeStore();
+  }
 
-    public render() {
-        return (
-            <div className="menu">
-                <NavLink to="/home" exact>Home</NavLink>
-                <span> | </span>
-                <NavLink to="/coupons" exact>Coupons</NavLink>
-                
-                {store.getState().isLoggedIn && <CustomerMenu logOut={this.logOut} /> }
-                <span> | </span>
-                <NavLink to="/about" exact>About</NavLink>
-            </div>
-        );
-    }
+  private logOut = () => {
+    this.props.history.push("/home");
+    sessionStorage.clear();
+    store.dispatch({ type: ActionType.Login, payload: false });
+    axios.defaults.headers.common["Authorization"] = "";
+  }
+
+  public render() {
+    return (
+      <div className="menu">
+        <NavLink to="/home" exact>Home</NavLink>
+        <span> | </span>
+        <NavLink to="/coupons" exact>Coupons</NavLink>
+        <div className="customerMenu">
+          {store.getState().isLoggedIn && <CustomerMenu logOut={this.logOut} />}
+        </div>
+        <span> | </span>
+        <NavLink to="/about" exact>About</NavLink>
+      </div>
+    );
+  }
 }

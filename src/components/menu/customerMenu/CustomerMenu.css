@@ -2,7 +2,7 @@
 .customerMenu {
     overflow-y: auto;
     word-wrap: break-word;
-    align-items: center;
+    text-align: center;
 }
 .customerMenu > a {
     display: block;
@@ -12,7 +12,6 @@
 }
 
 .customerMenu > input[type=button]{
-    display: block;
     color:blue;
     font-size: large;
     margin: 10%;
@@ -24,7 +23,6 @@
     cursor: pointer;
     align-items: center;
     text-align: center;
-    align-content: center;
 }
 
 

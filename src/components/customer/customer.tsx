@@ -54,7 +54,7 @@ export default class Customer extends Component<any, ICustomerState> {
 
   public render() {
     return (
-      <div className="Customer">
+      <div className="customer">
         <br />
         <h3>Your coupons:</h3><br/>
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />

@@ -11,9 +11,9 @@ export function reduce(oldAppState: AppState, action: Action): AppState {
         case ActionType.Login:
             newAppState.isLoggedIn = action.payload;
             break;
-        case ActionType.GetAllCoupons:
-            newAppState.coupons = action.payload;
-            break;
+        // case ActionType.GetAllCoupons:
+        //     newAppState.coupons = action.payload;
+        //     break;
     }
 
     // After returning the new state, it's being published to all subscribers

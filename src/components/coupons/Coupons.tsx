@@ -34,7 +34,7 @@ export default class Coupons extends Component<any, CouponsState> {
 
   public render() {
     return (
-      <div className="Coupons">
+      <div className="coupons">
         <br />
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {<ol>

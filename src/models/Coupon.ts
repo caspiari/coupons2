@@ -4,12 +4,12 @@ export class Coupon {
         public companyName: string,
         public category:string,
         public name:string,
-        public companyId?:number,
-        public description?:string,
-        public price?:number,    
-        public amount?:number,
-        public startDate?:Date,
-        public endDate?:Date,
+        public companyId:number,
+        public description:string,
+        public price:number,    
+        public amount:number,
+        public startDate:Date,
+        public endDate:Date,
     ){}
-
+    public endDateString = new Date(this.endDate).toDateString();
 }

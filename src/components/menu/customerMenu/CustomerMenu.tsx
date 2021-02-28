@@ -14,6 +14,7 @@ export default class CustomerMenu extends Component<ICustomerProps> {
         <span> | </span>
         <NavLink to="/customer" exact>My coupons</NavLink>
         <span> | </span>
+        <br />
         <input type="button" value="Log out" onClick={this.props.logOut} />
       </div>
     );
