@@ -11,5 +11,4 @@ export class Coupon {
         public startDate:Date,
         public endDate:Date,
     ){}
-    public endDateString = new Date(this.endDate).toDateString();
 }

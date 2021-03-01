@@ -17,6 +17,7 @@ export default class Login extends Component<any, ILoginState> {
 
     public constructor(props: any) {
         super(props);
+        console.log("Login props: " + this.props.history);
         this.state = {
             username: "",
             password: ""

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+// import { Coupon } from '../../models/Coupon';
 
 interface ICardProps {
-  // coupon: Coupon;
   id:number,
   companyName: string,
   category:string,
@@ -24,17 +24,17 @@ export default class Card extends Component<ICardProps> {
     return (
       <NavLink to={`/couponDetails/${this.props.id}`}>
         <div className="card">
-          <b>{this.props.companyName}</b>
+          <u>{this.props.companyName}</u>
           <br />
-          <b>{this.props.category}</b>
+          <i>{this.props.category}</i>
           <br />
-          {`Name: ${this.props.name}`}
+          <b>{`Name: ${this.props.name}`}</b>
           <br />
           {`Price: ${this.props.price}`}
           <br />
           {`Units left: ${this.props.amount}`}
           <br />
-          {`Expiry date: ${this.props.endDate}`}
+          {`Expiration date: ${this.props.endDate}`}
         </div>
       </NavLink>
     )

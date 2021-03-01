@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import "../CustomMenu.css";
 
-interface ICustomerMenuProps {
+interface IAdminMenuProps {
   logOut: any;
 }
 
-export default class CustomerMenu extends Component<ICustomerMenuProps> {
+export default class AdminMenu extends Component<IAdminMenuProps> {
 
   public constructor(props: any) {
     super(props);
@@ -15,13 +15,10 @@ export default class CustomerMenu extends Component<ICustomerMenuProps> {
   public render() {
     return (
       <div className="customMenu">
-        <NavLink to="/customer" exact>Home</NavLink>
+        <NavLink to="/admin" exact>Home</NavLink>
         <span> | </span>
         <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span> | </span>
-        <NavLink to="/customer" exact>My coupons</NavLink>
-        <span> | </span>
-        <br />
+        <span> | </span><br />
         <input type="button" value="Log out" onClick={this.props.logOut} />
       </div>
     );

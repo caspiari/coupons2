@@ -56,7 +56,7 @@ export default class Customer extends Component<any, ICustomerState> {
     return (
       <div className="customer">
         <br />
-        <h3>Your coupons:</h3><br/>
+        <h3>My coupons:</h3><br/>
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
