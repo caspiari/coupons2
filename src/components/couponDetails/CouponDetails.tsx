@@ -14,7 +14,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupon: null, userType: "", isAdminOrCompany: false };
+    this.state = { coupon: new Coupon(0, "", "", "", 0, "", 0, 0, null, null), userType: "", isAdminOrCompany: false };
   }
 
   private purchaseAmount: number;
@@ -64,6 +64,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       const response = await axios.post<number>("http://localhost:8080/purchases", purchase);
       const serverResponse = response.data;
       alert("Successful purchase! Your purchase id is: " + serverResponse);
+      this.props.history.push('/coupons');
     } catch (err) {
       console.log(err.message);
     }
@@ -82,9 +83,9 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Start date: {this.state.coupon.startDate}</h3>
         <h3>End date: {this.state.coupon.endDate}</h3>
         {!this.state.isAdminOrCompany
-          && <h1>how many i want: </h1>}
+          && <h2>how many I want:</h2>}
         {!this.state.isAdminOrCompany
-          && <input type="number" onChange={this.onPurchaseAmountChanged} />}
+          && <input type="number" className="number" onChange={this.onPurchaseAmountChanged} />}
         {!this.state.isAdminOrCompany
           && <input type="button" value="purchase" onClick={this.purchase} />} 
         {this.state.isAdminOrCompany === true && <input type="button" value="Delete" onClick={this.delete} />}

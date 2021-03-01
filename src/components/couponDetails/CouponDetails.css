@@ -1,5 +1,14 @@
 
 
 .CouponDetails {
+    text-align: center;
+}
+
+.number  {
+    width: 1.5cm;
+    margin-left: 0.5cm;
+}
+
+.CouponDetails > h2 {
     display: inline-block;
 }
