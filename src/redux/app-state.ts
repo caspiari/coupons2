@@ -1,5 +1,5 @@
+import { UserType } from "../models/UserType";
 
 export class AppState {
-    // public coupons: Coupon[] = [];
-    public isLoggedIn: boolean = false;
+    public userType: UserType = null;
 }

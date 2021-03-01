@@ -21,7 +21,7 @@ export default class Coupons extends Component<any, CouponsState> {
   public async componentDidMount() {
     try {
       const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
-      this.setState({ coupons: response.data});
+      this.setState({ coupons: response.data });
     } catch (err) {
       console.log(err.message);
     }
@@ -38,8 +38,8 @@ export default class Coupons extends Component<any, CouponsState> {
         <br />
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {<ol>
-          {this.state.coupons.filter(coupon=> coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-          .map(coupon => <Card key = {coupon.id} {...coupon} /> )}
+          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
+            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
         </ol>}
       </div>
     );

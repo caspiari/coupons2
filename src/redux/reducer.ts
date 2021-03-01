@@ -1,6 +1,7 @@
 import { AppState } from "./app-state";
 import { ActionType } from "./action-type";
 import { Action } from "./action";
+import { UserType } from "../models/UserType";
 
 // This function is NOT called direcrtly by you
 export function reduce(oldAppState: AppState, action: Action): AppState {
@@ -9,7 +10,7 @@ export function reduce(oldAppState: AppState, action: Action): AppState {
 
     switch (action.type) {
         case ActionType.Login:
-            newAppState.isLoggedIn = action.payload;
+            newAppState.userType = action.payload;
             break;
         // case ActionType.GetAllCoupons:
         //     newAppState.coupons = action.payload;

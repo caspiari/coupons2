@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import "../CustomMenu.css";
 
-interface IDefaultMenuProps {
-  logOut: any;
-}
-
-export default class DefaultMenu extends Component<IDefaultMenuProps> {
+export default class DefaultMenu extends Component<any> {
 
   public constructor(props: any) {
     super(props);
@@ -18,7 +14,6 @@ export default class DefaultMenu extends Component<IDefaultMenuProps> {
         <NavLink to="/home" exact>Home</NavLink>
         <span> | </span>
         <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span> | </span>
       </div>
     );
   }

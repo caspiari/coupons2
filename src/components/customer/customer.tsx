@@ -25,7 +25,7 @@ export default class Customer extends Component<any, ICustomerState> {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({})
     );
-    if (store.getState().isLoggedIn) {
+    if (store.getState().userType != null) {
       const id = +sessionStorage.getItem("id");
       const token = sessionStorage.getItem("token");
       try {
@@ -60,7 +60,7 @@ export default class Customer extends Component<any, ICustomerState> {
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-          .map(coupon => <Card key={coupon.id} {...coupon} />)}
+          .map(coupon => <Card key={coupon.id} coupon = {coupon} />)}
         </ol>}
       </div>
     );

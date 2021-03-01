@@ -7,6 +7,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
+import { UserType } from '../../models/UserType';
 
 interface ILoginState {
     username: string,
@@ -40,8 +41,10 @@ export default class Login extends Component<any, ILoginState> {
         try {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
-            store.dispatch({ type: ActionType.Login, payload: true});
             const serverResponse = response.data;
+            let unknownTypeUserType = serverResponse.userType as unknown;
+            let userType : UserType = unknownTypeUserType as UserType;
+            store.dispatch({ type: ActionType.Login, payload: userType});
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType",serverResponse.userType);
