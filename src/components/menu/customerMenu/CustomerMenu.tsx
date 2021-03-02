@@ -15,7 +15,7 @@ export default class CustomerMenu extends Component<ICustomerMenuProps> {
   public render() {
     return (
       <div className="customMenu">
-        <NavLink to="/customer" exact>Home</NavLink>
+        <NavLink to="/customer" exact>My coupons</NavLink>
         <span> | </span>
         <NavLink to="/coupons" exact>Coupons</NavLink>
         <span> | </span>

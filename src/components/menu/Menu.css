@@ -3,7 +3,10 @@
     overflow-y: auto;
     word-wrap: break-word;
     align-items: center;
+    text-align: center;
+    align-content: 'center';
 }
+
 .menu > a {
     display: block;
     color:blue;
@@ -11,11 +14,12 @@
     margin: 10%
 }
 
-.menu > input[type=button]{
+.menu input[type=button]{
     display: block;
     color:blue;
     font-size: large;
     margin: 10%;
+    margin-left: 35%;
     align-self: center;
     background: none!important;
     border: none;
@@ -26,11 +30,3 @@
     text-align: center;
     align-content: center;
 }
-
-.customMenu {
-    display: 'flex';
-    align-items: 'center';
-    align-content: 'center';
-
-}
-

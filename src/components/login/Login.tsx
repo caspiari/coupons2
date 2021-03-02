@@ -46,6 +46,7 @@ export default class Login extends Component<any, ILoginState> {
             store.dispatch({ type: ActionType.LOGIN, payload: userType});
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
+            sessionStorage.setItem("userType", serverResponse.userType);
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
             console.log(serverResponse);
             

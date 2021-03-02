@@ -12,7 +12,6 @@ import DefaultMenu from './defaultMenu/DefaultMenu';
 import "./Menu.css";
 
 interface IMenuState {
-  userType: UserType;
 }
 
 export default class Menu extends Component<any, IMenuState> {
@@ -21,21 +20,16 @@ export default class Menu extends Component<any, IMenuState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { userType: null };
+    this.state = {};
   }
 
   componentDidMount() {
     this.unsubscribeStore = store.subscribe(
-      () => this.setState(
-        { userType: store.getState().userType })
+      () => this.setState({ })
     );
   }
 
-  componentWillUnmount() {
-    this.unsubscribeStore();
-  }
-
-  private logOut = async () => {
+  private logOut = () => {
     sessionStorage.clear();
     store.dispatch({ type: ActionType.LOGIN, payload: null });
     axios.defaults.headers.common["Authorization"] = "";
@@ -44,10 +38,10 @@ export default class Menu extends Component<any, IMenuState> {
   public render() {
     return (
       <div className="menu">
-        {this.state.userType == null && <DefaultMenu />}
-        {this.state.userType == UserType.CUSTOMER && <CustomerMenu logOut={this.logOut} />}
-        {this.state.userType == UserType.ADMIN && <AdminMenu logOut={this.logOut} />}
-        {this.state.userType == UserType.COMPANY && <CompanyMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") == null && <DefaultMenu />}
+        {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
         <span> | </span>
         <NavLink to="/about" exact>About</NavLink>
       </div>

@@ -54,7 +54,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   }
 
   private delete = async () => {
-    if (confirm("Do you want to delete this coupon?") == true) {
+    if (window.confirm("Do you want to delete this coupon?") == true) {
       try {
         const response = await axios.delete("http://localhost:8080/coupons/" + this.couponId);
         this.setState({ coupon: response.data });
@@ -63,8 +63,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       } catch (err) {
         console.log(err.message + "\n" + err.response.data.errorMessage);
       }
-    } else {
-      return;
     }
   }
 
@@ -99,11 +97,8 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Amount: {this.state.coupon.amount}</h3>
         <h3>Start date: {this.state.coupon.startDate}</h3>
         <h3>End date: {this.state.coupon.endDate}</h3>
-        {!this.state.isAdminOrCompany
-          && <h2>how many I want:</h2>}
-
         {store.getState().userType == UserType.CUSTOMER
-          && <div><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
+          && <div><h2>how many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
         {store.getState().userType != UserType.CUSTOMER && <input type="button" value="Delete" onClick={this.delete} />}
       </div>

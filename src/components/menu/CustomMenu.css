@@ -4,7 +4,9 @@
     word-wrap: break-word;
     text-align: center;
     align-items: center;
+    align-content: 'center';
 }
+
 .customMenu > a {
     display: block;
     color:blue;
@@ -17,6 +19,7 @@
     color:blue;
     font-size: large;
     margin: 10%;
+    margin-left: 35%;
     align-self: center;
     background: none!important;
     border: none;

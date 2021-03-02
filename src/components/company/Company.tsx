@@ -9,7 +9,9 @@ export default class Company extends Component<any> {
 
     constructor(props: any) {
         super(props);
-
+    }
+    
+    public async componentDidMount() {
         this.unsubscribeStore = store.subscribe(
             () => this.setState(
             {
@@ -18,30 +20,18 @@ export default class Company extends Component<any> {
         );
     }
 
-    public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let text = event.target.value;
-        this.setState({ companyNameFilter: text });
-    }
-
-    public async componentDidMount() {
-        try {
-            // const response = await axios.get<Coupon[]>("http://localhost:3001/coupons");
-            // store.dispatch({ type: ActionType.GetAllCoupons, payload: response.data});
-
-        } catch (err) {
-            console.log(err.message);
-        }
-    }
-
     componentWillUnmount(){
         this.unsubscribeStore();
     }
+
+    private createCoupon
 
     public render() {
         return (
             <div className="Company">
                 <br />
                 Company page
+                <input type="button" value="Add coupon" onClick={this.props.logOut} />
             </div>
         );
     }
