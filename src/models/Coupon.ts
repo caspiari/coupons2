@@ -10,5 +10,7 @@ export class Coupon {
         public amount:number,
         public startDate:Date,
         public endDate:Date,
+        public startDateString:string,
+        public endDateString:string,
     ){}
 }

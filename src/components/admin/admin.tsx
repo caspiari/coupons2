@@ -3,17 +3,17 @@ import "./Admin.css"
 import { Unsubscribe } from 'redux';
 import { store } from '../../redux/store';
 
-interface IAdminState {
+// interface IAdminState {
 
-}
+// }
 
 export default class Admin extends Component<any> {
 
     private unsubscribeStore: Unsubscribe;
 
-    constructor(props: any) {
-        super(props);
-    }
+    // constructor(props: any) {
+    //     super(props);
+    // }
 
     public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
         let text = event.target.value;

@@ -42,12 +42,10 @@ export default class Login extends Component<any, ILoginState> {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
             const serverResponse = response.data;
-            let unknownTypeUserType = serverResponse.userType as unknown;
-            let userType : UserType = unknownTypeUserType as UserType;
-            store.dispatch({ type: ActionType.Login, payload: userType});
+            let userType : UserType = serverResponse.userType as UserType;
+            store.dispatch({ type: ActionType.LOGIN, payload: userType});
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
-            sessionStorage.setItem("userType",serverResponse.userType);
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
             console.log(serverResponse);
             
@@ -55,7 +53,7 @@ export default class Login extends Component<any, ILoginState> {
                 this.props.history.push('/admin')
             }
             else if (serverResponse.userType === "CUSTOMER") {
-                console.log("login props: " + JSON.stringify(this.props));
+                // console.log("login props: " + JSON.stringify(this.props));
                 this.props.history.push('/customer')
             }
             else{

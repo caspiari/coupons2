@@ -21,9 +21,7 @@ export default class Menu extends Component<any, IMenuState> {
 
   constructor(props: any) {
     super(props);
-    console.log("Menu props: " + this.props.history);
-    let userType = sessionStorage.getItem("userType") as unknown;
-    this.state = { userType: userType as UserType };
+    this.state = { userType: null };
   }
 
   componentDidMount() {
@@ -39,17 +37,16 @@ export default class Menu extends Component<any, IMenuState> {
 
   private logOut = async () => {
     sessionStorage.clear();
-    store.dispatch({ type: ActionType.Login, payload: false });
+    store.dispatch({ type: ActionType.LOGIN, payload: null });
     axios.defaults.headers.common["Authorization"] = "";
   }
 
   public render() {
     return (
       <div className="menu">
-        {console.log("User type at menu: " + this.state.userType)}
         {this.state.userType == null && <DefaultMenu />}
         {this.state.userType == UserType.CUSTOMER && <CustomerMenu logOut={this.logOut} />}
-        {this.state.userType as UserType === UserType.ADMIN as UserType && <AdminMenu logOut={this.logOut} />}
+        {this.state.userType == UserType.ADMIN && <AdminMenu logOut={this.logOut} />}
         {this.state.userType == UserType.COMPANY && <CompanyMenu logOut={this.logOut} />}
         <span> | </span>
         <NavLink to="/about" exact>About</NavLink>

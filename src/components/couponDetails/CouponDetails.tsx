@@ -1,22 +1,26 @@
 import axios from 'axios';
 import { Component } from 'react'
+import { Unsubscribe } from 'redux';
 import { Coupon } from '../../models/Coupon';
 import { Purchase } from '../../models/Purchase';
+import { UserType } from '../../models/UserType';
+import { store } from '../../redux/store';
 import "./CouponDetails.css";
 
 interface CouponDetailsState {
-  coupon: Coupon;
-  userType: string;
+  userType: UserType;
   isAdminOrCompany: boolean;
+  coupon: Coupon;
 }
 
 export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupon: new Coupon(0, "", "", "", 0, "", 0, 0, null, null), userType: "", isAdminOrCompany: false };
+    this.state = { userType: null, isAdminOrCompany: false, coupon: new Coupon(0, null, null, null, 0, null, 0, 0, null, null, null, null) };
   }
 
+  private unsubscribeStore: Unsubscribe;
   private purchaseAmount: number;
   private couponId: number = this.props.match.params.id;
 
@@ -28,26 +32,39 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     }
     axios.defaults.headers.common["Authorization"] = token;
 
+    this.unsubscribeStore = store.subscribe(
+      () => this.setState(
+        { userType: store.getState().userType })
+    );
+
     try {
       const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + this.couponId);
-      const newState = { ...this.state }
+      let newState = { ...this.state };
       newState.coupon = response.data;
-      newState.userType = sessionStorage.getItem("userType");
       newState.userType === "CUSTOMER" ? newState.isAdminOrCompany = false : newState.isAdminOrCompany = true;
+      // console.log(newState.userType.match("CUSTOMER"));
       this.setState(newState);
     } catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   }
 
+  componentWillUnmount() {
+    this.unsubscribeStore();
+  }
+
   private delete = async () => {
-    try {
-      const response = await axios.delete("http://localhost:8080/coupons/" + this.couponId);
-      this.setState({ coupon: response.data });
-      alert("Coupon was successfuly deleted");
-      this.props.history.goBack();
-    } catch (err) {
-      console.log(err.message);
+    if (confirm("Do you want to delete this coupon?") == true) {
+      try {
+        const response = await axios.delete("http://localhost:8080/coupons/" + this.couponId);
+        this.setState({ coupon: response.data });
+        alert("Coupon was successfuly deleted");
+        this.props.history.goBack();
+      } catch (err) {
+        console.log(err.message + "\n" + err.response.data.errorMessage);
+      }
+    } else {
+      return;
     }
   }
 
@@ -84,11 +101,11 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>End date: {this.state.coupon.endDate}</h3>
         {!this.state.isAdminOrCompany
           && <h2>how many I want:</h2>}
-        {!this.state.isAdminOrCompany
-          && <input type="number" className="number" onChange={this.onPurchaseAmountChanged} />}
-        {!this.state.isAdminOrCompany
-          && <input type="button" value="purchase" onClick={this.purchase} />} 
-        {this.state.isAdminOrCompany === true && <input type="button" value="Delete" onClick={this.delete} />}
+
+        {store.getState().userType == UserType.CUSTOMER
+          && <div><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
+            <input type="button" value="purchase" onClick={this.purchase} /></div>}
+        {store.getState().userType != UserType.CUSTOMER && <input type="button" value="Delete" onClick={this.delete} />}
       </div>
     );
   }

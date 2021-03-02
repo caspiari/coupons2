@@ -3,6 +3,7 @@
     overflow-y: auto;
     word-wrap: break-word;
     text-align: center;
+    align-items: center;
 }
 .customMenu > a {
     display: block;
@@ -11,7 +12,8 @@
     margin: 10%
 }
 
-.customMenu > input[type=button]{
+.customMenu input[type=button]{
+    display: block;
     color:blue;
     font-size: large;
     margin: 10%;
@@ -23,6 +25,7 @@
     cursor: pointer;
     align-items: center;
     text-align: center;
+    align-content: center;
 }
 
 
