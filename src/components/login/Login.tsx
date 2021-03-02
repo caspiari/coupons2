@@ -18,7 +18,6 @@ export default class Login extends Component<any, ILoginState> {
 
     public constructor(props: any) {
         super(props);
-        console.log("Login props: " + this.props.history);
         this.state = {
             username: "",
             password: ""
@@ -37,7 +36,6 @@ export default class Login extends Component<any, ILoginState> {
 
     private login = async () => {
         console.log("Entered login");
-
         try {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
@@ -47,6 +45,10 @@ export default class Login extends Component<any, ILoginState> {
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType", serverResponse.userType);
+            if(userType.valueOf() === UserType.COMPANY.valueOf()) {
+                console.log(serverResponse.companyId);
+                sessionStorage.setItem("companyId", String(serverResponse.companyId));
+            }
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
             console.log(serverResponse);
             
@@ -62,7 +64,7 @@ export default class Login extends Component<any, ILoginState> {
             }
         }
         catch (err) {
-            alert(err.message);
+            alert(err.response.message);
             console.log(JSON.stringify(err));
         }
         console.log("Login ended");
