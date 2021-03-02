@@ -46,7 +46,6 @@ export default class Login extends Component<any, ILoginState> {
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType", serverResponse.userType);
             if(userType.valueOf() === UserType.COMPANY.valueOf()) {
-                console.log(serverResponse.companyId);
                 sessionStorage.setItem("companyId", String(serverResponse.companyId));
             }
             axios.defaults.headers.common["Authorization"]= serverResponse.token;
@@ -64,7 +63,6 @@ export default class Login extends Component<any, ILoginState> {
             }
         }
         catch (err) {
-            alert(err.response.message);
             console.log(JSON.stringify(err));
         }
         console.log("Login ended");

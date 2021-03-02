@@ -24,24 +24,25 @@ export default class Coupons extends Component<any, CouponsState> {
   }
 
   public async componentDidMount() {
-    const newState = {...this.state};
+    const newState = { ...this.state };
     this.unsubscribeStore = store.subscribe(
       () => this.setState({ ...newState })
     );
-    
+
     try {
-      if(sessionStorage.getItem("userType") != UserType.COMPANY.valueOf()) {
+      if (sessionStorage.getItem("userType") != UserType.COMPANY.valueOf()) {
         const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
         this.setState({ coupons: response.data });
       } else {
+        const token = sessionStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = token;
         const id = +sessionStorage.getItem("companyId");
-        console.log(id);
-        axios.defaults.params["companyId"] = id;
-        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byCompanyId");
+        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byCompanyId", {params: {companyId: id}});
         this.setState({ coupons: response.data });
       }
     } catch (err) {
       console.log(JSON.stringify(err));
+      console.log(err);
     }
   }
 
