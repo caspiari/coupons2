@@ -5,6 +5,7 @@ import { Coupon } from '../../models/Coupon';
 import { Purchase } from '../../models/Purchase';
 import { UserType } from '../../models/UserType';
 import { store } from '../../redux/store';
+import Card from '../card/Card';
 import "./CouponDetails.css";
 
 interface CouponDetailsState {
@@ -17,7 +18,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { userType: null, isAdminOrCompany: false, coupon: new Coupon("", "", null, "", 0, 0, null, null) };
+    this.state = { userType: null, isAdminOrCompany: false, coupon: new Coupon(null, null, null, null, null, null, null, null) };
   }
 
   private unsubscribeStore: Unsubscribe;
@@ -27,7 +28,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
     if (token == null) {
-      alert("Please login in order to see coupon details and to purchase");
+      alert("Please login/register in order to see coupon details and to purchase");
       this.props.history.goBack();
     }
     axios.defaults.headers.common["Authorization"] = token;
@@ -42,7 +43,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       let newState = { ...this.state };
       newState.coupon = response.data;
       newState.userType === "CUSTOMER" ? newState.isAdminOrCompany = false : newState.isAdminOrCompany = true;
-      // console.log(newState.userType.match("CUSTOMER"));
       this.setState(newState);
     } catch (err) {
       console.log(err);
@@ -95,8 +95,8 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Description: {this.state.coupon.description}</h3>
         <h3>Price: {this.state.coupon.price}</h3>
         <h3>Amount: {this.state.coupon.amount}</h3>
-        <h3>Start date: {this.state.coupon.startDate}</h3>
-        <h3>End date: {this.state.coupon.endDate.getDate()}</h3>
+        <h3>Start date: {Card.formatTime(this.state.coupon.startDate)}</h3>
+        <h3>End date: {Card.formatTime(this.state.coupon.endDate)}</h3>
         {store.getState().userType == UserType.CUSTOMER
           && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}

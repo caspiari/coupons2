@@ -71,7 +71,7 @@ export default class Login extends Component<any, ILoginState> {
     public render() {
         return (
             <div className="login">
-                <input type="text" placeholder="User name (email)" name="username" value={this.state.username} onChange={this.setUsername} /><br />
+                <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 <div><input type="button" value="Login" onClick={this.login} /></div>
                 <NavLink to={"/register"}>

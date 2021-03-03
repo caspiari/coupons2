@@ -12,7 +12,7 @@ export default class Card extends Component<ICardProps> {
     super(props);
   }
 
-  private FormatTime(time, prefix = "") {
+  public static formatTime(time, prefix = "") {
     let date = Date.parse(time); // returns NaN if it can't parse
     let dateObject = new Date(date);
     return Number.isNaN(date) ? "" : prefix + dateObject.toLocaleDateString();
@@ -32,7 +32,7 @@ export default class Card extends Component<ICardProps> {
           <br />
           {`Units left: ${this.props.coupon.amount}`}
           <br />
-          {`Expiration date: ${this.FormatTime(this.props.coupon.endDate)}`}
+          {`Expiration date: ${Card.formatTime(this.props.coupon.endDate)}`}
         </div>
       </NavLink>
     )
