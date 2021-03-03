@@ -1,6 +1,7 @@
 .register > input {
     font-size: large;
-    padding : 5px;  
+    padding : 5px;
+    margin: 2px;
 }
 
 .register > input:hover{

@@ -48,9 +48,9 @@ export default class Register extends Component<any, RegisterState> {
         return (
             <div className="register">
                 <h1>Register new company</h1>
-                Name: <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
+                Name:&ensp;&ensp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
                 Address: <input type="text" name="address" value={this.state.address} onChange={this.setAddress} /><br />
-                Phone: <input type="number" name="phone" value={this.state.phone} onChange={this.setPhone} /><br />
+                Phone:&ensp;&nbsp; <input type="number" name="phone" value={this.state.phone} onChange={this.setPhone} /><br />
                 <br />
                 <input type="button" value="register" onClick={this.register} />
             </div>
