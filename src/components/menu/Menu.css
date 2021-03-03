@@ -3,10 +3,6 @@
     background-image: url(menu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    align-items: center;
-    text-align: center;
-    align-content: center;
-    margin: 0%;
     padding: 0%;
     color: whitesmoke;
 }
@@ -16,6 +12,7 @@
     display: block;
     color:whitesmoke;
     font-size: large;
+    margin-top: 6px;
     text-shadow: 1px 1px rgb(23, 22, 85);
 }
   
@@ -55,4 +52,5 @@
 
 .separator {
     font-weight: bold;
+    margin-top: 6px;
 }

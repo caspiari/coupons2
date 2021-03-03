@@ -41,7 +41,7 @@ export default class Login extends Component<any, ILoginState> {
             const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
             const serverResponse = response.data;
             let userType : UserType = serverResponse.userType as UserType;
-            store.dispatch({ type: ActionType.LOGIN, payload: userType});
+            store.dispatch({ type: ActionType.LOGIN, payload: userType });
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType", serverResponse.userType);
@@ -63,8 +63,7 @@ export default class Login extends Component<any, ILoginState> {
             }
         }
         catch (err) {
-            console.log(JSON.stringify(err));
-            alert(err);
+            alert(err.response.data.errorMessage);
         }
         console.log("Login ended");
     }

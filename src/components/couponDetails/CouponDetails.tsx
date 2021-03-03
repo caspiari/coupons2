@@ -17,7 +17,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { userType: null, isAdminOrCompany: false, coupon: new Coupon(0, null, null, null, 0, null, 0, 0, null, null, null, null) };
+    this.state = { userType: null, isAdminOrCompany: false, coupon: new Coupon("", "", null, "", 0, 0, null, null) };
   }
 
   private unsubscribeStore: Unsubscribe;
@@ -98,7 +98,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Start date: {this.state.coupon.startDate}</h3>
         <h3>End date: {this.state.coupon.endDate.getDate()}</h3>
         {store.getState().userType == UserType.CUSTOMER
-          && <div><h2>how many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
+          && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
         {sessionStorage.getItem("userType") != UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
       </div>

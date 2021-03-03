@@ -8,7 +8,8 @@
 }
 
 .register > select {
-    width: 220px;
+    width: 235px;
+    height: 35px;
     font-size: large;
     margin: 5px;
 }
@@ -19,5 +20,4 @@
 
 .register{
     text-align: center;
-    margin-top: 10%;
 }

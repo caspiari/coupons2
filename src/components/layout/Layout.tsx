@@ -12,6 +12,7 @@ import Customer from '../customer/Customer';
 import Register from '../register/Register';
 import Admin from '../admin/Admin';
 import Company from '../company/Company';
+import RegisterCompany from '../register/registerCompany/RegisterCompany';
 
 export default class Layout extends Component {
   public render() {
@@ -34,7 +35,8 @@ export default class Layout extends Component {
               <Route path="/customer" component={Customer} exact />
               <Route path="/register" component={Register} exact />
               <Route path="/company" component={Company} exact />
-              <Route path="/couponDetails/:id" component={CouponDetails} exact />                            
+              <Route path="/couponDetails/:id" component={CouponDetails} exact />   
+              <Route path="/registerCompany" component={RegisterCompany} exact />   
               <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>

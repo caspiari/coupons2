@@ -40,6 +40,7 @@ export default class Coupons extends Component<any, CouponsState> {
         this.setState({ coupons: response.data });
       }
     } catch (err) {
+      alert(err.response.data.errorMessage);
       console.log(JSON.stringify(err));
     }
   }

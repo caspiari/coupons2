@@ -2,7 +2,8 @@ import { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
-import ForAdmin from './ForAdmin';
+import ForAdmin from './forAdmin/ForAdmin';
+import { UserType } from '../../models/UserType';
 
 interface RegisterState {
     username: string;
@@ -57,10 +58,10 @@ export default class Register extends Component<any, RegisterState> {
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);
+            this.props.history.goBack();
         }
         catch (err) {
-            alert(err.message);
-            console.log(JSON.stringify(err));
+            alert(err.response.data.errorMessage);
         }
     }
 
@@ -68,11 +69,12 @@ export default class Register extends Component<any, RegisterState> {
         return (
             <div className="register">
                 <h1>Register new user</h1>
-                User name (email): <input type="text" name="username" value={this.state.username} onChange={this.setUsername} /><br />
-                Password: <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
+                User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
+                Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {this.state.isAdmin && <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> }
+                {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && 
+                 <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> }
                 
                 <br />
                 <input type="button" value="register" onClick={this.register} />
@@ -81,4 +83,5 @@ export default class Register extends Component<any, RegisterState> {
     }
 
 }
+
 

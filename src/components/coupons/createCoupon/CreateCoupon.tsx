@@ -38,8 +38,7 @@ export default class CreateCoupon extends Component<any, CreateCouponState> {
         this.setState({  });
       }
     } catch (err) {
-      console.log(JSON.stringify(err));
-      console.log(err);
+      console.log(err.response.data.errorMessage);
     }
   }
 
