@@ -23,9 +23,7 @@ export default class Layout extends Component {
             <Header />
           </header>
 
-          <aside>
-            <Menu />
-          </aside>
+          <Menu />
 
           <main>
             <Switch>

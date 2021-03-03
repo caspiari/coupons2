@@ -64,6 +64,7 @@ export default class Login extends Component<any, ILoginState> {
         }
         catch (err) {
             console.log(JSON.stringify(err));
+            alert(err);
         }
         console.log("Login ended");
     }

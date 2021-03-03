@@ -45,6 +45,7 @@ export default class Admin extends Component<any> {
             <div className="admin">
                 <br />
                 Admin page
+                <div className="users">Users management</div>
             </div>
         );
     }

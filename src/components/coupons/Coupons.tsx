@@ -28,7 +28,6 @@ export default class Coupons extends Component<any, CouponsState> {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({ ...newState })
     );
-
     try {
       if (sessionStorage.getItem("userType") != UserType.COMPANY.valueOf()) {
         const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");

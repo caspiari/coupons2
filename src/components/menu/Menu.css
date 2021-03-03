@@ -1,32 +1,58 @@
 
 .menu {
-    overflow-y: auto;
-    word-wrap: break-word;
+    background-image: url(menu.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
     align-items: center;
     text-align: center;
-    align-content: 'center';
+    align-content: center;
+    margin: 0%;
+    padding: 0%;
+    color: whitesmoke;
 }
 
-.menu > a {
+.menu a:link {
+    text-decoration: none;
     display: block;
-    color:blue;
+    color:whitesmoke;
     font-size: large;
-    margin: 10%
+    text-shadow: 1px 1px rgb(23, 22, 85);
+}
+  
+.menu a:visited {
+    text-decoration: none;
+    color: whitesmoke;
+    text-shadow: 1px 1px rgb(23, 22, 85);
+  }
+  
+.menu a:active {
+    color: rgb(0, 0, 255);
+    text-shadow: 1px 1px rgb(23, 22, 85);
 }
 
-.menu input[type=button]{
+.customMenu input[type=button]{
     display: block;
-    color:blue;
+    color:whitesmoke;
+    text-decoration: none;
+    text-shadow: 1px 1px rgb(23, 22, 85);
     font-size: large;
-    margin: 10%;
-    margin-left: 35%;
+    /* margin: 10%; */
+    /* margin-left: 35%; */
     align-self: center;
     background: none!important;
     border: none;
     padding: 0!important;
-    text-decoration: underline;
     cursor: pointer;
     align-items: center;
     text-align: center;
     align-content: center;
+}
+
+.customMenu input[type=button]:active{
+    color: rgb(0, 0, 255);
+    text-shadow: 1px 1px rgb(23, 22, 85);
+}
+
+.separator {
+    font-weight: bold;
 }

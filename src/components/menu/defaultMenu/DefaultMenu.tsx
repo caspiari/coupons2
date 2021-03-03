@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import "../CustomMenu.css";
+import "../Menu.css";
 
 export default class DefaultMenu extends Component<any> {
 
@@ -11,9 +11,13 @@ export default class DefaultMenu extends Component<any> {
   public render() {
     return (
       <div className="customMenu">
-        <NavLink to="/home" exact>Home</NavLink>
-        <span> | </span>
-        <NavLink to="/coupons" exact>Coupons</NavLink>
+        <table>
+          <tr>
+            <td><NavLink to="/home" exact>Home</NavLink></td>
+            <th> | </th>
+            <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
+          </tr>
+        </table>
       </div>
     );
   }

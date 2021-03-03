@@ -25,7 +25,7 @@ export default class Menu extends Component<any, IMenuState> {
 
   componentDidMount() {
     this.unsubscribeStore = store.subscribe(
-      () => this.setState({ })
+      () => this.setState({})
     );
   }
 
@@ -38,12 +38,16 @@ export default class Menu extends Component<any, IMenuState> {
   public render() {
     return (
       <div className="menu">
-        {sessionStorage.getItem("userType") == null && <DefaultMenu />}
-        {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
-        {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
-        {sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
-        <span> | </span>
-        <NavLink to="/about" exact>About</NavLink>
+        <table>
+          <tr>
+            <td>{sessionStorage.getItem("userType") == null && <DefaultMenu />}</td>
+            <td>{sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}</td>
+            <td>{sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}</td>
+            <td>{sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}</td>
+            <td className="separator">| </td>
+            <td><NavLink to="/about" exact>About</NavLink></td>
+          </tr>
+        </table>
       </div>
     );
   }

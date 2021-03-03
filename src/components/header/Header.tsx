@@ -4,7 +4,9 @@ import "./Header.css";
 export default class Header extends Component {
   public render() {
     return (
-      <div className="header">Welcome !</div>
+      <div className="header">
+        Coupons website
+      </div>
     );
   }
 }

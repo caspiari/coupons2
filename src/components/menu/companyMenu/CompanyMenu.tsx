@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import "../CustomMenu.css";
+import "../Menu.css";
 
 interface ICompanyMenuProps {
   logOut: any;

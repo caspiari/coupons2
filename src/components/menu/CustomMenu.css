@@ -1,34 +1,55 @@
 
 .customMenu {
-    overflow-y: auto;
-    word-wrap: break-word;
-    text-align: center;
+    /* overflow-y: ; */
+    /* word-wrap: initial; */
     align-items: center;
-    align-content: 'center';
+    text-align: center;
+    align-content: center;
+    margin: 0%;
+    padding: 0%;
+    color: whitesmoke;
 }
 
-.customMenu > a {
-    display: block;
-    color:blue;
-    font-size: large;
-    margin: 10%
+.customMenu a:link {
+    text-decoration: none;
+    color: whitesmoke;
+    text-shadow: 1px 1px rgb(23, 22, 85);
+}
+  
+.customMenu a:visited {
+    text-decoration: none;
+    color: whitesmoke;
+    text-shadow: 1px 1px rgb(23, 22, 85);
+}
+  
+.customMenu a:active {
+    color: rgb(0, 0, 255);
+    text-shadow: 1px 1px rgb(23, 22, 85);
 }
 
 .customMenu input[type=button]{
     display: block;
-    color:blue;
+    color:whitesmoke;
+    text-decoration: none;
+    text-shadow: 1px 1px rgb(23, 22, 85);
     font-size: large;
-    margin: 10%;
-    margin-left: 35%;
+    /* margin: 10%; */
+    /* margin-left: 35%; */
     align-self: center;
     background: none!important;
     border: none;
     padding: 0!important;
-    text-decoration: underline;
     cursor: pointer;
     align-items: center;
     text-align: center;
     align-content: center;
 }
 
+.customMenu input[type=button]:active{
+    color: rgb(0, 0, 255);
+    text-shadow: 1px 1px rgb(23, 22, 85);
+}
 
+.separator {
+    font-weight: bold;
+}

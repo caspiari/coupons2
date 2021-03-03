@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
-import "../CustomMenu.css";
+import "../Menu.css";
 
 interface IAdminMenuProps {
   logOut: any;
@@ -15,13 +15,15 @@ export default class AdminMenu extends Component<IAdminMenuProps> {
   public render() {
     return (
       <div className="customMenu">
-        <NavLink to="/admin" exact>Management</NavLink>
-        <span> | </span>
-        <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span> | </span><br />
-        <NavLink to="/home" exact>
-          <input type="button" value="Log out" onClick={this.props.logOut} />
-        </NavLink>
+        <table>
+          <tr>
+            <td><NavLink to="/admin" exact>Management</NavLink></td>
+            <th> | </th>
+            <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
+            <th> | </th>
+            <td><NavLink to="/home" exact><input type="button" value="Log out" onClick={this.props.logOut} /></NavLink></td>
+          </tr>
+        </table>
       </div>
     );
   }
