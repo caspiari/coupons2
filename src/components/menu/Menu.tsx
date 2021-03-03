@@ -44,7 +44,7 @@ export default class Menu extends Component<any, IMenuState> {
             <td>{sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}</td>
             <td>{sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}</td>
             <td>{sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}</td>
-            <td className="separator">| </td>
+            <td className="separator">|&ensp;</td>
             <td><NavLink to="/about" exact>About</NavLink></td>
           </tr>
         </table>

@@ -13,8 +13,8 @@ export default class DefaultMenu extends Component<any> {
       <div className="customMenu">
         <table>
           <tr>
-            <td><NavLink to="/home" exact>Home</NavLink></td>
-            <th> | </th>
+            <td><NavLink to="/home" exact>&ensp;Home</NavLink></td>
+            <th>&ensp; | &ensp;</th>
             <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
           </tr>
         </table>

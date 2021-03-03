@@ -18,9 +18,9 @@ export default class AdminMenu extends Component<IAdminMenuProps> {
         <table>
           <tr>
             <td><NavLink to="/admin" exact>Management</NavLink></td>
-            <th> | </th>
+            <th>&ensp; | &ensp;</th>
             <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
-            <th> | </th>
+            <th>&ensp; | &ensp;</th>
             <td><NavLink to="/home" exact><input type="button" value="Log out" onClick={this.props.logOut} /></NavLink></td>
           </tr>
         </table>

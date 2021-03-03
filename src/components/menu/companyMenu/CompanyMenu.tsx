@@ -16,9 +16,9 @@ export default class CompanyMenu extends Component<ICompanyMenuProps> {
     return (
       <div className="customMenu">
         <NavLink to="/company" exact>Management</NavLink>
-        <span> | </span>
+        <span>&ensp; | &ensp;</span>
         <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span> | </span>
+        <span>&ensp; | &ensp;</span>
         <br />
         <NavLink to="/home" exact>
           <input type="button" value="Log out" onClick={this.props.logOut} />

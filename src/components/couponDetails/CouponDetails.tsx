@@ -100,7 +100,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         {store.getState().userType == UserType.CUSTOMER
           && <div><h2>how many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
-        {store.getState().userType != UserType.CUSTOMER && <input type="button" value="Delete" onClick={this.delete} />}
+        {sessionStorage.getItem("userType") != UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
       </div>
     );
   }

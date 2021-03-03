@@ -16,10 +16,9 @@ export default class CustomerMenu extends Component<ICustomerMenuProps> {
     return (
       <div className="customMenu">
         <NavLink to="/customer" exact>My coupons</NavLink>
-        <span> | </span>
+        <span>&ensp; | &ensp;</span>
         <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span> | </span>
-        <br />
+        <span>&ensp; | &ensp;</span>
         <NavLink to="/home" exact>
           <input type="button" value="Log out" onClick={this.props.logOut} />
         </NavLink>

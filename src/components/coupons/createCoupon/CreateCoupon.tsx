@@ -2,25 +2,23 @@ import axios from 'axios';
 import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
-import { Coupon } from '../../models/Coupon';
-import { UserType } from '../../models/UserType';
-import { store } from '../../redux/store';
-import Card from '../card/Card';
-import "./Coupons.css";
+import { Coupon } from '../../../models/Coupon';
+import { UserType } from '../../../models/UserType';
+import { store } from '../../../redux/store';
+import Card from '../../card/Card';
+import "./CreateCoupon.css";
 
-interface CouponsState {
-  cards: Card[];
-  coupons: Coupon[];
+interface CreateCouponState {
   nameFilter: string;
 }
 
-export default class Coupons extends Component<any, CouponsState> {
+export default class CreateCoupon extends Component<any, CreateCouponState> {
 
   private unsubscribeStore: Unsubscribe;
 
   constructor(props: any) {
     super(props);
-    this.state = { cards: [], coupons: [], nameFilter: "" };
+    this.state = {  nameFilter: "" };
   }
 
   public async componentDidMount() {
@@ -31,16 +29,17 @@ export default class Coupons extends Component<any, CouponsState> {
     try {
       if (sessionStorage.getItem("userType") != UserType.COMPANY.valueOf()) {
         const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
-        this.setState({ coupons: response.data });
+        this.setState({  });
       } else {
         const token = sessionStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = token;
         const id = +sessionStorage.getItem("companyId");
         const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byCompanyId", {params: {companyId: id}});
-        this.setState({ coupons: response.data });
+        this.setState({  });
       }
     } catch (err) {
       console.log(JSON.stringify(err));
+      console.log(err);
     }
   }
 
@@ -56,15 +55,11 @@ export default class Coupons extends Component<any, CouponsState> {
 
   public render() {
     return (
-      <div className="coupons">
+      <div className="createCoupon">
         <br />
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
         {sessionStorage.getItem("userType") != UserType.CUSTOMER.valueOf() && <input type="button" value="Create new coupon" onClick={this.createNewCoupon} />}
 
-        {<ol>
-          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
-        </ol>}
       </div>
     );
   }

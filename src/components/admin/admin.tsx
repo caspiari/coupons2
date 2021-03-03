@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./Admin.css"
 import { Unsubscribe } from 'redux';
 import { store } from '../../redux/store';
+import { NavLink } from 'react-router-dom';
 
 // interface IAdminState {
 
@@ -44,8 +45,11 @@ export default class Admin extends Component<any> {
         return (
             <div className="admin">
                 <br />
-                Admin page
-                <div className="users">Users management</div>
+                  Admin page
+                <div className="users">Users management</div> 
+                <NavLink to={"/register"}>
+                  Register new user
+                </NavLink>
             </div>
         );
     }
