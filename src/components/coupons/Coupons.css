@@ -3,6 +3,7 @@
 }
 
 .card {
+    text-align: center;
     display: inline-block;
     height: 150px;
     width: 500px;
@@ -14,4 +15,8 @@
     word-wrap: break-word;
     /* max-width: 100%; */
     overflow-x: hidden;
-}
+ }
+
+ .card a {
+     
+ }

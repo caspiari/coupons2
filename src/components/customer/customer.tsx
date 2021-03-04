@@ -1,5 +1,4 @@
 import axios from 'axios';
-import './Customer.css';
 import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
@@ -54,7 +53,7 @@ export default class Customer extends Component<any, ICustomerState> {
 
   public render() {
     return (
-      <div className="customer">
+      <div className="customer"> {/* Card css is in Coupons.css */}
         <br />
         <h3>My coupons:</h3><br/>
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
