@@ -4,21 +4,20 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding: 0%;
-    color: whitesmoke;
+    color: white;
 }
 
 .menu a:link {
     text-decoration: none;
-    display: block;
-    color:whitesmoke;
+    color:white;
     font-size: large;
     margin-top: 6px;
-    text-shadow: 1px 4px rgb(23, 22, 85);
+    text-shadow: 1px 1px rgb(20, 18, 141);
 }
   
 .menu a:visited {
     text-decoration: none;
-    color: whitesmoke;
+    color: white;
     text-shadow: 1px 1px rgb(23, 22, 85);
   }
   
@@ -28,10 +27,9 @@
 }
 
 .customMenu input[type=button]{
-    display: block;
-    color:whitesmoke;
+    color:white;
     text-decoration: none;
-    text-shadow: 1px 1px rgb(23, 22, 85);
+    text-shadow: 1px 1px 1px rgb(23, 22, 85);
     font-size: large;
     /* margin: 10%; */
     /* margin-left: 35%; */
