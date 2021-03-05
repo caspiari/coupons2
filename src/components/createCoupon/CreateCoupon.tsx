@@ -2,10 +2,10 @@ import axios from 'axios';
 import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
-import { Coupon } from '../models/Coupon';
-import { UserType } from '../models/UserType';
-import { store } from '../redux/store';
-import Card from '../components/card/Card';
+import { Coupon } from '../../models/Coupon';
+import { UserType } from '../../models/UserType';
+import { store } from '../../redux/store';
+import Card from '../card/Card';
 import "./CreateCoupon.css";
 
 interface CreateCouponState {

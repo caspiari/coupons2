@@ -22,7 +22,7 @@ export default class Menu extends Component<any, IMenuState> {
     super(props);
     this.state = {};
   }
-
+  
   componentDidMount() {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({})
@@ -42,8 +42,7 @@ export default class Menu extends Component<any, IMenuState> {
         {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
-            |&ensp;
-        <NavLink to="/about" exact>About</NavLink>
+        |&ensp; <NavLink to="/about" exact>About</NavLink>
       </div>
     );
   }

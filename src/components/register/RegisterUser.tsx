@@ -14,7 +14,7 @@ interface RegisterState {
     companyId?: number;
 }
 
-export default class Register extends Component<any, RegisterState> {
+export default class RegisterUser extends Component<any, RegisterState> {
 
     public constructor(props: any) {
         super(props);
@@ -67,7 +67,7 @@ export default class Register extends Component<any, RegisterState> {
 
     public render() {
         return (
-            <div className="register">
+            <div className="registerUser">
                 <h1>Register new user</h1>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />

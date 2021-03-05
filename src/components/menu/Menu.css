@@ -5,6 +5,7 @@
     background-repeat: no-repeat;
     padding: 0%;
     color: white;
+    display: inline;
 }
 
 .menu a:link {
@@ -31,16 +32,10 @@
     text-decoration: none;
     text-shadow: 1px 1px 1px rgb(23, 22, 85);
     font-size: large;
-    /* margin: 10%; */
-    /* margin-left: 35%; */
-    align-self: center;
     background: none!important;
     border: none;
     padding: 0!important;
     cursor: pointer;
-    align-items: center;
-    text-align: center;
-    align-content: center;
 }
 
 .customMenu input[type=button]:active{

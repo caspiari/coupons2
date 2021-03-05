@@ -44,6 +44,7 @@ export default class ForAdmin extends Component<ForAdminProps, ForAdminState> {
                    <option value={userType} key={index}>{userType}</option>))}
                 </select>
                         <br/ >
+            {this.props.onUserTypeSelected.}
             Company:&nbsp; <select name="companySelect" onChange={this.props.onCompanySelected}>
                         <option disabled selected key="default">
                             -- select company --

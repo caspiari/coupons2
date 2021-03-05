@@ -24,7 +24,8 @@ export default class Customer extends Component<any, ICustomerState> {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({})
     );
-    if (store.getState().userType != null) {
+    const userType = sessionStorage.getItem("userType");
+    if (userType != null) {
       const id = +sessionStorage.getItem("id");
       const token = sessionStorage.getItem("token");
       try {

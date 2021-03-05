@@ -9,7 +9,7 @@ import Login from '../login/Login';
 import Menu from '../menu/Menu';
 import "./Layout.css";
 import Customer from '../customer/Customer';
-import Register from '../register/Register';
+import RegisterUser from '../register/RegisterUser';
 import Admin from '../admin/Admin';
 import Company from '../company/Company';
 import RegisterCompany from '../register/registerCompany/RegisterCompany';
@@ -33,7 +33,7 @@ export default class Layout extends Component {
               <Route path="/coupons" component={Coupons} exact />
               <Route path="/admin" component={Admin} exact />
               <Route path="/customer" component={Customer} exact />
-              <Route path="/register" component={Register} exact />
+              <Route path="/registerUser" component={RegisterUser} exact />
               <Route path="/company" component={Company} exact />
               <Route path="/couponDetails/:id" component={CouponDetails} exact />   
               <Route path="/registerCompany" component={RegisterCompany} exact />   

@@ -11,13 +11,9 @@ export default class DefaultMenu extends Component<any> {
   public render() {
     return (
       <div className="customMenu">
-        <table>
-          <tr>
-            <td><NavLink to="/home" exact>&ensp;Home</NavLink></td>
-            <th>&ensp; | &ensp;</th>
-            <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
-          </tr>
-        </table>
+            <NavLink to="/home" exact>&ensp;Home</NavLink>
+            &ensp; | &ensp;
+            <NavLink to="/coupons" exact>Coupons</NavLink>
       </div>
     );
   }
