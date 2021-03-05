@@ -2,7 +2,6 @@ import { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
-import ForAdmin from './forAdmin/ForAdmin';
 import { UserType } from '../../models/UserType';
 
 interface RegisterState {
@@ -10,7 +9,7 @@ interface RegisterState {
     password: string;
     firstName: string;
     lastName: string;
-    userType: string;
+    userType: UserType;
     companyId?: number;
 }
 
@@ -20,6 +19,8 @@ export default class RegisterUser extends Component<any, RegisterState> {
         super(props);
         this.state = { username: "", password: "", firstName: "", lastName: "", userType: null };
     }
+
+    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
         const username = event.target.value;
@@ -42,7 +43,7 @@ export default class RegisterUser extends Component<any, RegisterState> {
     }
 
     private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
-        const userType = event.target.value;
+        const userType = event.target.value as UserType;
         this.setState({ userType });
     }
 
@@ -67,15 +68,35 @@ export default class RegisterUser extends Component<any, RegisterState> {
 
     public render() {
         return (
-            <div className="registerUser">
+            <div className="register">
                 <h1>Register new user</h1>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && 
-                 <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> }
-                
+                {/* //  <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> } */}
+                {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
+                    User type:&nbsp;&nbsp; 
+                    <select name="userTypeSelect" onChange={this.setUserType}>
+                        <option disabled selected key="default">
+                            -- select user type --
+                        </option>
+                        {this.userTypes.map((userType, index) => (<option value={userType} key={index}>{userType}</option>))}
+                    </select>
+                </div>}
+                <br />
+                {this.state.userType === UserType.COMPANY && <div>
+                    Company:&nbsp; 
+                    <select name="companySelect" onChange={this.props.onCompanySelected}>
+                        <option disabled selected key="default">
+                            -- select company --
+                        </option>
+                            {this.state.companies.map((Company, index) => (
+                        <option value={Company.id} key={index}>
+                            {Company.name}
+                        </option>))}
+                    </select>
+                </div>}
                 <br />
                 <input type="button" value="register" onClick={this.register} />
             </div>
