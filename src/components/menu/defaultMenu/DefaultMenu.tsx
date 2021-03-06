@@ -12,7 +12,7 @@ export default class DefaultMenu extends Component<any> {
     return (
       <div className="customMenu">
             <NavLink to="/home" exact>&ensp;Home</NavLink>
-            &ensp; | &ensp;
+            <span className="separator">&ensp; | &ensp;</span>
             <NavLink to="/coupons" exact>Coupons</NavLink>
       </div>
     );

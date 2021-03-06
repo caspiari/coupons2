@@ -25,21 +25,19 @@ export default class Customer extends Component<any, ICustomerState> {
       () => this.setState({})
     );
     const userType = sessionStorage.getItem("userType");
-    if (userType != null) {
-      const id = +sessionStorage.getItem("id");
-      const token = sessionStorage.getItem("token");
-      try {
-        axios.defaults.headers.common["Authorization"]= token;
-        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/?id=" + id);
-        const newState = {...this.state};
-        newState.coupons = response.data;
-        this.setState(newState);
-      } catch (err) {
-        console.log(err.message);
-      }
-    } else {
+    if (userType == null) {
       alert("Please log in first");
       this.props.history.push('/home');
+    }
+    const id = +sessionStorage.getItem("id");
+    const token = sessionStorage.getItem("token");
+    try {
+      axios.defaults.headers.common["Authorization"] = token;
+      const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/?id=" + id);
+      this.setState({ coupons: response.data });
+    } catch (err) {
+      console.log(err.message);
+      alert(err.response.data.errorMessage);
     }
   }
 
@@ -56,11 +54,11 @@ export default class Customer extends Component<any, ICustomerState> {
     return (
       <div className="customer"> {/* Card css is in Coupons.css */}
         <br />
-        <h3>My coupons:</h3><br/>
+        <h3>My coupons:</h3><br />
         Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-          .map(coupon => <Card key={coupon.id} coupon = {coupon} />)}
+            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
         </ol>}
       </div>
     );

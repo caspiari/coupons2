@@ -38,11 +38,14 @@ export default class Menu extends Component<any, IMenuState> {
   public render() {
     return (
       <div className="menu">
+        <p>
         {sessionStorage.getItem("userType") == null && <DefaultMenu />}
         {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
-        |&ensp; <NavLink to="/about" exact>About</NavLink>
+        <span className="separator">&ensp;|&ensp;</span>
+        <NavLink to="/about" exact>About</NavLink>
+        </p>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import { Component, ChangeEvent } from 'react';
 import axios from "axios";
-import "../Register.css";
-import { Company } from '../../../models/Company';
+import "./Register.css";
+import { Company } from '../../models/Company';
 
 interface RegisterState {
     name: string;

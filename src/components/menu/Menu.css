@@ -12,7 +12,6 @@
     text-decoration: none;
     color:white;
     font-size: large;
-    margin-top: 6px;
     text-shadow: 1px 1px rgb(20, 18, 141);
 }
   
@@ -20,11 +19,15 @@
     text-decoration: none;
     color: white;
     text-shadow: 1px 1px rgb(23, 22, 85);
-  }
+}
   
 .menu a:active {
     color: rgb(0, 0, 255);
     text-shadow: 1px 1px rgb(23, 22, 85);
+}
+
+.customMenu {
+    display: inline;
 }
 
 .customMenu input[type=button]{
@@ -45,5 +48,4 @@
 
 .separator {
     font-weight: bold;
-    margin-top: 6px;
 }

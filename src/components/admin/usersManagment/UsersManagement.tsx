@@ -49,9 +49,10 @@ export default class UsersManagement extends Component<any> {
         return (
             <div className="usersManagement">
                 <br />
-                  Users management page
+                Users management
+                <br />
                 <NavLink to={"/registerUser"}>Register new user</NavLink><br />
-                <NavLink to={"/editUser"}>Edit user details</NavLink>
+                <NavLink to={"/editUser"}>Edit user details</NavLink><br />
             </div>
         );
     }

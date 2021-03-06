@@ -12,7 +12,7 @@ import Customer from '../customer/Customer';
 import RegisterUser from '../register/RegisterUser';
 import Admin from '../admin/Admin';
 import Company from '../company/Company';
-import RegisterCompany from '../register/registerCompany/RegisterCompany';
+import RegisterCompany from '../register/RegisterCompany';
 
 export default class Layout extends Component {
   public render() {

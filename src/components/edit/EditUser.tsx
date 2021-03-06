@@ -5,7 +5,7 @@ import { User } from '../../models/User';
 import { UserType } from '../../models/UserType';
 import { Company } from '../../models/Company';
 
-interface RegisterUserState {
+interface EditUserState {
     username: string;
     password: string;
     firstName: string;
@@ -15,7 +15,7 @@ interface RegisterUserState {
     companies: Company[];
 }
 
-export default class RegisterUser extends Component<any, RegisterUserState> {
+export default class EditUser extends Component<any, EditUserState> {
 
     public constructor(props: any) {
         super(props);
@@ -69,7 +69,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
     private register = async () => {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-            this.state.userType, null, this.state.companyId);
+            this.state.userType, this.state.companyId);
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);
@@ -83,7 +83,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
 
     public render() {
         return (
-            <div className="register">
+            <div className="edit">
                 <h1>Register new user</h1>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
@@ -93,21 +93,22 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
                     User type:&nbsp;&nbsp; 
                     <select name="userTypeSelect" onChange={this.setUserType}>
-                        <option disabled selected key="userType">
+                        <option disabled selected key="default">
                             -- select user type --
                         </option>
-                        {this.userTypes.map((userType, index) => (
-                            <option value={userType} key={index}>{userType}</option>))}
+                        {this.userTypes.map((userType, index) => (<option value={userType} key={index}>{userType}</option>))}
                     </select>
                 </div>}
                 {this.state.userType === UserType.COMPANY && <div>
                     Company:&nbsp; 
                     <select name="companySelect" onChange={this.setCompanyId}>
-                        <option disabled selected key="company">
+                        <option disabled selected key="default">
                             -- select company --
                         </option>
                             {this.state.companies.map((Company, index) => (
-                                <option value={Company.id} key={index}>{Company.name}</option>))}
+                        <option value={Company.id} key={index}>
+                            {Company.name}
+                        </option>))}
                     </select>
                 </div>}
                 <br />

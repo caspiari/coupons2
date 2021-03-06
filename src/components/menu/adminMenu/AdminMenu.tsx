@@ -15,15 +15,11 @@ export default class AdminMenu extends Component<IAdminMenuProps> {
   public render() {
     return (
       <div className="customMenu">
-        <table>
-          <tr>
-            <td><NavLink to="/admin" exact>Management</NavLink></td>
-            <th>&ensp; | &ensp;</th>
-            <td><NavLink to="/coupons" exact>Coupons</NavLink></td>
-            <th>&ensp; | &ensp;</th>
-            <td><NavLink to="/home" exact><input type="button" value="Log out" onClick={this.props.logOut} /></NavLink></td>
-          </tr>
-        </table>
+            <NavLink to="/admin" exact>&ensp;Management</NavLink>
+            <span className="separator">&ensp; | &ensp;</span>
+            <NavLink to="/coupons" exact>Coupons</NavLink>
+            <span className="separator">&ensp; | &ensp;</span>
+            <NavLink to="/home" exact><input type="button" value="Log out" onClick={this.props.logOut} /></NavLink>
       </div>
     );
   }

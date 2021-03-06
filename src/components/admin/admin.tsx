@@ -46,9 +46,8 @@ export default class Admin extends Component<any> {
             <div className="admin">
                 <br />
                   Admin page
-                <div className="users">Users management</div> 
-                <NavLink to={"/registerUser"}>Register new user</NavLink><br />
-                <NavLink to={"/registerCompany"}>Register new company</NavLink>
+                  <NavLink to={"/registerCompany"}>Register new company</NavLink><br />
+
             </div>
         );
     }
