@@ -37,7 +37,10 @@ export default class Customer extends Component<any, ICustomerState> {
       this.setState({ coupons: response.data });
     } catch (err) {
       console.log(err.message);
-      alert(err.response.data.errorMessage);
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+      }
     }
   }
 

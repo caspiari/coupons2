@@ -30,11 +30,14 @@ export default class EditUser extends Component<any, EditUserState> {
             axios.defaults.headers.common["Authorization"] = token;
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
             this.setState({ companies: response.data });
-        } catch(err) {
+        } catch (err) {
             console.log(err.message);
-            alert(err.response.data.errorMessage);
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+            }
         }
-    } 
+    }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
         const username = event.target.value;
@@ -69,7 +72,7 @@ export default class EditUser extends Component<any, EditUserState> {
     private register = async () => {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-            this.state.userType, this.state.companyId);
+                this.state.userType, this.state.companyId);
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);
@@ -77,7 +80,10 @@ export default class EditUser extends Component<any, EditUserState> {
         }
         catch (err) {
             console.log(err.message);
-            alert(err.response.data.errorMessage);
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+            }
         }
     }
 
@@ -91,7 +97,7 @@ export default class EditUser extends Component<any, EditUserState> {
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {/* //  <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> } */}
                 {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
-                    User type:&nbsp;&nbsp; 
+                    User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
                         <option disabled selected key="default">
                             -- select user type --
@@ -100,15 +106,15 @@ export default class EditUser extends Component<any, EditUserState> {
                     </select>
                 </div>}
                 {this.state.userType === UserType.COMPANY && <div>
-                    Company:&nbsp; 
+                    Company:&nbsp;
                     <select name="companySelect" onChange={this.setCompanyId}>
                         <option disabled selected key="default">
                             -- select company --
                         </option>
-                            {this.state.companies.map((Company, index) => (
-                        <option value={Company.id} key={index}>
-                            {Company.name}
-                        </option>))}
+                        {this.state.companies.map((Company, index) => (
+                            <option value={Company.id} key={index}>
+                                {Company.name}
+                            </option>))}
                     </select>
                 </div>}
                 <br />

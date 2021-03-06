@@ -36,11 +36,14 @@ export default class Coupons extends Component<any, CouponsState> {
         const token = sessionStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = token;
         const id = +sessionStorage.getItem("companyId");
-        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byCompanyId", {params: {companyId: id}});
+        const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byCompanyId", { params: { companyId: id } });
         this.setState({ coupons: response.data });
       }
     } catch (err) {
-      alert(err.response.data.errorMessage);
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+      }
       console.log(JSON.stringify(err));
     }
   }

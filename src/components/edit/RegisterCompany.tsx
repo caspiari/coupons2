@@ -40,7 +40,10 @@ export default class Register extends Component<any, RegisterState> {
             this.props.history.goBack();
         }
         catch (err) {
-            alert(err.response.data.errorMessage);
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+            }
         }
     }
 

@@ -38,19 +38,19 @@ export default class Login extends Component<any, ILoginState> {
         console.log("Entered login");
         try {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
-            const response =  await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
+            const response = await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
             const serverResponse = response.data;
-            let userType : UserType = serverResponse.userType as UserType;
+            let userType: UserType = serverResponse.userType as UserType;
             store.dispatch({ type: ActionType.LOGIN, payload: userType });
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType", serverResponse.userType);
-            if(userType.valueOf() === UserType.COMPANY.valueOf()) {
+            if (userType.valueOf() === UserType.COMPANY.valueOf()) {
                 sessionStorage.setItem("companyId", String(serverResponse.companyId));
             }
-            axios.defaults.headers.common["Authorization"]= serverResponse.token;
+            axios.defaults.headers.common["Authorization"] = serverResponse.token;
             console.log(serverResponse);
-            
+
             if (serverResponse.userType === "ADMIN") {
                 this.props.history.push('/admin')
             }
@@ -58,12 +58,15 @@ export default class Login extends Component<any, ILoginState> {
                 // console.log("login props: " + JSON.stringify(this.props));
                 this.props.history.push('/customer')
             }
-            else{
+            else {
                 this.props.history.push('/company')
             }
         }
         catch (err) {
-            alert(err.response.data.errorMessage);
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+            }
         }
         console.log("Login ended");
     }

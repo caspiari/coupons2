@@ -19,7 +19,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { username: "", password: "", firstName: "", lastName: "", userType: null, companies: [] };
+        this.state = { username: "", password: "", firstName: "", lastName: "", userType: UserType.CUSTOMER, companies: [] };
     }
 
     private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
@@ -30,11 +30,14 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             axios.defaults.headers.common["Authorization"] = token;
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
             this.setState({ companies: response.data });
-        } catch(err) {
+        } catch (err) {
             console.log(err.message);
-            alert(err.response.data.errorMessage);
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+            }
         }
-    } 
+    }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
         const username = event.target.value;
@@ -69,15 +72,18 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
     private register = async () => {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-            this.state.userType, null, this.state.companyId);
+                this.state.userType, null, this.state.companyId);
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);
             this.props.history.goBack();
         }
         catch (err) {
-            console.log(err.message);
-            alert(err.response.data.errorMessage);
+            console.log(JSON.stringify(err));
+            if (err.response != null) {
+                let errorMessage : string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error")? "General error" : errorMessage);
+            }
         }
     }
 
@@ -91,23 +97,23 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {/* //  <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> } */}
                 {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
-                    User type:&nbsp;&nbsp; 
+                    User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
                         <option disabled selected key="userType">
                             -- select user type --
                         </option>
                         {this.userTypes.map((userType, index) => (
-                            <option value={userType} key={index}>{userType}</option>))}
+                            <option value={userType} key={index}>{userType.valueOf()}</option>))}
                     </select>
                 </div>}
                 {this.state.userType === UserType.COMPANY && <div>
-                    Company:&nbsp; 
+                    Company:&nbsp;
                     <select name="companySelect" onChange={this.setCompanyId}>
                         <option disabled selected key="company">
                             -- select company --
                         </option>
-                            {this.state.companies.map((Company, index) => (
-                                <option value={Company.id} key={index}>{Company.name}</option>))}
+                        {this.state.companies.map((Company, index) => (
+                            <option value={Company.id} key={index}>{Company.name}</option>))}
                     </select>
                 </div>}
                 <br />
