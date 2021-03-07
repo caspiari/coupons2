@@ -19,7 +19,7 @@ export default class Admin extends Component<any, IAdminState> {
 
     public async componentDidMount() {
         try {
-            let newState = {...this.state};
+            let newState = { ...this.state };
             const token = sessionStorage.getItem("token");
             axios.defaults.headers.common["Authorization"] = token;
             const response = await axios.get<User[]>("http://localhost:8080/users");
@@ -32,25 +32,33 @@ export default class Admin extends Component<any, IAdminState> {
     }
 
     private setUserId = (event: ChangeEvent<HTMLSelectElement>) => {
-        this.setState({ selectedUserId : +event.target.value} );
+        this.setState({ selectedUserId: +event.target.value });
     }
 
     public render() {
         return (
             <div className="admin">
                 <br />
-                  <h5>Admin page</h5><br />
-                  <NavLink to={"/registerUser"}>Register new user</NavLink><br /><br />
-                  <NavLink to={"/registerCompany"}>Register new company</NavLink><br /><br />
+                <h5>Admin page</h5><br />
+                <NavLink to={"/registerUser"}>Register new user</NavLink><br /><br />
+                <NavLink to={"/registerCompany"}>Register new company</NavLink><br /><br />
                   Select user:&nbsp;&nbsp;
-                    <select name="userIdSelect" onChange={this.setUserId}>
-                        <option defaultValue="" disabled key="default">
-                            -- Select user --
+                <select name="userIdSelect" onChange={this.setUserId}>
+                    <option defaultValue="" key="default">
+                        -- Select user --
                         </option>
-                        {this.state.users.map((user, index) => (<option value={user.id} key={index}>{user.username}</option>))}
-                    </select>
-                  <NavLink to={"/editUser/" + this.state.selectedUserId}>&nbsp;Edit user details</NavLink><br /><br />
+                    {this.state.users.map((user, index) => (<option value={user.id} key={index}>{user.username}</option>))}
+                </select>&nbsp;
+                <NavLink to={{
+                    pathname: '/updateUser',
+                    state: { user: this.state.users.filter(user => user.id === this.state.selectedUserId) }
+                }}>Edit user details</NavLink><br /><br />
 
+                {/* "/editUser/" + this.state.selectedUserId}> */}
+                {/* <Link to={{
+      pathname: '/userB',
+      state: { title: 'Hello...' }
+    }}>Click</Link> */}
             </div>
         );
     }

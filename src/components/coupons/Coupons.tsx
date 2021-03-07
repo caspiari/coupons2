@@ -57,6 +57,9 @@ export default class Coupons extends Component<any, CouponsState> {
     this.props.history.push('/createCoupon')
   }
 
+  componentWillUnmount() {
+    this.unsubscribeStore();
+  }
 
   public render() {
     return (

@@ -37,7 +37,8 @@ export default class Menu extends Component<any, IMenuState> {
 
   public render() {
     return (
-      <div className="menu">
+      <div className="menu"> {/* I used components because it was too dirty and complicated otherwise */}
+       <br />
         {sessionStorage.getItem("userType") == null && <DefaultMenu />}
         {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}

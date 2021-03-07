@@ -12,21 +12,22 @@
     text-decoration: none;
     color:white;
     font-size: large;
-    text-shadow: 1px 1px rgb(20, 18, 141);
 }
   
 .menu a:visited {
     text-decoration: none;
     color: white;
-    text-shadow: 1px 1px rgb(23, 22, 85);
 }
   
 .menu a:active {
     color: rgb(0, 0, 255);
-    text-shadow: 1px 1px rgb(23, 22, 85);
 }
 
 .customMenu {
+    display: inline;
+}
+
+.customMenu p {
     display: inline;
 }
 
@@ -48,4 +49,5 @@
 
 .separator {
     font-weight: bold;
+    display: inline;
 }
