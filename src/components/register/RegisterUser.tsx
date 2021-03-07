@@ -34,7 +34,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             console.log(err.message);
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
             }
         }
     }
@@ -82,7 +82,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             console.log(JSON.stringify(err));
             if (err.response != null) {
                 let errorMessage : string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error")? "General error" : errorMessage);
+                alert(errorMessage.includes("General error")? "General error, please try again" : errorMessage);
             }
         }
     }

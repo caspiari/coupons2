@@ -39,7 +39,7 @@ export default class Customer extends Component<any, ICustomerState> {
       console.log(err.message);
       if (err.response != null) {
         let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
       }
     }
   }

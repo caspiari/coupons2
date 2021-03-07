@@ -65,7 +65,7 @@ export default class Login extends Component<any, ILoginState> {
         catch (err) {
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error" : errorMessage);
+                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
             }
         }
         console.log("Login ended");
