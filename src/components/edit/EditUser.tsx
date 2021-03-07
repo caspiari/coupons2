@@ -1,11 +1,11 @@
-import { Component, ChangeEvent } from 'react';
+import { Component, ChangeEvent, PropsWithChildren } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
 import { UserType } from '../../models/UserType';
 import { Company } from '../../models/Company';
 
-interface EditUserState {
+interface IEditUserState {
     username: string;
     password: string;
     firstName: string;
@@ -13,21 +13,32 @@ interface EditUserState {
     userType: UserType;
     companyId?: number;
     companies: Company[];
+    userId: number;
 }
 
-export default class EditUser extends Component<any, EditUserState> {
+export default class EditUser extends Component<any, IEditUserState> {
+
+    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
+    private token = sessionStorage.getItem("token");
+    private userId: number = this.props.match.params.id;
 
     public constructor(props: any) {
         super(props);
-        this.state = { username: "", password: "", firstName: "", lastName: "", userType: null, companies: [] };
+        this.state = { username: "", password: "", firstName: "", lastName: "", userType: null, companies: [], userId: 0 };
     }
 
-    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
-
     public async componentDidMount() {
-        const token = sessionStorage.getItem("token");
         try {
-            axios.defaults.headers.common["Authorization"] = token;
+            axios.defaults.headers.common["Authorization"] = this.token;
+            const userResponse = await axios.get<User>("http://localhost:8080/users/" + this.userId);
+            let newState = {...this.state};
+            newState.username = userResponse.data.username;
+            newState.password = userResponse.data.password;
+            newState.firstName = userResponse.data.firstName;
+            newState.lastName = userResponse.data.lastName;
+            newState.userType = userResponse.data.userType as UserType;
+            this.setState(newState);
+
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
             this.setState({ companies: response.data });
         } catch (err) {

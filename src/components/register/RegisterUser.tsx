@@ -17,12 +17,12 @@ interface RegisterUserState {
 
 export default class RegisterUser extends Component<any, RegisterUserState> {
 
+    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
+
     public constructor(props: any) {
         super(props);
         this.state = { username: "", password: "", firstName: "", lastName: "", userType: UserType.CUSTOMER, companies: [] };
     }
-
-    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
 
     public async componentDidMount() {
         const token = sessionStorage.getItem("token");
