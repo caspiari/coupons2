@@ -96,11 +96,11 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {/* //  <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> } */}
-                {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
+                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <div>
                     User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
-                        <option disabled selected key="defaultValue">
-                            -- select user type --
+                        <option defaultValue="" disabled key="defaultUserType">
+                            -- Select user type --
                         </option>
                         {this.userTypes.map((userType, index) => (
                             <option value={userType} key={index}>{userType.valueOf()}</option>))}
@@ -109,8 +109,8 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 {this.state.userType === UserType.COMPANY && <div>
                     Company:&nbsp;
                     <select name="companySelect" onChange={this.setCompanyId}>
-                        <option disabled selected key="defaultValue">
-                            -- select company --
+                        <option defaultValue="" disabled key="defaultCompany">
+                            -- Select company --
                         </option>
                         {this.state.companies.map((Company, index) => (
                             <option value={Company.id} key={index}>{Company.name}</option>))}

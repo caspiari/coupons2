@@ -29,7 +29,7 @@ export default class Coupons extends Component<any, CouponsState> {
       () => this.setState({ ...newState })
     );
     try {
-      if (sessionStorage.getItem("userType") != UserType.COMPANY.valueOf()) {
+      if (sessionStorage.getItem("userType") !== UserType.COMPANY.valueOf()) {
         const response = await axios.get<Coupon[]>("http://localhost:8080/coupons");
         this.setState({ coupons: response.data });
       } else {
@@ -63,7 +63,7 @@ export default class Coupons extends Component<any, CouponsState> {
       <div className="coupons">
         <br />
         Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
-        {sessionStorage.getItem("userType") != UserType.CUSTOMER.valueOf() && <input type="button" value="Create new coupon" onClick={this.createNewCoupon} />}
+        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <input type="button" value="Create new coupon" onClick={this.createNewCoupon} />}
 
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))

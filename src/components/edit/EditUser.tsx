@@ -23,7 +23,7 @@ export default class EditUser extends Component<any, IEditUserState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { userId: 0, username: "", password: "", firstName: "", lastName: "", userType: null, companies: [] };
+        this.state = { userId: 0, username: "", password: "", firstName: "", lastName: "", userType: UserType.CUSTOMER, companies: [] };
     }
     
     public async componentDidMount() {
@@ -89,8 +89,7 @@ export default class EditUser extends Component<any, IEditUserState> {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
                 this.state.userType, this.state.userId, this.state.companyId);
-            const response = await axios.put("http://localhost:8080/users", user);
-            const serverResponse = response.data;
+            await axios.put("http://localhost:8080/users", user);
             alert("Successfuly updated!");
             this.props.history.goBack();
         }
@@ -112,13 +111,13 @@ export default class EditUser extends Component<any, IEditUserState> {
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {/* //  <ForAdmin userTypes={['CUSTOMER', 'COMPANY', 'ADMIN']} onUserTypeSelected={this.setUserType} onCompanySelected={this.setCompanyId} /> } */}
-                {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
+                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <div>
                     User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
-                        <option defaultValue = {this.state.userType} key="defaultValue">
-                            {this.state.userType}
+                        <option defaultValue= {this.state.userType} key="defaultValue">
+                            {this.state.userType.valueOf()}
                         </option>
-                        {this.userTypes.filter(userType => userType != this.state.userType).map((userType, index) => (<option value={userType} key={index}>{userType}</option>))}
+                        {this.userTypes.filter(userType => userType !== this.state.userType).map((userType, index) => (<option value={userType} key={index}>{userType.valueOf()}</option>))}
                     </select>
                 </div>}
                 {this.state.userType === UserType.COMPANY && <div>

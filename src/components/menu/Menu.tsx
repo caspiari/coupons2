@@ -39,9 +39,9 @@ export default class Menu extends Component<any, IMenuState> {
     return (
       <div className="menu">
         {sessionStorage.getItem("userType") == null && <DefaultMenu />}
-        {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
-        {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
-        {sessionStorage.getItem("userType") == UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}
+        {sessionStorage.getItem("userType") === UserType.COMPANY.valueOf() && <CompanyMenu logOut={this.logOut} />}
         <span className="separator">&ensp;|&ensp;</span>
         <NavLink to="/about" exact>About</NavLink>
       </div>

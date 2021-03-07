@@ -44,7 +44,7 @@ export default class Admin extends Component<any, IAdminState> {
                   <NavLink to={"/registerCompany"}>Register new company</NavLink><br /><br />
                   Select user:&nbsp;&nbsp;
                     <select name="userIdSelect" onChange={this.setUserId}>
-                        <option disabled defaultValue="" key="default">
+                        <option defaultValue="" disabled key="default">
                             -- Select user --
                         </option>
                         {this.state.users.map((user, index) => (<option value={user.id} key={index}>{user.username}</option>))}

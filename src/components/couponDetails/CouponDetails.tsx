@@ -54,7 +54,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   }
 
   private delete = async () => {
-    if (window.confirm("Do you want to delete this coupon?") == true) {
+    if (window.confirm("Do you want to delete this coupon?") === true) {
       try {
         const response = await axios.delete("http://localhost:8080/coupons/" + this.couponId);
         this.setState({ coupon: response.data });
@@ -97,10 +97,10 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Amount: {this.state.coupon.amount}</h3>
         <h3>Start date: {Card.formatTime(this.state.coupon.startDate)}</h3>
         <h3>End date: {Card.formatTime(this.state.coupon.endDate)}</h3>
-        {sessionStorage.getItem("userType") == UserType.CUSTOMER.valueOf()
+        {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
           && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
-        {sessionStorage.getItem("userType") != UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
+        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
       </div>
     );
   }
