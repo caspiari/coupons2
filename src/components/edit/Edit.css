@@ -1,24 +1,24 @@
-.register input {
+.edit input {
     font-size: large;
     padding : 5px;
     margin: 2px;
 }
 
-.register input:hover{
+.edit input:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.register  select {
+.edit  select {
     width: 235px;
     height: 35px;
     font-size: large;
     margin: 5px;
 }
 
-.register select:hover {
+.edit select:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-.register {
+.edit {
     text-align: center;
 }

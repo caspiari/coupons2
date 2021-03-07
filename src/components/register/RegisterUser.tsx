@@ -99,7 +99,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
                     User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
-                        <option disabled selected key="userType">
+                        <option disabled selected key="defaultValue">
                             -- select user type --
                         </option>
                         {this.userTypes.map((userType, index) => (
@@ -109,7 +109,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 {this.state.userType === UserType.COMPANY && <div>
                     Company:&nbsp;
                     <select name="companySelect" onChange={this.setCompanyId}>
-                        <option disabled selected key="company">
+                        <option disabled selected key="defaultValue">
                             -- select company --
                         </option>
                         {this.state.companies.map((Company, index) => (
@@ -117,7 +117,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                     </select>
                 </div>}
                 <br />
-                <input type="button" value="register" onClick={this.register} />
+                <input type="button" value="Register" onClick={this.register} />
             </div>
         );
     }

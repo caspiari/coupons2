@@ -1,46 +1,51 @@
-import { Component, ChangeEvent, PropsWithChildren } from 'react';
+import { Component, ChangeEvent } from 'react';
 import axios from "axios";
-import "./Register.css";
+import "./Edit.css";
 import { User } from '../../models/User';
 import { UserType } from '../../models/UserType';
 import { Company } from '../../models/Company';
 
 interface IEditUserState {
+    userId: number;
     username: string;
     password: string;
     firstName: string;
     lastName: string;
     userType: UserType;
-    companyId?: number;
     companies: Company[];
-    userId: number;
+    companyId?: number;
+    companyName?: string;
 }
 
 export default class EditUser extends Component<any, IEditUserState> {
 
     private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
-    private token = sessionStorage.getItem("token");
-    private userId: number = this.props.match.params.id;
 
     public constructor(props: any) {
         super(props);
-        this.state = { username: "", password: "", firstName: "", lastName: "", userType: null, companies: [], userId: 0 };
+        this.state = { userId: 0, username: "", password: "", firstName: "", lastName: "", userType: null, companies: [] };
     }
-
+    
     public async componentDidMount() {
+        const token = sessionStorage.getItem("token");
+        const userId = this.props.match.params.id;
+        axios.defaults.headers.common["Authorization"] = token;
         try {
-            axios.defaults.headers.common["Authorization"] = this.token;
-            const userResponse = await axios.get<User>("http://localhost:8080/users/" + this.userId);
+            const response = await axios.get<User>("http://localhost:8080/users/" + userId);
             let newState = {...this.state};
-            newState.username = userResponse.data.username;
-            newState.password = userResponse.data.password;
-            newState.firstName = userResponse.data.firstName;
-            newState.lastName = userResponse.data.lastName;
-            newState.userType = userResponse.data.userType as UserType;
+            newState.userId = response.data.id;
+            newState.username = response.data.username;
+            newState.password = response.data.password;
+            newState.firstName = response.data.firstName;
+            newState.lastName = response.data.lastName;
+            newState.userType = response.data.userType as UserType;
+            newState.companyId = response.data.companyId;
+            const companiesResponse = await axios.get<Company[]>("http://localhost:8080/companies");
+            newState.companies = companiesResponse.data;
+            if(response.data.userType === UserType.COMPANY && response.data.companyId !== null) {
+                newState.companyName = newState.companies.filter(company => company.id === newState.companyId)[0].name;
+            }
             this.setState(newState);
-
-            const response = await axios.get<Company[]>("http://localhost:8080/companies");
-            this.setState({ companies: response.data });
         } catch (err) {
             console.log(err.message);
             if (err.response != null) {
@@ -80,13 +85,13 @@ export default class EditUser extends Component<any, IEditUserState> {
         this.setState({ companyId });
     }
 
-    private register = async () => {
+    private edit = async () => {
         try {
             let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-                this.state.userType, this.state.companyId);
-            const response = await axios.post<number>("http://localhost:8080/users", user);
+                this.state.userType, this.state.userId, this.state.companyId);
+            const response = await axios.put("http://localhost:8080/users", user);
             const serverResponse = response.data;
-            alert("Successful registration! Your user id is: " + serverResponse);
+            alert("Successfuly updated!");
             this.props.history.goBack();
         }
         catch (err) {
@@ -101,7 +106,7 @@ export default class EditUser extends Component<any, IEditUserState> {
     public render() {
         return (
             <div className="edit">
-                <h1>Register new user</h1>
+                <h1>Edit user (Id: {this.state.userId})</h1>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
@@ -110,26 +115,26 @@ export default class EditUser extends Component<any, IEditUserState> {
                 {sessionStorage.getItem("userType") == UserType.ADMIN.valueOf() && <div>
                     User type:&nbsp;&nbsp;
                     <select name="userTypeSelect" onChange={this.setUserType}>
-                        <option disabled selected key="default">
-                            -- select user type --
+                        <option defaultValue = {this.state.userType} key="defaultValue">
+                            {this.state.userType}
                         </option>
-                        {this.userTypes.map((userType, index) => (<option value={userType} key={index}>{userType}</option>))}
+                        {this.userTypes.filter(userType => userType != this.state.userType).map((userType, index) => (<option value={userType} key={index}>{userType}</option>))}
                     </select>
                 </div>}
                 {this.state.userType === UserType.COMPANY && <div>
                     Company:&nbsp;
-                    <select name="companySelect" onChange={this.setCompanyId}>
-                        <option disabled selected key="default">
-                            -- select company --
+                    <select name="Company select" onChange={this.setCompanyId}>
+                        <option defaultValue = {this.state.companyId === undefined? 0 : this.state.companyId} key="defaultCompany">
+                            {this.state.companyName === null? "-- Select company --" : this.state.companyName}
                         </option>
-                        {this.state.companies.map((Company, index) => (
-                            <option value={Company.id} key={index}>
-                                {Company.name}
+                        {this.state.companies.filter(company => company.name !== this.state.companyName).map((company, index) => (
+                            <option value={company.id} key={index}>
+                                {company.name}
                             </option>))}
                     </select>
                 </div>}
                 <br />
-                <input type="button" value="register" onClick={this.register} />
+                <input type="button" value="Edit" onClick={this.edit} />
             </div>
         );
     }
