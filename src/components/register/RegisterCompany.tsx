@@ -49,6 +49,10 @@ export default class Register extends Component<any, RegisterState> {
         }
     }
 
+    private back = () => {
+        this.props.history.goBack();
+      }
+    
     public render() {
         return (
             <div className="register">
@@ -58,6 +62,7 @@ export default class Register extends Component<any, RegisterState> {
                 Phone:&ensp;&nbsp; <input type="number" name="phone" value={this.state.phone} onChange={this.setPhone} /><br />
                 <br />
                 <input type="button" value="register" onClick={this.register} />
+                <input type="button" value="Back" onClick={this.back} />
             </div>
         );
     }

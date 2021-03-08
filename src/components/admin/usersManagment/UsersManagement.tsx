@@ -52,7 +52,9 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.setState({ userIdFilter });
     }
 
-    private user = new User("aaa", "aaa", "aaa", "aaa", UserType.ADMIN);
+    private back = () => {
+        this.props.history.goBack();
+    }
 
     public render() {
         return (
@@ -63,7 +65,9 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                 <br />
 
                 {this.state.users.map(user => <UserCard key={user.id} user={user} />)}
-                
+              
+                <br /><input type="button" value="Back" onClick={this.back} />
+
             </div>
         );
     }

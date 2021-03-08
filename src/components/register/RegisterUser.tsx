@@ -66,7 +66,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
 
     private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
         const userType = event.target.value as UserType;
-        if(userType === UserType.COMPANY) {
+        if (userType === UserType.COMPANY) {
             store.dispatch({ type: ActionType.IS_COMPANY, payload: true })
         } else {
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
@@ -92,12 +92,16 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
         catch (err) {
             console.log(JSON.stringify(err));
             if (err.response != null) {
-                let errorMessage : string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error")? "General error, please try again" : errorMessage);
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
             } else {
                 console.log(JSON.stringify(err))
             }
         }
+    }
+
+    private back = () => {
+        this.props.history.goBack();
     }
 
     public render() {
@@ -108,10 +112,11 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} setUserType={this.setUserType} 
-                setCompanyId={this.setCompanyId} companies={this.state.companies} /> }
+                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} setUserType={this.setUserType}
+                    setCompanyId={this.setCompanyId} companies={this.state.companies} />}
                 <br />
-                <input type="button" value="Register" onClick={this.register} />
+                <input type="button" value="Register" onClick={this.register} /> 
+                <input type="button" value="Back" onClick={this.back} />
             </div>
         );
     }

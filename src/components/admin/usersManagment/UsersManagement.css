@@ -1,5 +1,16 @@
 .usersManagement {
     text-align: center;
+    font-size: 15px;
+}
+
+.usersManagement input {
+    font-size: large;
+    padding : 5px;
+    margin: 2px;
+}
+  
+.usersManagement input:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .userCard {
@@ -15,9 +26,4 @@
         word-wrap: break-word;
         /* max-width: 100%; */
         overflow-x: hidden;
-}
-
-.userDetails {
-    text-align: center;
-
 }
