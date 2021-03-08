@@ -36,6 +36,8 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
                 alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            } else {
+                console.log(JSON.stringify(err))
             }
         }
     }
@@ -50,27 +52,6 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.setState({ userIdFilter });
     }
 
-    private onUserSelect = (event) => {
-        console.log(JSON.stringify(event));
-        // const selectedUser = this.state.users.find(user => user.id === +event.target.);
-        // this.setState({ selectedUser });
-    }
-
-    private editUser = () => {
-        this.props.history.push({
-            pathname: '/updateUser',
-            state: {
-                username: this.state.selectedUser.username,
-                password: this.state.selectedUser.password,
-                firstName: this.state.selectedUser.firstName,
-                lastName: this.state.selectedUser.lastName,
-                userType: this.state.selectedUser.userType,
-                companyId: this.state.selectedUser.companyId,
-                id: this.state.selectedUser.id
-            }
-        });
-    }
-
     private user = new User("aaa", "aaa", "aaa", "aaa", UserType.ADMIN);
 
     public render() {
@@ -83,7 +64,6 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
 
                 {this.state.users.map(user => <UserCard key={user.id} user={user} />)}
                 
-                <input type="button" value="Edit" onClick={this.editUser} />
             </div>
         );
     }

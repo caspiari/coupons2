@@ -44,6 +44,8 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
                 alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            } else {
+                console.log(JSON.stringify(err))
             }
         }
     }
@@ -95,14 +97,20 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
                 alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            } else {
+                console.log(JSON.stringify(err))
             }
         }
+    }
+
+    private back = () => {
+        this.props.history.goBack();
     }
 
     public render() {
         return (
             <div className="update">
-                <h1>Update user [Id: {this.state.id}]</h1>
+                <h3>Update user [Id: {this.state.id}]</h3>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
@@ -110,7 +118,8 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
                 {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} companies={this.state.companies} 
                  userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
-                <input type="button" value="Edit" onClick={this.update} />
+                <input type="button" value="Update" onClick={this.update} />
+                <input type="button" value="Back" onClick={this.back} />
             </div>
         );
     }

@@ -43,6 +43,8 @@ export default class Register extends Component<any, RegisterState> {
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
                 alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            } else {
+                console.log(JSON.stringify(err))
             }
         }
     }

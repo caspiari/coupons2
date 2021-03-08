@@ -15,6 +15,7 @@ import Company from '../company/Company';
 import RegisterCompany from '../register/RegisterCompany';
 import UpdateUser from '../update/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
+import UserDetails from '../admin/usersManagment/userDetails/UserDetails';
 
 export default class Layout extends Component {
   public render() {
@@ -40,7 +41,8 @@ export default class Layout extends Component {
               <Route path="/usersManagement" component={UsersManagement} exact />
               <Route path="/registerUser" component={RegisterUser} exact />
               <Route path="/registerCompany" component={RegisterCompany} exact />   
-              <Route path="/updateUser" component={UpdateUser} exact />   
+              <Route path="/updateUser" component={UpdateUser} exact />
+              <Route path="/userDetails" component={UserDetails} exact />   
               <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
