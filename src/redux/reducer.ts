@@ -9,7 +9,7 @@ export function reduce(oldAppState: AppState, action: Action): AppState {
         case ActionType.LOGIN:
             newAppState.userType = action.payload;
             break;
-        case ActionType.CHANGE_IS_COMPANY:
+        case ActionType.IS_COMPANY:
             newAppState.isCompany = action.payload;
             break;
     }

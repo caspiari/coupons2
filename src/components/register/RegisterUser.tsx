@@ -65,9 +65,9 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
     private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
         const userType = event.target.value as UserType;
         if(userType === UserType.COMPANY) {
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: true })
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: true })
         } else {
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: false })
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
         }
         this.setState({ userType });
     }
@@ -84,7 +84,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: false })
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
             this.props.history.goBack();
         }
         catch (err) {

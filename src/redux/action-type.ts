@@ -1,3 +1,3 @@
 export enum ActionType {
-    LOGIN, CHANGE_IS_COMPANY, ADD_COMPANIES
+    LOGIN, IS_COMPANY, ADD_COMPANIES
 }

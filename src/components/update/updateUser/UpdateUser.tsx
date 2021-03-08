@@ -1,42 +1,42 @@
 import { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "../Update.css";
-import { User } from '../../../models/User';
 import { UserType } from '../../../models/UserType';
 import { Company } from '../../../models/Company';
 import IfAdmin from './ifAdmin/IfAdmin';
 import { ActionType } from '../../../redux/action-type';
 import { store } from '../../../redux/store';
-
-interface IUpdateUserProps {
-    companies: Company[];
-    user: User;
-}
+import { User } from '../../../models/User';
 
 interface IUpdateUserState {
+    companies: Company[];
+    username: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    userType: UserType;
+    companyId?: number;
+    id?: number;
 }
 
-export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserState> {
+export default class UpdateUser extends Component<any, IUpdateUserState> {
 
     private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
 
     public constructor(props: any) {
         super(props);
-        // this.state = { user: this.props.location.state.user, companies: [] };
+        this.state = { companies: [], username: this.props.location.state.username, password: this.props.location.state.password, firstName: this.props.location.state.firstName,
+                       lastName: this.props.location.state.lastName, userType: this.props.location.state.userType, companyId: this.props.location.state.companyId, id: this.props.location.state.id };
     }
 
     public async componentDidMount() {
         const token = sessionStorage.getItem("token");
-        // const userId = this.props.match.params.id;
         axios.defaults.headers.common["Authorization"] = token;
         try {
-            const response = await axios.get<User>("http://localhost:8080/users/" + this.props.user.id);
-            let newState = { ...this.state };
-            // const companiesResponse = await axios.get<Company[]>("http://localhost:8080/companies");
-            // newState.companies = companiesResponse.data;
-            if (response.data.userType === UserType.COMPANY) {
-                store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: true })
-            }
+            const response = await axios.get<Company[]>("http://localhost:8080/companies");
+            let newState = {...this.state};
+            newState.companies = response.data;
+            console.log(newState.companies);
             this.setState(newState);
         } catch (err) {
             console.log(err.message);
@@ -48,47 +48,45 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
     }
 
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
-        const username = event.target.value;
+        let username = event.target.value;
         this.setState({ username });
     }
 
     private setPassword = (event: ChangeEvent<HTMLInputElement>) => {
-        const password = event.target.value;
+        let password = event.target.value;
         this.setState({ password });
     }
 
     private setFirstName = (event: ChangeEvent<HTMLInputElement>) => {
-        const firstName = event.target.value;
+        let firstName = event.target.value;
         this.setState({ firstName });
     }
 
     private setLastName = (event: ChangeEvent<HTMLInputElement>) => {
-        const lastName = event.target.value;
-        this.setState({ lastName });
-    }
+        let lastName = event.target.value;
+        this.setState({ lastName });    }
 
     private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
-        const userType = event.target.value as UserType;
-        if (userType === UserType.COMPANY) {
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: true })
+        if (event.target.value === UserType.COMPANY) {
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: true })
         } else {
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: false })
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
         }
+        let userType = event.target.value as UserType;
         this.setState({ userType });
     }
 
     private setCompanyId = (event: ChangeEvent<HTMLSelectElement>) => {
-        const companyId = +event.target.value;
+        let companyId = +event.target.value;
         this.setState({ companyId });
     }
 
     private update = async () => {
         try {
-            let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-                this.state.userType, this.state.userId, this.state.companyId);
+            const user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.id, this.state.companyId);
             await axios.put("http://localhost:8080/users", user);
             alert("Successfuly updated!");
-            store.dispatch({ type: ActionType.CHANGE_IS_COMPANY, payload: false })
+            store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
             this.props.history.goBack();
         }
         catch (err) {
@@ -103,7 +101,7 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
     public render() {
         return (
             <div className="update">
-                <h1>Update user (Id: {this.state.userId})</h1>
+                <h1>Update user [Id: {this.state.id}]</h1>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
