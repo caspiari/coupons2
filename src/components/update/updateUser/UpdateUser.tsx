@@ -1,4 +1,4 @@
-import { Component, ChangeEvent } from 'react';
+import { Component } from 'react';
 import axios from "axios";
 import "../Update.css";
 import { UserType } from '../../../models/UserType';
@@ -7,6 +7,7 @@ import IfAdmin from './ifAdmin/IfAdmin';
 import { ActionType } from '../../../redux/action-type';
 import { store } from '../../../redux/store';
 import { User } from '../../../models/User';
+import { ChangeEvent } from 'react';
 
 interface IUpdateUserState {
     companies: Company[];
