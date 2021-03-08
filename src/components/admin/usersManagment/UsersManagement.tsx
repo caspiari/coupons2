@@ -5,6 +5,9 @@ import { User } from '../../../models/User';
 import axios from 'axios';
 import { MouseEventHandler } from 'react';
 import { ChangeEvent } from 'react';
+import { UserType } from '../../../models/UserType';
+import React from 'react';
+import UserCard from '../../card/userCard/UserCard';
 
 interface IUsersManagementState {
     userIdFilter: number;
@@ -32,11 +35,10 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             const users = response.data;
             this.setState({ users });
         } catch (err) {
-            console.log(JSON.stringify(err.response));
-            // if (err.response != null) {
-            //     let errorMessage: string = err.response.data.errorMessage;
-            //     alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            // }
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            }
         }
     }
 
@@ -50,9 +52,9 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.setState({ userIdFilter });
     }
 
-    private onUserSelect = (event: MouseEventHandler<HTMLInputElement>) => {
+    private onUserSelect = (event) => {
         console.log(JSON.stringify(event));
-        // const selectedUser = this.state.users.find(user => user.id === +event.);
+        // const selectedUser = this.state.users.find(user => user.id === +event.target.);
         // this.setState({ selectedUser });
     }
 
@@ -71,6 +73,8 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         });
     }
 
+    private user = new User("aaa", "aaa", "aaa", "aaa", UserType.ADMIN);
+
     public render() {
         return (
             <div className="admin">
@@ -79,11 +83,8 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                 <br />
                 <NavLink to={"/registerUser"}>Register new user</NavLink><br /><br />
 
-                {this.state.users.map(user => {<div>
-                    <h4><input type="radio" key={user.id} checked={this.state.selectedUser === user}>{user.username}</input>
-                    </h4>
-                    </div>
-                })}
+                {this.state.users.map(user => <UserCard                )}
+                
                 {/* Update user details:&nbsp;&nbsp;
                 <select name="userIdSelect" onChange={this.onUserSelect}>
                     <option defaultValue={+sessionStorage.getItem("id")} key="default">-- Select user --</option>
