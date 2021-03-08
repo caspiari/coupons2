@@ -1,3 +1,18 @@
 .usersManagement {
     text-align: center;
 }
+
+.userCard {
+        text-align: center;
+        display: inline-block;
+        height: 80px;
+        width: 200px;
+        margin: 1px;
+        padding: 2px;
+        background-color: whitesmoke;
+        color: rgb(31, 31, 70);
+        overflow-y: auto;
+        word-wrap: break-word;
+        /* max-width: 100%; */
+        overflow-x: hidden;
+}

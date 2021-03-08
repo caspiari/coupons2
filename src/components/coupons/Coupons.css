@@ -9,14 +9,10 @@
     width: 500px;
     margin: 1px;
     padding: 5px;
-    background-color: pink;
-    color: blue;
+    background-color: whitesmoke;
+    color: rgb(17, 17, 54);
     overflow-y: auto;
     word-wrap: break-word;
     /* max-width: 100%; */
     overflow-x: hidden;
- }
-
- .card a {
-     
  }

@@ -3,10 +3,8 @@ import "./UsersManagement.css"
 import { NavLink } from 'react-router-dom';
 import { User } from '../../../models/User';
 import axios from 'axios';
-import { MouseEventHandler } from 'react';
 import { ChangeEvent } from 'react';
 import { UserType } from '../../../models/UserType';
-import React from 'react';
 import UserCard from '../../card/userCard/UserCard';
 
 interface IUsersManagementState {
@@ -80,16 +78,11 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             <div className="admin">
                 <br />
                 <h3>Users management</h3>
-                <br />
                 <NavLink to={"/registerUser"}>Register new user</NavLink><br /><br />
+                <br />
 
-                {this.state.users.map(user => <UserCard                )}
+                {this.state.users.map(user => <UserCard key={user.id} user={user} />)}
                 
-                {/* Update user details:&nbsp;&nbsp;
-                <select name="userIdSelect" onChange={this.onUserSelect}>
-                    <option defaultValue={+sessionStorage.getItem("id")} key="default">-- Select user --</option>
-                    {this.state.users.map((user, index) => (<option value={user.id} key={index}>{user.username}</option>))}
-                </select>&nbsp; */}
                 <input type="button" value="Edit" onClick={this.editUser} />
             </div>
         );
