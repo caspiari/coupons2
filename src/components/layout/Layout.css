@@ -8,10 +8,6 @@
   font-family: arial, sans-serif;
 }
 
-.layout> * {
-  /* border: 2px solid red; */
-}
-
 .layout>header {
   min-height: 100%;
   text-align: center;
@@ -19,9 +15,8 @@
 
 .layout>menu {
   background-image: url(menu.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  min-height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .layout>main {

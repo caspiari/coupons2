@@ -1,13 +1,12 @@
 
+menu {
+    margin: 0;
+}
+
 .menu {
-    /* background-image: url(menu.jpg);
-    background-size: cover;
-    background-repeat: no-repeat; */
-    height: 100%;
-    padding: 0%;
+    padding: 15px;
     color: white;
     display: inline;
-    border: 2px black;
 }
 
 .menu a:link {
@@ -22,34 +21,36 @@
 }
   
 .menu a:active {
-    color: rgb(0, 0, 255);
+    color: rgb(24, 24, 59);
 }
 
 .customMenu {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    margin: 0%;
+    padding: 0%;
+    color: whitesmoke;
     display: inline;
 }
 
-.customMenu p {
-    display: inline;
-}
-
-.customMenu input[type=button]{
-    color:white;
+.customMenu a:link {
     text-decoration: none;
-    text-shadow: 1px 1px 1px rgb(23, 22, 85);
-    font-size: large;
-    background: none!important;
-    border: none;
-    padding: 0!important;
-    cursor: pointer;
+    color: whitesmoke;
 }
-
-.customMenu input[type=button]:active{
-    color: rgb(0, 0, 255);
-    text-shadow: 1px 1px rgb(23, 22, 85);
+  
+.customMenu a:visited {
+    text-decoration: none;
+    color: whitesmoke;
+}
+  
+.customMenu a:active {
+    color: rgb(24, 24, 59);
 }
 
 .separator {
     font-weight: bold;
+    color: whitesmoke;
     display: inline;
 }
