@@ -85,6 +85,10 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     }
   }
 
+  private back = () => {
+    this.props.history.goBack();
+  }
+
   public render() {
     return (
       <div className="CouponDetails">
@@ -101,6 +105,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
           && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
         {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
+        &nbsp;&nbsp;<input type="button" value="Back" onClick={this.back} />
       </div>
     );
   }

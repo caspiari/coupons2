@@ -5,10 +5,12 @@ import { Unsubscribe } from 'redux';
 import { Coupon } from '../../models/Coupon';
 import { store } from '../../redux/store';
 import Card from '../card/Card';
+import './Customer.css';
 
 interface ICustomerState {
   coupons: Coupon[];
   nameFilter: string;
+  companyFilter: string;
 }
 
 export default class Customer extends Component<any, ICustomerState> {
@@ -17,7 +19,7 @@ export default class Customer extends Component<any, ICustomerState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupons: [], nameFilter: "" };
+    this.state = { coupons: [], nameFilter: "", companyFilter: "" };
   }
 
   public async componentDidMount() {
@@ -50,17 +52,23 @@ export default class Customer extends Component<any, ICustomerState> {
     this.unsubscribeStore();
   }
 
-  public onCustomerPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  public onNamePipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     let text = event.target.value;
     this.setState({ nameFilter: text });
+  }
+
+  public onCompanyPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let text = event.target.value;
+    this.setState({ companyFilter: text });
   }
 
   public render() {
     return (
       <div className="customer"> {/* Card css is in Coupons.css */}
         <br />
-        <h3>My coupons:</h3><br />
-        Search by name: <input type="text" onChange={this.onCustomerPipeChanged} />
+        <h2>My purchased coupons:</h2><br />
+        Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
+        Search by company: <input type="text" onChange={this.onCompanyPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
             .map(coupon => <Card key={coupon.id} coupon={coupon} />)}

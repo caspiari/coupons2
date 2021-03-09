@@ -60,8 +60,7 @@ export default class Login extends Component<any, ILoginState> {
             else {
                 this.props.history.push('/company')
             }
-        }
-        catch (err) {
+        } catch (err) {
             if (err.response != null) {
                 let errorMessage: string = err.response.data.errorMessage;
                 alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
@@ -78,7 +77,7 @@ export default class Login extends Component<any, ILoginState> {
                 <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 <div><input type="button" value="Login" onClick={this.login} /></div>
-                <NavLink to={"/register"}>
+                <NavLink to={"/registerUser"}>
                     <input type="button" className="registerInput" value="Register" />
                 </NavLink>
             </div>

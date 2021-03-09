@@ -12,3 +12,24 @@
 .CouponDetails > h2 {
     display: inline-block;
 }
+
+.CouponDetails input {
+    font-size: large;
+    padding : 5px;
+    margin: 2px;
+}
+
+.CouponDetails input:hover{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.CouponDetails  select {
+    width: 235px;
+    height: 35px;
+    font-size: large;
+    margin: 5px;
+}
+
+.CouponDetails select:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

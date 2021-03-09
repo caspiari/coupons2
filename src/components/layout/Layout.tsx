@@ -16,6 +16,7 @@ import RegisterCompany from '../register/RegisterCompany';
 import UpdateUser from '../update/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
 import UserDetails from '../admin/usersManagment/userDetails/UserDetails';
+import Home from '../home/Home';
 
 export default class Layout extends Component {
   public render() {
@@ -26,23 +27,25 @@ export default class Layout extends Component {
           <header>
             <Header />
           </header>
-
-          <Menu />
+          <menu>
+            <Menu />
+          </menu>
 
           <main>
             <Switch>
               <Route path="/about" component={About} exact />
-              <Route path="/home" component={Login} exact />
+              <Route path="/home" component={Home} exact />
+              <Route path="/login" component={Login} exact />
               <Route path="/coupons" component={Coupons} exact />
               <Route path="/admin" component={Admin} exact />
               <Route path="/customer" component={Customer} exact />
               <Route path="/company" component={Company} exact />
-              <Route path="/couponDetails/:id" component={CouponDetails} exact />   
+              <Route path="/couponDetails/:id" component={CouponDetails} exact />
               <Route path="/usersManagement" component={UsersManagement} exact />
               <Route path="/registerUser" component={RegisterUser} exact />
-              <Route path="/registerCompany" component={RegisterCompany} exact />   
+              <Route path="/registerCompany" component={RegisterCompany} exact />
               <Route path="/updateUser" component={UpdateUser} exact />
-              <Route path="/userDetails" component={UserDetails} exact />   
+              <Route path="/userDetails" component={UserDetails} exact />
               <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>

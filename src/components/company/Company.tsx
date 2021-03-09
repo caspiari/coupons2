@@ -6,7 +6,7 @@ import { store } from '../../redux/store';
 export default class Company extends Component<any> {
 
     private unsubscribeStore: Unsubscribe;
-// eslint-disable-next-line
+    
     constructor(props: any) {
         super(props);
     }
@@ -30,7 +30,8 @@ export default class Company extends Component<any> {
         return (
             <div className="Company">
                 <br />
-                Company page
+                <h2>Company page</h2>
+                <br /><br />
                 <input type="button" value="Add coupon" onClick={this.props.logOut} />
             </div>
         );

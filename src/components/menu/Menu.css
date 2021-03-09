@@ -1,11 +1,13 @@
 
 .menu {
-    background-image: url(menu.jpg);
+    /* background-image: url(menu.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+    height: 100%;
     padding: 0%;
     color: white;
     display: inline;
+    border: 2px black;
 }
 
 .menu a:link {

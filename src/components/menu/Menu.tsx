@@ -22,14 +22,23 @@ export default class Menu extends Component<any, IMenuState> {
     super(props);
     this.state = {};
   }
-  
+
   componentDidMount() {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({})
     );
   }
 
-  private logOut = () => {
+  private logOut = async () => {
+    axios.defaults.headers.common["Authorization"] = sessionStorage.getItem("token");
+    try {
+      await axios.post("http://localhost:8080/users/logout");
+    } catch (err) {
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+      } else { console.log(JSON.stringify(err)) }
+    }
     sessionStorage.clear();
     store.dispatch({ type: ActionType.LOGIN, payload: null });
     axios.defaults.headers.common["Authorization"] = "";
@@ -38,7 +47,6 @@ export default class Menu extends Component<any, IMenuState> {
   public render() {
     return (
       <div className="menu"> {/* I used components because it was too dirty and complicated otherwise */}
-       <br />
         {sessionStorage.getItem("userType") == null && <DefaultMenu />}
         {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf() && <CustomerMenu logOut={this.logOut} />}
         {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <AdminMenu logOut={this.logOut} />}

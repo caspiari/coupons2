@@ -12,6 +12,7 @@ interface CouponsState {
   cards: Card[];
   coupons: Coupon[];
   nameFilter: string;
+  companyFilter: string;
 }
 
 export default class Coupons extends Component<any, CouponsState> {
@@ -20,7 +21,7 @@ export default class Coupons extends Component<any, CouponsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { cards: [], coupons: [], nameFilter: "" };
+    this.state = { cards: [], coupons: [], nameFilter: "", companyFilter: "" };
   }
 
   public async componentDidMount() {
@@ -48,9 +49,14 @@ export default class Coupons extends Component<any, CouponsState> {
     }
   }
 
-  public onCouponsPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  public onNamePipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     let text = event.target.value;
     this.setState({ nameFilter: text });
+  }
+
+  public onCompanyPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let text = event.target.value;
+    this.setState({ companyFilter: text });
   }
 
   public createNewCoupon = () => {
@@ -65,12 +71,12 @@ export default class Coupons extends Component<any, CouponsState> {
     return (
       <div className="coupons">
         <br />
-        Search by name: <input type="text" onChange={this.onCouponsPipeChanged} />
-        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <input type="button" value="Create new coupon" onClick={this.createNewCoupon} />}
-
+        Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
+        {sessionStorage.getItem("userType") !== "COMPANY" && <div> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </div>}
+        <br />
         {<ol>
-          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
+          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
+            filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter)).map(coupon => <Card key={coupon.id} coupon={coupon} />)}
         </ol>}
       </div>
     );

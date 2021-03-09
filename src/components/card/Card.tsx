@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Coupon } from '../../models/Coupon';
@@ -12,11 +13,12 @@ export default class Card extends Component<ICardProps> {
     super(props);
   }
 
+
   public static formatTime(time, prefix = "") {
     let date = Date.parse(time); // returns NaN if it can't parse
     let dateObject = new Date(date);
     return Number.isNaN(date) ? "" : prefix + dateObject.toLocaleDateString();
-}
+  }
 
   public render() {
     return (
@@ -33,8 +35,10 @@ export default class Card extends Component<ICardProps> {
           {`Units left: ${this.props.coupon.amount}`}
           <br />
           {`Expiration date: ${Card.formatTime(this.props.coupon.endDate)}`}
+          <br />
         </div>
       </NavLink>
+
     )
   }
 }

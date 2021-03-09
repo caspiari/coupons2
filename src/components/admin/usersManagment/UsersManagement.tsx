@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { User } from '../../../models/User';
 import axios from 'axios';
 import { ChangeEvent } from 'react';
-import { UserType } from '../../../models/UserType';
 import UserCard from '../../card/userCard/UserCard';
 
 interface IUsersManagementState {
@@ -65,6 +64,8 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                 <br />
 
                 {this.state.users.map(user => <UserCard key={user.id} user={user} />)}
+
+                {/* {this.state.users.map(user => <input type="radio" checked={this.state.selectedUser === user}>{user.username}</input>)} */}
               
                 <br /><input type="button" value="Back" onClick={this.back} />
 

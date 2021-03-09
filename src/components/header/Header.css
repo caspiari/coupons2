@@ -4,12 +4,7 @@ header {
 
 .header {
     height: 100%;
-    margin: 0;
-    position: relative;
-    top: 50%;
-    font-size: 40px;
     transform: translateY(-30%);
     color: white;
     font-size: smaller;
-    font-family: "Arial";
 }
