@@ -14,13 +14,13 @@ export default class CustomerMenu extends Component<ICustomerMenuProps> {
 
   public render() {
     return (
-      <div className="customMenu"><p>
+      <span className="menu">
         <NavLink to="/customer" exact>&ensp;My coupons</NavLink>
-        <span className="separator">&ensp; | &ensp;</span>
+        &ensp; | &ensp;
         <NavLink to="/coupons" exact>Coupons</NavLink>
-        <span className="separator">&ensp; | &ensp;</span>
+        &ensp; | &ensp;
         <NavLink to="/home" exact><input type="button" value="Log out" onClick={this.props.logOut} /></NavLink>
-      </p></div>
+      </span>
     );
   }
 }

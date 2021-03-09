@@ -4,53 +4,44 @@ menu {
 }
 
 .menu {
-    padding: 15px;
-    color: white;
+    margin: 0px;
+    padding-left: 15px;
+    padding: 0px;
+    padding-top: 10px;
+    color: whitesmoke;
     display: inline;
+    font-weight: bold;
+    font-size: large;
 }
 
 .menu a:link {
     text-decoration: none;
-    color:white;
-    font-size: large;
+    color:whitesmoke;
+    font-weight: normal;
+
 }
   
 .menu a:visited {
     text-decoration: none;
-    color: white;
+    color: whitesmoke;
+    font-weight: normal;
+
 }
   
 .menu a:active {
     color: rgb(24, 24, 59);
 }
 
-.customMenu {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-    align-content: center;
-    margin: 0%;
-    padding: 0%;
+.menu input {
+    background: none!important;
+    border: none;
+    padding: 0!important;
     color: whitesmoke;
-    display: inline;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: large;
 }
 
-.customMenu a:link {
-    text-decoration: none;
-    color: whitesmoke;
-}
-  
-.customMenu a:visited {
-    text-decoration: none;
-    color: whitesmoke;
-}
-  
-.customMenu a:active {
+.menu input:active {
     color: rgb(24, 24, 59);
-}
-
-.separator {
-    font-weight: bold;
-    color: whitesmoke;
-    display: inline;
 }

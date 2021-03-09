@@ -21,7 +21,7 @@
 
 .layout>main {
   overflow-y: auto;
-  background-color: white;
+  background-color: rgb(153, 153, 153);
 } 
 
 .layout>footer {
