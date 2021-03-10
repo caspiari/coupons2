@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react'
-import { User } from '../../../../models/User';
-import "../UsersManagement.css";
+import { User } from '../../../models/User';
+import "./UserDetails.css";
 
 interface UserDetailsState {
   user: User;
@@ -90,7 +90,7 @@ export default class UserDetails extends Component<any, UserDetailsState> {
 
   public render() {
     return (
-      <div className="usersManagement">
+      <div className="userDetails">
         <br />
         <h3>Id: {this.state.user.id}<br />
         User name: {this.state.user.username}<br />

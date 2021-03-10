@@ -15,7 +15,7 @@ import Company from '../company/Company';
 import RegisterCompany from '../register/RegisterCompany';
 import UpdateUser from '../update/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
-import UserDetails from '../admin/usersManagment/userDetails/UserDetails';
+import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
 
 export default class Layout extends Component {
