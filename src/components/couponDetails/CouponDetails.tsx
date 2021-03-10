@@ -113,6 +113,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   public render() {
     return (
       <div className="CouponDetails">
+        <h2>Coupon details: (id: {this.state.coupon.id})</h2>
         <br />
         <h3>Company: {this.state.coupon.companyName}</h3>
         <h3>Category: {this.state.coupon.category}</h3>

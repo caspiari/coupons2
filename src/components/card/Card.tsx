@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Coupon } from '../../models/Coupon';
+import './Card.css';
 
 interface ICardProps {
   coupon: Coupon;
@@ -24,7 +24,7 @@ export default class Card extends Component<ICardProps> {
     return (
       // <NavLink to={`/couponDetails/${this.props.coupon.id}`}>
         <NavLink to={{
-          pathname: '/couponDetails}',
+          pathname: '/couponDetails',
           state: { coupon: this.props.coupon }
         }}>
         <div className="card">

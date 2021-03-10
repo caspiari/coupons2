@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import axios from "axios";
 import "./UpdateCoupon.css";
-import { UserType } from '../../../models/enums/UserType';
 import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface IUpdateCouponState {
     coupon: Coupon
@@ -49,8 +50,9 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         this.coupon.amount = +event.target.value;
     }
     
-    private setStartDate = (event: ChangeEvent<HTMLInputElement>) => {
-        // this.coupon.startDate = event.target.value;
+    private setStartDate = (date) => {
+        this.coupon.startDate = date;
+        console.log(this.coupon.startDate);
     }
     
     private setEndDate = (event: ChangeEvent<HTMLInputElement>) => {
@@ -103,9 +105,9 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
                 Description: <input type="text" name="description" value={this.coupon.description} onChange={this.setDescription} /><br />
                 Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
                 Amoun in stock: <input type="text" name="amount" value={this.coupon.amount} onChange={this.setAmount} /><br />
-                Start date: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
+                Start date: <DatePicker selected={this.coupon.startDate} onChange={date => this.setStartDate(date)} /><br />
                 Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
-
+                
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
                 <input type="button" value="Back" onClick={this.back} />
