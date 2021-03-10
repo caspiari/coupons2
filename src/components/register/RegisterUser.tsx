@@ -2,7 +2,7 @@ import { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { User } from '../../models/User';
-import { UserType } from '../../models/UserType';
+import { UserType } from '../../models/enums/UserType';
 import { Company } from '../../models/Company';
 import IfAdmin from './ifAdmin/IfAdmin';
 import { store } from '../../redux/store';

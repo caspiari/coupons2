@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
 import { Unsubscribe } from 'redux';
-import { UserType } from '../../models/UserType';
+import { UserType } from '../../models/enums/UserType';
 import { ActionType } from '../../redux/action-type';
 import { store } from '../../redux/store';
 import AdminMenu from './adminMenu/AdminMenu';

@@ -1,5 +1,5 @@
 import { Company } from "../models/Company";
-import { UserType } from "../models/UserType";
+import { UserType } from "../models/enums/UserType";
 
 export class AppState {
     public userType: UserType = null; //For the menu

@@ -22,7 +22,11 @@ export default class Card extends Component<ICardProps> {
 
   public render() {
     return (
-      <NavLink to={`/couponDetails/${this.props.coupon.id}`}>
+      // <NavLink to={`/couponDetails/${this.props.coupon.id}`}>
+        <NavLink to={{
+          pathname: '/couponDetails}',
+          state: { coupon: this.props.coupon }
+        }}>
         <div className="card">
           <u>{this.props.coupon.companyName}</u>
           <br />

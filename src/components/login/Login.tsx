@@ -7,7 +7,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
-import { UserType } from '../../models/UserType';
+import { UserType } from '../../models/enums/UserType';
 
 interface ILoginState {
     username: string,

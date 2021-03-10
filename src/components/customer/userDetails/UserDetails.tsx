@@ -5,7 +5,6 @@ import "./UserDetails.css";
 
 interface UserDetailsState {
   user: User;
-  editMode: boolean;
 }
 
 export default class UserDetails extends Component<any, UserDetailsState> {
@@ -13,7 +12,7 @@ export default class UserDetails extends Component<any, UserDetailsState> {
   constructor(props: any) {
     super(props);
 
-    this.state = { user: this.props.location.state.user, editMode: false };
+    this.state = { user: this.props.location.state.user };
   }
 
   //   public async componentDidMount() {

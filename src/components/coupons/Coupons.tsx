@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
 import { Coupon } from '../../models/Coupon';
-import { UserType } from '../../models/UserType';
+import { UserType } from '../../models/enums/UserType';
 import { store } from '../../redux/store';
 import Card from '../card/Card';
 import "./Coupons.css";

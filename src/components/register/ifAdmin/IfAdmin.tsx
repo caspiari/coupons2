@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
 import { Company } from '../../../models/Company';
-import { UserType } from '../../../models/UserType';
+import { UserType } from '../../../models/enums/UserType';
 import { store } from '../../../redux/store';
 import "../Register.css";
 
