@@ -6,6 +6,7 @@ import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Card from '../../card/Card';
 
 interface IUpdateCouponState {
     id: number;
@@ -17,6 +18,7 @@ interface IUpdateCouponState {
     amount: number;
     startDate: Date;
     endDate: Date;
+    companyId: number;
 }
 
 export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
@@ -26,7 +28,7 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         this.state = {
             id: this.props.location.state.id, companyName: this.props.location.state.companyName, category: this.props.location.state.category,
             name: this.props.location.state.name, description: this.props.location.state.description, price: this.props.location.state.price, amount: this.props.location.state.amount,
-            startDate: this.props.location.state.startDate, endDate: this.props.location.state.endDate
+            startDate: this.props.location.state.startDate, endDate: this.props.location.state.endDate, companyId: this.props.location.state.companyId
         };
     }
 
@@ -58,8 +60,10 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     }
 
     private setStartDate = (date) => {
-        const startDate = date;
-        this.setState({ startDate });
+        // const startDate = date;
+        // this.setState({ startDate });
+        this.date = date;
+        console.log(date);
     }
 
     private setEndDate = (date) => {
@@ -68,8 +72,10 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     }
 
     private update = async () => {
+        const coupon = new Coupon(this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price, 
+            this.state.amount, this.state.startDate, this.state.endDate, this.state.id, this.state.companyName);
         try {
-            await axios.put("http://localhost:8080/coupons", this.coupon);
+            await axios.put("http://localhost:8080/coupons", coupon);
             alert("Successfuly updated!");
             this.props.history.goBack();
         }
@@ -88,6 +94,8 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         this.props.history.goBack();
     }
 
+    private date = new Date(+this.state.startDate.getFullYear, +this.state.startDate.getMonth, +this.state.startDate.getDate);
+
     public render() {
         return (
             <div className="updateCoupon">
@@ -104,9 +112,9 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
                 Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
                 Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
                 Amoun in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
-                Start date: <DatePicker selected={this.state.startDate} onChange={date => this.setStartDate(date)} /><br />
                 Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-                
+                Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
+                End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" />
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
                 <input type="button" value="Back" onClick={this.back} />

@@ -52,7 +52,8 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         price: this.state.coupon.price,
         amount: this.state.coupon.amount,
         startDate: this.state.coupon.startDate,
-        endDate: this.state.coupon.endDate
+        endDate: this.state.coupon.endDate,
+        companyId: this.state.coupon.companyId
       }
     });
   }
