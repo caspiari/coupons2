@@ -2,10 +2,6 @@ import { Component } from 'react';
 import axios from "axios";
 import "./UpdateCoupon.css";
 import { UserType } from '../../../models/enums/UserType';
-import { Company } from '../../../models/Company';
-import { ActionType } from '../../../redux/action-type';
-import { store } from '../../../redux/store';
-import { User } from '../../../models/User';
 import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
@@ -84,14 +80,32 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
 
     public render() {
         return (
+            // id: number;
+    // companyName: string;
+    // category: CouponType;
+    // name: string;
+    // description: string;
+    // price: number;
+    // amount: number;
+    // startDate: Date;
+    // endDate: Date;
             <div className="updateCoupon">
                 <h3>Update coupon [Id: {this.coupon.id}]</h3>
-                User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
-                Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
-                First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
-                Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} companies={this.state.companies} 
-                 userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
+                Category: 
+                <select name="coupon type select" onChange={this.setCategory}>
+                  <option defaultValue={this.coupon.category} key="defaultValue">
+                    {this.coupon.category}
+                  </option>
+                  {this.couponTypes.filter(couponType => couponType !== this.coupon.category).map((couponType, index) => (
+                    <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+                </select><br />
+                Name:&nbsp; <input type="text" name="name" value={this.coupon.name} onChange={this.setName} /><br />
+                Description: <input type="text" name="description" value={this.coupon.description} onChange={this.setDescription} /><br />
+                Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
+                Amoun in stock: <input type="text" name="amount" value={this.coupon.amount} onChange={this.setAmount} /><br />
+                Start date: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
+                Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
+
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
                 <input type="button" value="Back" onClick={this.back} />

@@ -119,7 +119,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         <h3>Name: {this.state.coupon.name}</h3>
         <h3>Description: {this.state.coupon.description}</h3>
         <h3>Price: {this.state.coupon.price}</h3>
-        <h3>Amount: {this.state.coupon.amount}</h3>
+        <h3>Amount in stock: {this.state.coupon.amount}</h3>
         <h3>Start date: {Card.formatTime(this.state.coupon.startDate)}</h3>
         <h3>End date: {Card.formatTime(this.state.coupon.endDate)}</h3>
         {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
