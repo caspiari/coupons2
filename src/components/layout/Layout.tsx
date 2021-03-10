@@ -18,6 +18,7 @@ import UsersManagement from '../admin/usersManagment/UsersManagement';
 import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
 import UpdateCoupon from '../coupons/updateCoupon/UpdateCoupon';
+import CreateCoupon from '../createCoupon/CreateCoupon';
 
 export default class Layout extends Component {
   public render() {
@@ -42,12 +43,13 @@ export default class Layout extends Component {
               <Route path="/customer" component={Customer} exact />
               <Route path="/company" component={Company} exact />
               <Route path="/couponDetails" component={CouponDetails} exact />
+              <Route path="/createCoupon" component={CreateCoupon} exact />
               <Route path="/updateCoupon" component={UpdateCoupon} exact />
               <Route path="/usersManagement" component={UsersManagement} exact />
               <Route path="/registerUser" component={RegisterUser} exact />
-              <Route path="/registerCompany" component={RegisterCompany} exact />
               <Route path="/updateUser" component={UpdateUser} exact />
               <Route path="/userDetails" component={UserDetails} exact />
+              <Route path="/registerCompany" component={RegisterCompany} exact />
               <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>

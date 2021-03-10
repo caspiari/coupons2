@@ -90,7 +90,12 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       alert("Successful purchase! Your purchase id is: " + serverResponse);
       this.props.history.push('/coupons');
     } catch (err) {
-      console.log(err.message);
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+      } else {
+        console.log(JSON.stringify(err))
+      }
     }
   }
 

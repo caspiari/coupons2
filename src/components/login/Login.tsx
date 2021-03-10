@@ -44,7 +44,7 @@ export default class Login extends Component<any, ILoginState> {
             store.dispatch({ type: ActionType.LOGIN, payload: userType });
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
-            sessionStorage.setItem("userType", serverResponse.userType);
+            sessionStorage.setItem("userType", serverResponse.userType.valueOf());
             if (userType.valueOf() === UserType.COMPANY.valueOf()) {
                 sessionStorage.setItem("companyId", String(serverResponse.companyId));
             }

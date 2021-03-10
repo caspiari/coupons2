@@ -34,7 +34,7 @@ export default class Company extends Component<any> {
                 <br />
                 <h2>Company page</h2>
                 <br /><br />
-                <input type="button" value="Add coupon" onClick={this.props.logOut} />
+                <input type="button" value="Create coupon" onClick={this.props.history.push('/createCoupon')} />
             </div>
         );
     }

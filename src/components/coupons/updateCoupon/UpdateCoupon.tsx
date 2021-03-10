@@ -62,8 +62,8 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     private setStartDate = (date) => {
         // const startDate = date;
         // this.setState({ startDate });
-        this.date = date;
-        console.log(date);
+        // this.date = date;
+        // console.log(date);
     }
 
     private setEndDate = (date) => {
@@ -94,7 +94,7 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         this.props.history.goBack();
     }
 
-    private date = new Date(+this.state.startDate.getFullYear, +this.state.startDate.getMonth, +this.state.startDate.getDate);
+    // private date = new Date(+this.state.startDate.getFullYear, +this.state.startDate.getMonth, +this.state.startDate.getDate);
 
     public render() {
         return (
@@ -113,8 +113,8 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
                 Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
                 Amoun in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
                 Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-                Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
-                End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" />
+                {/* Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
+                End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" /> */}
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
                 <input type="button" value="Back" onClick={this.back} />
