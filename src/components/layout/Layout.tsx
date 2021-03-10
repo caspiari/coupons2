@@ -17,6 +17,7 @@ import UpdateUser from '../update/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
 import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
+import UpdateCoupon from '../coupons/updateCoupon/UpdateCoupon';
 
 export default class Layout extends Component {
   public render() {
@@ -40,8 +41,8 @@ export default class Layout extends Component {
               <Route path="/admin" component={Admin} exact />
               <Route path="/customer" component={Customer} exact />
               <Route path="/company" component={Company} exact />
-              {/* <Route path="/couponDetails/:id" component={CouponDetails} exact /> */}
               <Route path="/couponDetails" component={CouponDetails} exact />
+              <Route path="/updateCoupon" component={UpdateCoupon} exact />
               <Route path="/usersManagement" component={UsersManagement} exact />
               <Route path="/registerUser" component={RegisterUser} exact />
               <Route path="/registerCompany" component={RegisterCompany} exact />

@@ -75,8 +75,8 @@ export default class Coupons extends Component<any, CouponsState> {
         {sessionStorage.getItem("userType") !== "COMPANY" && <span> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </span>}
         <br />
         {<ol>
-          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
-            filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter)).map(coupon => <Card key={coupon.id} coupon={coupon} />)}
+          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
+          .filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter)).map(coupon => <Card key={coupon.id} coupon={coupon} />)}
         </ol>}
       </div>
     );

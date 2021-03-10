@@ -9,7 +9,6 @@ import Card from '../card/Card';
 import "./CouponDetails.css";
 
 interface CouponDetailsState {
-  // userType: UserType;
   isAdminOrCompany: boolean;
   coupon: Coupon;
 }
@@ -23,7 +22,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   private unsubscribeStore: Unsubscribe;
   private purchaseAmount: number;
-  // private couponId: number = this.props.match.params.id;
 
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
@@ -36,17 +34,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       () => this.setState({})
     );
     store.getState().userType === "CUSTOMER" ? this.setState({ isAdminOrCompany: false }) : this.setState({ isAdminOrCompany: true });
-
-    // axios.defaults.headers.common["Authorization"] = token;
-    // try {
-    // const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + this.couponId);
-    // let newState = { ...this.state };
-    // newState.coupon = response.data;
-    // newState.userType === "CUSTOMER" ? newState.isAdminOrCompany = false : newState.isAdminOrCompany = true;
-    // this.setState(newState);
-    // } catch (err) {
-    //   console.log(err);
-    // }
   }
 
   componentWillUnmount() {
@@ -57,15 +44,15 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     this.props.history.push({
       pathname: '/updateCoupon',
       state: {
-        coupon: this.state.coupon,
-        // companyName: this.state.coupon.companyName,
-        // category: this.state.coupon.category,
-        // name: this.state.coupon.name,
-        // description: this.state.coupon.description,
-        // price: this.state.coupon.price,
-        // amount: this.state.coupon.amount,
-        // startDate: this.state.coupon.startDate,
-        // endDate: this.state.coupon.endDate
+        id: this.state.coupon.id,
+        companyName: this.state.coupon.companyName,
+        category: this.state.coupon.category,
+        name: this.state.coupon.name,
+        description: this.state.coupon.description,
+        price: this.state.coupon.price,
+        amount: this.state.coupon.amount,
+        startDate: this.state.coupon.startDate,
+        endDate: this.state.coupon.endDate
       }
     });
   }

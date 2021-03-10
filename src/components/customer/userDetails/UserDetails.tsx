@@ -97,7 +97,7 @@ export default class UserDetails extends Component<any, UserDetailsState> {
         Type: {this.state.user.userType}<br />
           {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
         <br /><br />
-        <input type="button" value="Update" onClick={this.editUser} />
+        <input type="button" value="Edit" onClick={this.editUser} />
         <input type="button" value="Delete" onClick={this.delete} />
         <input type="button" value="Back" onClick={this.back} />
 

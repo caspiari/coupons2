@@ -6,7 +6,9 @@ import { store } from '../../redux/store';
 export default class Company extends Component<any> {
 
     private unsubscribeStore: Unsubscribe;
-    
+
+    //This comment tells the compiler to ignoe 'useless constructor':
+    // eslint-disable-next-line
     constructor(props: any) {
         super(props);
     }

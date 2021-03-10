@@ -8,55 +8,63 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface IUpdateCouponState {
-    coupon: Coupon
-    // id: number;
-    // companyName: string;
-    // category: CouponType;
-    // name: string;
-    // description: string;
-    // price: number;
-    // amount: number;
-    // startDate: Date;
-    // endDate: Date;
+    id: number;
+    companyName: string;
+    category: CouponType;
+    name: string;
+    description: string;
+    price: number;
+    amount: number;
+    startDate: Date;
+    endDate: Date;
 }
 
 export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { coupon: this.props.location.state.coupon };
+        this.state = {
+            id: this.props.location.state.id, companyName: this.props.location.state.companyName, category: this.props.location.state.category,
+            name: this.props.location.state.name, description: this.props.location.state.description, price: this.props.location.state.price, amount: this.props.location.state.amount,
+            startDate: this.props.location.state.startDate, endDate: this.props.location.state.endDate
+        };
     }
-    
+
     private couponTypes: CouponType[] = [CouponType.COMPUTERS, CouponType.KITCHEN, CouponType.STEREO];
-    private coupon: Coupon = this.props.location.state.coupon;
 
     private setCategory = (event: ChangeEvent<HTMLSelectElement>) => {
-        this.coupon.category = event.target.value;
+        const category = event.target.value as CouponType;
+        this.setState({ category });
     }
 
     private setName = (event: ChangeEvent<HTMLInputElement>) => {
-        this.coupon.name = event.target.value;
+        const name = event.target.value;
+        this.setState({ name });
     }
 
     private setDescription = (event: ChangeEvent<HTMLInputElement>) => {
-        this.coupon.description = event.target.value;
+        const description = event.target.value;
+        this.setState({ description });
     }
 
     private setPrice = (event: ChangeEvent<HTMLInputElement>) => {
-        this.coupon.price = +event.target.value;
+        const price = +event.target.value;
+        this.setState({ price });
     }
 
     private setAmount = (event: ChangeEvent<HTMLInputElement>) => {
-        this.coupon.amount = +event.target.value;
+        const amount = +event.target.value;
+        this.setState({ amount });
     }
-    
+
     private setStartDate = (date) => {
-        this.coupon.startDate = date;
-        console.log(this.coupon.startDate);
+        const startDate = date;
+        this.setState({ startDate });
     }
-    
-    private setEndDate = (event: ChangeEvent<HTMLInputElement>) => {
-        // this.coupon.endDate = event.target.value;
+
+    private setEndDate = (date) => {
+        const endDate = date;
+        this.setState({ endDate });
     }
 
     private update = async () => {
@@ -82,31 +90,22 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
 
     public render() {
         return (
-            // id: number;
-    // companyName: string;
-    // category: CouponType;
-    // name: string;
-    // description: string;
-    // price: number;
-    // amount: number;
-    // startDate: Date;
-    // endDate: Date;
             <div className="updateCoupon">
-                <h3>Update coupon [Id: {this.coupon.id}]</h3>
+                <h3>Update coupon [Id: {this.state.id}]</h3>
                 Category: 
                 <select name="coupon type select" onChange={this.setCategory}>
-                  <option defaultValue={this.coupon.category} key="defaultValue">
-                    {this.coupon.category}
+                  <option defaultValue={this.state.category} key="defaultValue">
+                    {this.state.category}
                   </option>
-                  {this.couponTypes.filter(couponType => couponType !== this.coupon.category).map((couponType, index) => (
+                  {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
                     <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
                 </select><br />
-                Name:&nbsp; <input type="text" name="name" value={this.coupon.name} onChange={this.setName} /><br />
-                Description: <input type="text" name="description" value={this.coupon.description} onChange={this.setDescription} /><br />
-                Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
-                Amoun in stock: <input type="text" name="amount" value={this.coupon.amount} onChange={this.setAmount} /><br />
-                Start date: <DatePicker selected={this.coupon.startDate} onChange={date => this.setStartDate(date)} /><br />
-                Price: <input type="number" name="price" value={this.coupon.price} onChange={this.setPrice} /><br />
+                Name:&nbsp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
+                Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
+                Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
+                Amoun in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
+                Start date: <DatePicker selected={this.state.startDate} onChange={date => this.setStartDate(date)} /><br />
+                Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
                 
                 <br />
                 <input type="button" value="Update" onClick={this.update} />

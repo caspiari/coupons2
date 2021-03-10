@@ -1,4 +1,4 @@
-import { Component, ChangeEvent } from 'react'
+import { Component } from 'react'
 import "./Home.css";
 import { NavLink } from 'react-router-dom';
 
