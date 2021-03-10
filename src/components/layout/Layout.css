@@ -1,6 +1,4 @@
 .layout {
-  margin:0px;
-  padding:0px;
   background-color: whitesmoke;
   box-sizing: border-box;
   display: grid;
@@ -15,13 +13,13 @@
 
 .layout>menu {
   background-image: url(menu.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .layout>main {
   overflow-y: auto;
-  background-color: rgb(153, 153, 153);
+  background-color: white);
 } 
 
 .layout>footer {

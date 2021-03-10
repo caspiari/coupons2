@@ -104,7 +104,9 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
           && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
-        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <input type="button" value="Delete" onClick={this.delete} />}
+        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <span>
+          <input type="button" value="Delete" onClick={this.delete} />&nbsp;
+          <input type="button" value="Edit" onClick={this.delete} /></span>}
         &nbsp;&nbsp;<input type="button" value="Back" onClick={this.back} />
       </div>
     );

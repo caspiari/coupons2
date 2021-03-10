@@ -72,7 +72,7 @@ export default class Coupons extends Component<any, CouponsState> {
       <div className="coupons">
         <br />
         Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
-        {sessionStorage.getItem("userType") !== "COMPANY" && <div> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </div>}
+        {sessionStorage.getItem("userType") !== "COMPANY" && <span> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </span>}
         <br />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase())).
