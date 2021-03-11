@@ -11,9 +11,25 @@ export default class UserDetails extends Component<any, IUserDetailsState> {
 
   constructor(props: any) {
     super(props);
-    const user = new User(this.props.location.state.username, this.props.location.state.password, this.props.location.state.firstName,
-      this.props.location.state.lastName, this.props.location.state.userType, this.props.location.state.id, this.props.location.state.companyId);
-    this.state = { user };
+    this.state = { user: new User() };
+  }
+
+  public async componentDidMount() {
+    const token = sessionStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = token;
+    const id = this.props.match.params;
+    try {
+      const response = await axios.get<User>("http://localhost:8080/users/" + id);
+      const user = response.data;
+      this.setState({ user });
+    } catch (err) {
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+      } else {
+        console.log(JSON.stringify(err))
+      }
+    }
   }
 
   private delete = async () => {
@@ -33,21 +49,6 @@ export default class UserDetails extends Component<any, IUserDetailsState> {
     }
   }
 
-  private editUser = () => {
-    this.props.history.push({
-      pathname: '/updateUser',
-      state: {
-        username: this.state.user.username,
-        password: this.state.user.password,
-        firstName: this.state.user.firstName,
-        lastName: this.state.user.lastName,
-        userType: this.state.user.userType,
-        companyId: this.state.user.companyId,
-        id: this.state.user.id
-      }
-    });
-  }
-
   private back = () => {
     this.props.history.goBack();
   }
@@ -60,9 +61,9 @@ export default class UserDetails extends Component<any, IUserDetailsState> {
         User name: {this.state.user.username}<br />
         Name: {this.state.user.firstName} {this.state.user.lastName}<br />
         Type: {this.state.user.userType}<br />
-        {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
+          {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
         <br /><br />
-        <input type="button" value="Edit" onClick={this.editUser} />
+        <input type="button" value="Edit" onClick={this.props.history.push('/updateUser' + this.state.user.id)} />
         {sessionStorage.getItem("userType") === "ADMIN" && <input type="button" value="Delete" onClick={this.delete} />}
         <input type="button" value="Back" onClick={this.back} />
 

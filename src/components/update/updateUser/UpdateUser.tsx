@@ -11,7 +11,6 @@ import { ChangeEvent } from 'react';
 
 interface IUpdateUserState {
     companies: Company[];
-    id: number;
     username: string;
     password: string;
     firstName: string;
@@ -22,23 +21,21 @@ interface IUpdateUserState {
 
 export default class UpdateUser extends Component<any, IUpdateUserState> {
 
-    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
-
     public constructor(props: any) {
         super(props);
-        this.state = { companies: [], id: this.props.location.state.id, username: this.props.location.state.username, password: this.props.location.state.password, firstName: this.props.location.state.firstName,
-                       lastName: this.props.location.state.lastName, userType: this.props.location.state.userType, companyId: this.props.location.state.companyId };
+        this.state = { companies: [], username: "", password: "", firstName: "", lastName: "", userType: null, companyId: 0 };
     }
+
+    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
+    private user = new User(this.props.match.params);
 
     public async componentDidMount() {
         const token = sessionStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = token;
         try {
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
-            let newState = {...this.state};
-            newState.companies = response.data;
-            console.log(newState.companies);
-            this.setState(newState);
+            const companies = response.data;
+            this.setState({ companies });
         } catch (err) {
             console.log(err.message);
             if (err.response != null) {
@@ -67,7 +64,8 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
 
     private setLastName = (event: ChangeEvent<HTMLInputElement>) => {
         let lastName = event.target.value;
-        this.setState({ lastName });    }
+        this.setState({ lastName });
+    }
 
     private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
         if (event.target.value === UserType.COMPANY) {
@@ -86,7 +84,7 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
 
     private update = async () => {
         try {
-            const user = new User(this.state.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
+            const user = new User(this.user.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
             await axios.put("http://localhost:8080/users", user);
             alert("Successfuly updated!");
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
@@ -110,13 +108,13 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
     public render() {
         return (
             <div className="update">
-                <h3>Update user [Id: {this.state.id}]</h3>
+                <h3>Update user [Id: {this.user.id}]</h3>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
                 Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} companies={this.state.companies} 
-                 userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
+                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin key={"ifAdmin"} userTypes={this.userTypes} companies={this.state.companies}
+                    userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
                 <input type="button" value="Back" onClick={this.back} />

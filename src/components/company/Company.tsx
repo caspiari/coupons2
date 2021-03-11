@@ -16,14 +16,15 @@ export default class Company extends Component<any, ICompanyState> {
         this.state = { user: new User(), company: new CompanyBean() }
       }
     
+      private userId = sessionStorage.getItem("id");
+      private companyId = sessionStorage.getItem("id");
+
       public async componentDidMount() {
         const token = sessionStorage.getItem("token");
-        const userId = sessionStorage.getItem("id");
-        const companyId = sessionStorage.getItem("id");
         axios.defaults.headers.common["Authorization"] = token;
         try {
-          const response = await axios.get<User>("http://localhost:8080/users/" + userId);
-          const companyResponse = await axios.get<Company>("http://localhost:8080/companies/" + companyId);
+          const response = await axios.get<User>("http://localhost:8080/users/" + this.userId);
+          const companyResponse = await axios.get<Company>("http://localhost:8080/companies/" + this.companyId);
           this.setState({ user: response.data, company: companyResponse as CompanyBean });
         } catch (err) {
           if (err.response != null) {
@@ -35,31 +36,18 @@ export default class Company extends Component<any, ICompanyState> {
         }
       }
 
-      private myUserDetails = () => {
-        this.props.history.push({
-          pathname: '/userDetails',
-          state: {
-            username: this.state.user.username,
-            password: this.state.user.password,
-            firstName: this.state.user.firstName,
-            lastName: this.state.user.lastName,
-            userType: this.state.user.userType,
-            companyId: this.state.user.companyId,
-            id: this.state.user.id
-          }
-        });
-      }
-
     public render() {
         return (
             <div className="Company">
                 <br />
                 <h2>Welcome {this.state.user.firstName} from {this.state.company.name} :)</h2>
                 <br /><br />
-                <br /><input type="button" value="My user details" onClick={this.myUserDetails} />
-                <br /><input type="button" value="My company coupons" onClick={this.props.history.push('/companyDetails')} />
+                <br /><input type="button" value="My user details" onClick={this.props.history.push('/userDetails' + this.userId)} />
+                <br /><input type="button" value="My company details" onClick={this.props.history.push('/companyDetails' + this.companyId)} />
+                <br /><input type="button" value="My company coupons" onClick={this.props.history.push('/coupons')} />
                 <br /><input type="button" value="Create coupon" onClick={this.props.history.push('/createCoupon')} />
             </div>
         );
     }
 }
+

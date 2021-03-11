@@ -4,7 +4,6 @@ import "../Update.css";
 import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface IUpdateCouponState {
@@ -25,13 +24,30 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     public constructor(props: any) {
         super(props);
         this.state = {
-            id: this.props.location.state.id, companyName: this.props.location.state.companyName, category: this.props.location.state.category,
-            name: this.props.location.state.name, description: this.props.location.state.description, price: this.props.location.state.price, amount: this.props.location.state.amount,
-            startDate: this.props.location.state.startDate, endDate: this.props.location.state.endDate, companyId: this.props.location.state.companyId
+            id: this.props.location.state.id, companyName: "", category: null, name: "", description: "",
+            price: 0, amount: 0, startDate: null, endDate: null, companyId: 0
         };
     }
 
     private couponTypes: CouponType[] = [CouponType.COMPUTERS, CouponType.KITCHEN, CouponType.STEREO];
+
+    // public async componentDidMount() {
+    //     const token = sessionStorage.getItem("token");
+    //     axios.defaults.headers.common["Authorization"] = token;
+    //     try {
+    //         const response = await axios.get<Company[]>("http://localhost:8080/companies");
+    //         const companies = response.data;
+    //         this.setState({ companies });
+    //     } catch (err) {
+    //         console.log(err.message);
+    //         if (err.response != null) {
+    //             let errorMessage: string = err.response.data.errorMessage;
+    //             alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+    //         } else {
+    //             console.log(JSON.stringify(err))
+    //         }
+    //     }
+    // }
 
     private setCategory = (event: ChangeEvent<HTMLSelectElement>) => {
         const category = event.target.value as CouponType;
@@ -71,8 +87,8 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     }
 
     private update = async () => {
-        const coupon = new Coupon(this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price, 
-            this.state.amount, this.state.startDate, this.state.endDate, this.state.id, this.state.companyName);
+        const coupon = new Coupon(this.state.id, this.state.category, this.state.name, this.state.companyId, 
+            this.state.description, this.state.price, this.state.amount, this.state.startDate, this.state.endDate);
         try {
             await axios.put("http://localhost:8080/coupons", coupon);
             alert("Successfuly updated!");
@@ -99,13 +115,13 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         return (
             <div className="updateCoupon">
                 <h3>Update coupon [Id: {this.state.id}]</h3>
-                Category: 
+                Category:
                 <select name="coupon type select" onChange={this.setCategory}>
-                  <option defaultValue={this.state.category} key="defaultValue">
-                    {this.state.category}
-                  </option>
-                  {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
-                    <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+                    <option defaultValue={this.state.category} key="defaultValue">
+                        {this.state.category}
+                    </option>
+                    {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
+                        <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
                 </select><br />
                 Name:&nbsp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
                 Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />

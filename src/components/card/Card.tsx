@@ -1,10 +1,10 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Coupon } from '../../models/Coupon';
 import './Card.css';
 
 interface ICardProps {
   coupon: Coupon;
+  onCardClick: any;
 }
 
 export default class Card extends Component<ICardProps> {
@@ -22,12 +22,7 @@ export default class Card extends Component<ICardProps> {
 
   public render() {
     return (
-      // <NavLink to={`/couponDetails/${this.props.coupon.id}`}>
-        <NavLink to={{
-          pathname: '/couponDetails',
-          state: { coupon: this.props.coupon }
-        }}>
-        <div className="card">
+        <div className="card" onClick={this.props.onCardClick}>
           <u>{this.props.coupon.companyName}</u>
           <br />
           <i>{this.props.coupon.category}</i>
@@ -41,7 +36,6 @@ export default class Card extends Component<ICardProps> {
           {`Expiration date: ${Card.formatTime(this.props.coupon.endDate)}`}
           <br />
         </div>
-      </NavLink>
 
     )
   }

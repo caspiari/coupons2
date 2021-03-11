@@ -79,7 +79,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
   }
 
   public create = async () => {
-    const coupon = new Coupon(this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price,
+    const coupon = new Coupon(null, this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price,
       this.state.amount, this.state.startDate, this.state.endDate);
     try {
       const response = await axios.post<number>("http://localhost:8080/coupons", coupon);

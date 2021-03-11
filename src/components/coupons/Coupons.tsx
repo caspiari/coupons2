@@ -59,6 +59,10 @@ export default class Coupons extends Component<any, CouponsState> {
     this.setState({ companyFilter: text });
   }
 
+  private onCardClick = (id: number) => {
+    this.props.history.push('/couponDetails/' + id);
+  }
+
   public createNewCoupon = () => {
     this.props.history.push('/createCoupon')
   }
@@ -74,10 +78,10 @@ export default class Coupons extends Component<any, CouponsState> {
         Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
         {sessionStorage.getItem("userType") !== "COMPANY" && <span> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </span>}
         <br />
-        {<ol>
+        {/* {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-          .filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter)).map(coupon => <Card key={coupon.id} coupon={coupon} />)}
-        </ol>}
+          .filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter)).map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={this.onCardClick(coupon.id)} />)}
+        </ol>} */}
       </div>
     );
   }

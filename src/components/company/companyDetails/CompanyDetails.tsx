@@ -11,8 +11,25 @@ export default class CompanyDetails extends Component<any, ICompanyDetailsState>
 
     constructor(props: any) {
         super(props);
-        const company = new Company(this.props.location.state.id, this.props.location.state.name, this.props.location.state.address, this.props.location.state.phone);
-        this.state = { company };
+        this.state = { company: new Company() };
+    }
+
+    public async componentDidMount() {
+        const token = sessionStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] = token;
+        const id = this.props.match.params;
+        try {
+            const response = await axios.get<Company>("http://localhost:8080/companies/" + id);
+            const company = response.data;
+            this.setState({ company });
+        } catch (err) {
+            if (err.response != null) {
+                let errorMessage: string = err.response.data.errorMessage;
+                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+            } else {
+                console.log(JSON.stringify(err))
+            }
+        }
     }
 
     private delete = async () => {
@@ -32,18 +49,6 @@ export default class CompanyDetails extends Component<any, ICompanyDetailsState>
         }
     }
 
-    private editcompany = () => {
-        this.props.history.push({
-            pathname: '/updateCompany',
-            state: {
-                id: this.state.company.id,
-                name: this.state.company.name,
-                address: this.state.company.address,
-                phone: this.state.company.phone
-            }
-        });
-    }
-
     private back = () => {
         this.props.history.goBack();
     }
@@ -52,12 +57,12 @@ export default class CompanyDetails extends Component<any, ICompanyDetailsState>
         return (
             <div className="companyDetails">
                 <br /><h3>Company details:</h3><br />
-        Id: {this.state.company.id}<br />
-        Name: {this.state.company.name}<br />
-        Address: {this.state.company.address}<br />
-        Phone: {this.state.company.phone}<br />
+                Id: {this.state.company.id}<br />
+                Name: {this.state.company.name}<br />
+                Address: {this.state.company.address}<br />
+                Phone: {this.state.company.phone}<br />
                 <br /><br />
-                <input type="button" value="Edit" onClick={this.editcompany} />
+                <input type="button" value="Edit" onClick={this.props.history.push('/updateCompany' + this.state.company.id)} />
                 {sessionStorage.getItem("companyType") === "ADMIN" && <input type="button" value="Delete" onClick={this.delete} />}
                 <input type="button" value="Back" onClick={this.back} />
             </div>

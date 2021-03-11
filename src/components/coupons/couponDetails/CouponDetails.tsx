@@ -1,27 +1,22 @@
 import axios from 'axios';
 import { Component } from 'react'
-import { Unsubscribe } from 'redux';
 import { Coupon } from '../../../models/Coupon';
 import { Purchase } from '../../../models/Purchase';
 import { UserType } from '../../../models/enums/UserType';
-import { store } from '../../../redux/store';
 import Card from '../../card/Card';
 import "./CouponDetails.css";
 
 interface CouponDetailsState {
-  isAdminOrCompany: boolean;
   coupon: Coupon;
+  purchaseAmount: number;
 }
 
 export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { isAdminOrCompany: false, coupon: this.props.location.state.coupon };
+    this.state = { coupon: new Coupon(), purchaseAmount: 0 };
   }
-
-  private unsubscribeStore: Unsubscribe;
-  private purchaseAmount: number;
 
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
@@ -29,33 +24,20 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       alert("Please login/register in order to see coupon details and to purchase");
       this.props.history.goBack();
     }
-
-    this.unsubscribeStore = store.subscribe(
-      () => this.setState({})
-    );
-    store.getState().userType === "CUSTOMER" ? this.setState({ isAdminOrCompany: false }) : this.setState({ isAdminOrCompany: true });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeStore();
-  }
-
-  private edit = () => {
-    this.props.history.push({
-      pathname: '/updateCoupon',
-      state: {
-        id: this.state.coupon.id,
-        companyName: this.state.coupon.companyName,
-        category: this.state.coupon.category,
-        name: this.state.coupon.name,
-        description: this.state.coupon.description,
-        price: this.state.coupon.price,
-        amount: this.state.coupon.amount,
-        startDate: this.state.coupon.startDate,
-        endDate: this.state.coupon.endDate,
-        companyId: this.state.coupon.companyId
+    axios.defaults.headers.common["Authorization"] = token;
+    const id = this.props.match.params;
+    try {
+      const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + id);
+      const coupon = response.data;
+      this.setState({ coupon });
+    } catch (err) {
+      if (err.response != null) {
+        let errorMessage: string = err.response.data.errorMessage;
+        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+      } else {
+        console.log(JSON.stringify(err))
       }
-    });
+    }
   }
 
   private delete = async () => {
@@ -76,15 +58,14 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   }
 
   private onPurchaseAmountChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.purchaseAmount = +event.target.value;
+    const purchaseAmount = +event.target.value;
+    this.setState({ purchaseAmount });
   }
 
   private purchase = async () => {
     try {
-      const couponId = this.props.match.params.id;
-      const couponName = this.props.match.params.couponName;
       const userId = sessionStorage.getItem("userId");
-      let purchase = new Purchase(couponId, this.purchaseAmount, +userId, couponName);
+      let purchase = new Purchase(this.state.coupon.id, this.state.purchaseAmount, +userId, this.state.coupon.name);
       const response = await axios.post<number>("http://localhost:8080/purchases", purchase);
       const serverResponse = response.data;
       alert("Successful purchase! Your purchase id is: " + serverResponse);
@@ -97,6 +78,10 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         console.log(JSON.stringify(err))
       }
     }
+  }
+
+  private onEditClick = () => {
+    this.props.history.push('/updateCoupon/' + this.state.coupon.id);
   }
 
   private back = () => {
@@ -121,7 +106,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
             <input type="button" value="purchase" onClick={this.purchase} /></div>}
         {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <span>
           <input type="button" value="Delete" onClick={this.delete} />&nbsp;
-          <input type="button" value="Edit" onClick={this.edit} /></span>}
+          <input type="button" value="Edit" onClick={this.onEditClick} /></span>}
         &nbsp;&nbsp;<input type="button" value="Back" onClick={this.back} />
       </div>
     );

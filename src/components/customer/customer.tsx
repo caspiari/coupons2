@@ -1,10 +1,6 @@
 import axios from 'axios';
-import React from 'react';
 import { Component } from 'react'
-import { Unsubscribe } from 'redux';
-import { Coupon } from '../../models/Coupon';
 import { User } from '../../models/User';
-import { store } from '../../redux/store';
 import './Customer.css';
 
 interface ICustomerState {
@@ -35,28 +31,20 @@ export default class Customer extends Component<any, ICustomerState> {
     }
   }
 
-  private myDetails = () => {
-    this.props.history.push({
-      pathname: '/userDetails',
-      state: {
-        username: this.state.user.username,
-        password: this.state.user.password,
-        firstName: this.state.user.firstName,
-        lastName: this.state.user.lastName,
-        userType: this.state.user.userType,
-        companyId: this.state.user.companyId,
-        id: this.state.user.id
-      }
-    });
+  private onMyDetailsClick = () => {
+    this.props.history.push('/userDetails' + this.state.user.id);
   }
 
+  private onMyCouponsClick = () => {
+    this.props.history.push('/myCoupons');
+  }
 
   public render() {
     return (
       <div className="customer">
         <h2>Hello {this.state.user.firstName} :)</h2>
-        <br /><input type="button" value="My details" onClick={this.myDetails} />
-        <br /><input type="button" value="My coupons" onClick={this.props.history.push('/myCoupons')} />
+        <br /><input type="button" value="My details" onClick={this.onMyDetailsClick} />
+        <br /><input type="button" value="My coupons" onClick={this.onMyCouponsClick} />
       </div>
     );
   }

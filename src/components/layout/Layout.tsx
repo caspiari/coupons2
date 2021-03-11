@@ -47,14 +47,15 @@ export default class Layout extends Component {
               <Route path="/registerCompany" component={RegisterCompany} exact />
               <Route path="/customer" component={Customer} exact />{/* ////////Customer */}
               <Route path="/registerUser" component={RegisterUser} exact />
-              <Route path="/updateUser" component={UpdateUser} exact />
-              <Route path="/userDetails" component={UserDetails} exact />
+              <Route path="/updateUser:id" component={UpdateUser} exact />
+              <Route path="/userDetails:id" component={UserDetails} exact />
               <Route path="/myCoupons" component={MyCoupons} exact />
               <Route path="/company" component={Company} exact /> {/*  //////////Company */}
-              <Route path="/companyDetails" component={CompanyDetails} exact />
+              <Route path="/companyDetails:id" component={CompanyDetails} exact />
+              <Route path="/updateCompany:id" component={UpdateCoupon} exact />
               <Route path="/couponDetails" component={CouponDetails} exact />
               <Route path="/createCoupon" component={CreateCoupon} exact />
-              <Route path="/updateCoupon" component={UpdateCoupon} exact />
+              <Route path="/updateCoupon:id" component={UpdateCoupon} exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </main>

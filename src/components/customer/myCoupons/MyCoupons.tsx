@@ -57,6 +57,10 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
     this.setState({ companyFilter: text });
   }
 
+  private onCardClick = (id: number) => {
+    this.props.history.push('/couponDetails/' + id);
+  }
+
   public render() {
     return (
       <div className="myCoupons">
@@ -66,7 +70,7 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
         Search by company: <input type="text" onChange={this.onCompanyPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
+            .map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={this.onCardClick(coupon.id)} />)}
         </ol>}
       </div>
     );
