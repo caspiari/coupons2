@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import "./Home.css";
-import { NavLink } from 'react-router-dom';
 
 export default class Home extends Component<any> {
 
@@ -13,13 +12,9 @@ export default class Home extends Component<any> {
             <div className="home">
                 <h1>Welcome to coupons website</h1>
                 <br />
-                <NavLink to={"/coupons"}>
-                    Our coupons
-                </NavLink>
+                <br /><input type="button" value="My details" onClick={this.props.history.push('/coupons')} />
                 <br /><br />
-                <NavLink to={"/login"}>
-                    Login / Register
-                </NavLink>
+                <br /><input type="button" value="Login / Register" onClick={this.props.history.push('/login')} />
             </div>
         );
     }

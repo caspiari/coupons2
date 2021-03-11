@@ -123,7 +123,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
         Name:&nbsp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
         Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
         Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-        Amoun in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
+        Amount in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
         Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
         {/* Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
                 End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" />

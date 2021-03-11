@@ -19,6 +19,7 @@ import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
 import UpdateCoupon from '../coupons/updateCoupon/UpdateCoupon';
 import CreateCoupon from '../createCoupon/CreateCoupon';
+import MyCoupons from '../customer/myCoupons/MyCoupons';
 
 export default class Layout extends Component {
   public render() {
@@ -39,17 +40,18 @@ export default class Layout extends Component {
               <Route path="/home" component={Home} exact />
               <Route path="/login" component={Login} exact />
               <Route path="/coupons" component={Coupons} exact />
-              <Route path="/admin" component={Admin} exact />
-              <Route path="/customer" component={Customer} exact />
-              <Route path="/company" component={Company} exact />
-              <Route path="/couponDetails" component={CouponDetails} exact />
-              <Route path="/createCoupon" component={CreateCoupon} exact />
-              <Route path="/updateCoupon" component={UpdateCoupon} exact />
+              <Route path="/admin" component={Admin} exact />{/* //////////////Admin */}
               <Route path="/usersManagement" component={UsersManagement} exact />
+              <Route path="/registerCompany" component={RegisterCompany} exact />
+              <Route path="/customer" component={Customer} exact />{/* ////////Customer */}
               <Route path="/registerUser" component={RegisterUser} exact />
               <Route path="/updateUser" component={UpdateUser} exact />
               <Route path="/userDetails" component={UserDetails} exact />
-              <Route path="/registerCompany" component={RegisterCompany} exact />
+              <Route path="/myCoupons" component={MyCoupons} exact />
+              <Route path="/company" component={Company} exact /> {/*  //////////Company */}
+              <Route path="/couponDetails" component={CouponDetails} exact />
+              <Route path="/createCoupon" component={CreateCoupon} exact />
+              <Route path="/updateCoupon" component={UpdateCoupon} exact />
               <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>

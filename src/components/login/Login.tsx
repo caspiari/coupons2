@@ -50,11 +50,10 @@ export default class Login extends Component<any, ILoginState> {
             }
             axios.defaults.headers.common["Authorization"] = serverResponse.token;
             console.log(serverResponse);
-
             if (serverResponse.userType === "ADMIN") {
                 this.props.history.push('/admin')
             }
-            else if (serverResponse.userType === "CUSTOMER") {
+            else if (serverResponse.userType === "CUSTOMER") {          
                 this.props.history.push('/customer')
             }
             else {

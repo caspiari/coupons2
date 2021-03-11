@@ -3,76 +3,60 @@ import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
 import { Coupon } from '../../models/Coupon';
+import { User } from '../../models/User';
 import { store } from '../../redux/store';
-import Card from '../card/Card';
 import './Customer.css';
 
 interface ICustomerState {
-  coupons: Coupon[];
-  nameFilter: string;
-  companyFilter: string;
+  user: User;
 }
 
 export default class Customer extends Component<any, ICustomerState> {
 
-  private unsubscribeStore: Unsubscribe;
-
   constructor(props: any) {
     super(props);
-    this.state = { coupons: [], nameFilter: "", companyFilter: "" };
+    this.state = { user: new User() }
   }
 
   public async componentDidMount() {
-    this.unsubscribeStore = store.subscribe(
-      () => this.setState({})
-    );
-    const userType = sessionStorage.getItem("userType");
-    if (userType == null) {
-      alert("Please log in first");
-      this.props.history.push('/home');
-    }
-    const id = +sessionStorage.getItem("id");
     const token = sessionStorage.getItem("token");
+    const id = sessionStorage.getItem("id");
+    axios.defaults.headers.common["Authorization"] = token;
     try {
-      axios.defaults.headers.common["Authorization"] = token;
-      const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/?id=" + id);
-      this.setState({ coupons: response.data });
+      const response = await axios.get<User>("http://localhost:8080/users/" + id);
+      this.setState({ user: response.data });
     } catch (err) {
-      console.log(err.message);
       if (err.response != null) {
         let errorMessage: string = err.response.data.errorMessage;
         alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
       } else {
         console.log(JSON.stringify(err))
+      }
     }
-    }
   }
 
-  componentWillUnmount() {
-    this.unsubscribeStore();
+  private myDetails = () => {
+    this.props.history.push({
+      pathname: '/userDetails',
+      state: {
+        username: this.state.user.username,
+        password: this.state.user.password,
+        firstName: this.state.user.firstName,
+        lastName: this.state.user.lastName,
+        userType: this.state.user.userType,
+        companyId: this.state.user.companyId,
+        id: this.state.user.id
+      }
+    });
   }
 
-  public onNamePipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let text = event.target.value;
-    this.setState({ nameFilter: text });
-  }
-
-  public onCompanyPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let text = event.target.value;
-    this.setState({ companyFilter: text });
-  }
 
   public render() {
     return (
-      <div className="customer"> {/* Card css is in Coupons.css */}
-        <br />
-        <h2>My purchased coupons:</h2><br />
-        Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
-        Search by company: <input type="text" onChange={this.onCompanyPipeChanged} />
-        {<ol>
-          {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-            .map(coupon => <Card key={coupon.id} coupon={coupon} />)}
-        </ol>}
+      <div className="customer">
+        <h2>Hello {this.state.user.firstName}</h2>
+        <br /><input type="button" value="My details" onClick={this.myDetails} />
+
       </div>
     );
   }

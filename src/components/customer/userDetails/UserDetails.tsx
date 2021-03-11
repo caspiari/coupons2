@@ -3,53 +3,18 @@ import { Component } from 'react'
 import { User } from '../../../models/User';
 import "./UserDetails.css";
 
-interface UserDetailsState {
+interface IUserDetailsState {
   user: User;
 }
 
-export default class UserDetails extends Component<any, UserDetailsState> {
+export default class UserDetails extends Component<any, IUserDetailsState> {
 
   constructor(props: any) {
     super(props);
-
-    this.state = { user: this.props.location.state.user };
+    const user = new User(this.props.location.state.username, this.props.location.state.password, this.props.location.state.firstName,
+      this.props.location.state.lastName, this.props.location.state.userType, this.props.location.state.id, this.props.location.state.companyId);
+    this.state = { user };
   }
-
-  //   public async componentDidMount() {
-  //     const token = sessionStorage.getItem("token");
-  //     if (token == null) {
-  //       alert("Please login/register in order to see coupon details and to purchase");
-  //       this.props.history.goBack();
-  //     }
-  //     axios.defaults.headers.common["Authorization"] = token;
-
-  // try {
-  //   const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + this.couponId);
-  //   let newState = { ...this.state };
-  //   this.setState(newState);
-  // } catch (err) {
-  //   console.log(err);
-  // }
-  //   }
-
-  //   private onPurchaseAmountChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     this.purchaseAmount = +event.target.value;
-  //   }
-
-  //   private purchase = async () => {
-  //     try {
-  //       const couponId = this.props.match.params.id;
-  //       const couponName = this.props.match.params.couponName;
-  //       const userId = sessionStorage.getItem("userId");
-  //       let purchase = new Purchase(couponId, this.purchaseAmount, +userId, couponName);
-  //       const response = await axios.post<number>("http://localhost:8080/purchases", purchase);
-  //       const serverResponse = response.data;
-  //       alert("Successful purchase! Your purchase id is: " + serverResponse);
-  //       this.props.history.push('/coupons');
-  //     } catch (err) {
-  //       console.log(err.message);
-  //     }
-  //   }
 
   private delete = async () => {
     if (window.confirm("Do you want to delete this user?") === true) {
@@ -95,10 +60,10 @@ export default class UserDetails extends Component<any, UserDetailsState> {
         User name: {this.state.user.username}<br />
         Name: {this.state.user.firstName} {this.state.user.lastName}<br />
         Type: {this.state.user.userType}<br />
-          {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
+        {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
         <br /><br />
         <input type="button" value="Edit" onClick={this.editUser} />
-        <input type="button" value="Delete" onClick={this.delete} />
+        {sessionStorage.getItem("userType") === "ADMIN" && <input type="button" value="Delete" onClick={this.delete} />}
         <input type="button" value="Back" onClick={this.back} />
 
       </div>
