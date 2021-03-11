@@ -37,6 +37,7 @@ export default class Layout extends Component {
 
           <main>
             <Switch>
+              <Redirect from="/" to="/home" exact />
               <Route path="/about" component={About} exact />
               <Route path="/home" component={Home} exact />
               <Route path="/login" component={Login} exact />
@@ -54,7 +55,6 @@ export default class Layout extends Component {
               <Route path="/couponDetails" component={CouponDetails} exact />
               <Route path="/createCoupon" component={CreateCoupon} exact />
               <Route path="/updateCoupon" component={UpdateCoupon} exact />
-              <Redirect from="/" to="/home" exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </main>

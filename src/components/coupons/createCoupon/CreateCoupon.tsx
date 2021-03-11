@@ -3,6 +3,7 @@ import { ChangeEvent, Component } from 'react'
 import { Company } from '../../../models/Company';
 import { Coupon } from '../../../models/Coupon';
 import { CouponType } from '../../../models/enums/CouponType';
+import Card from '../../card/Card';
 import "./CreateCoupon.css";
 
 interface ICreateCouponState {
@@ -63,10 +64,8 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
   }
 
   private setStartDate = (date) => {
-    // const startDate = date;
-    // this.setState({ startDate });
-    // this.date = date;
-    // console.log(date);
+    const startDate = date;
+    this.setState({ startDate });
   }
 
   private setEndDate = (date) => {
@@ -119,16 +118,20 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
           {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
             <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
         </select><br />
-        Name:&nbsp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
-        Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" name="name" value={this.state.name} onChange={this.setName} />
+        <label htmlFor="description">Description: </label>
+        <input type="text" id="description" name="description" value={this.state.description} onChange={this.setDescription} /><br />
+        <label htmlFor="price">Price: </label>
+        <input type="number" id="price" name="price" value={this.state.price} onChange={this.setPrice} /><br />
+        <label htmlFor="amount">Amount in stock: </label>
+        <input type="text" id="amount  " name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
         Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-        Amount in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
-        Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-        {/* Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
-                End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" />
-                <br />
-                <input type="button" value="Update" onClick={this.update} />
-                <input type="button" value="Back" onClick={this.back} />      </div> */}
+        Start date: <input type="date" value={String(this.state.startDate)} onChange={this.setStartDate} name="startDate" />
+        End date: <input type="date" value={Card.formatTime(this.state.endDate)} onChange={date => this.setEndDate(date)} name="endDate" />
+        <br />
+        {/* <input type="button" value="Update" onClick={this.update} />
+        <input type="button" value="Back" onClick={this.back} />       */}
       </div>
     );
   }
