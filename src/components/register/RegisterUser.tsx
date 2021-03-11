@@ -81,8 +81,8 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
 
     private register = async () => {
         try {
-            let user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName,
-                this.state.userType, null, this.state.companyId);
+            let user = new User(null, this.state.username, this.state.password, this.state.firstName, this.state.lastName,
+                this.state.userType, this.state.companyId);
             const response = await axios.post<number>("http://localhost:8080/users", user);
             const serverResponse = response.data;
             alert("Successful registration! Your user id is: " + serverResponse);

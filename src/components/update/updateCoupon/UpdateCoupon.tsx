@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import axios from "axios";
-import "./UpdateCoupon.css";
+import "../Update.css";
 import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Card from '../../card/Card';
 
 interface IUpdateCouponState {
     id: number;

@@ -33,7 +33,7 @@ export default class Register extends Component<any, RegisterState> {
 
     private register = async () => {
         try {
-            let company = new Company(this.state.name, this.state.address, this.state.phone);
+            let company = new Company(null, this.state.name, this.state.address, this.state.phone);
             const response = await axios.post<number>("http://localhost:8080/companies", company);
             const serverResponse = response.data;
             alert("Successful registration! Company id is: " + serverResponse);

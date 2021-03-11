@@ -3,7 +3,6 @@ import axios from "axios";
 import "./Login.css";
 import { UserLoginDetails } from '../../models/UserLoginDetails';
 import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServerResponse';
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
@@ -75,10 +74,8 @@ export default class Login extends Component<any, ILoginState> {
             <div className="login">
                 <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
-                <div><input type="button" value="Login" onClick={this.login} /></div>
-                <NavLink to={"/registerUser"}>
-                    <input type="button" className="registerInput" value="Register" />
-                </NavLink>
+                <input type="button" value="Login" onClick={this.login} /><br />
+                <input type="button" value="Register" onClick={this.props.history.push('/registerUser')} />
             </div>
         );
     }

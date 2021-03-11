@@ -17,7 +17,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
    
     constructor(props: any) {
         super(props);
-        this.state = {userIdFilter: 0, userNameFilter: "", users: [], selectedUser: new User("", "", "", "", null,) };
+        this.state = { userIdFilter: 0, userNameFilter: "", users: [], selectedUser: new User() };
     }
 
     public async componentDidMount() {

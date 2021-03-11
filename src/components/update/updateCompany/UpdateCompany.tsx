@@ -3,56 +3,31 @@ import axios from "axios";
 import "../Update.css";
 import { UserType } from '../../../models/enums/UserType';
 import { Company } from '../../../models/Company';
-import IfAdmin from './ifAdmin/IfAdmin';
 import { ActionType } from '../../../redux/action-type';
 import { store } from '../../../redux/store';
 import { User } from '../../../models/User';
 import { ChangeEvent } from 'react';
 
-interface IUpdateUserState {
-    companies: Company[];
-    id: number;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    userType: UserType;
-    companyId?: number;
+interface IUpdateCompanyState {
+    company: Company;
 }
 
-export default class UpdateUser extends Component<any, IUpdateUserState> {
-
-    private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
+export default class UpdateCompany extends Component<any, IUpdateCompanyState> {
 
     public constructor(props: any) {
         super(props);
-        this.state = { companies: [], id: this.props.location.state.id, username: this.props.location.state.username, password: this.props.location.state.password, firstName: this.props.location.state.firstName,
-                       lastName: this.props.location.state.lastName, userType: this.props.location.state.userType, companyId: this.props.location.state.companyId };
+        const company = new Company(this.props.location.state.id, this.props.location.state.name, this.props.location.state.address, this.props.location.state.phone);
+        this.state = { company };
     }
 
     public async componentDidMount() {
         const token = sessionStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = token;
-        try {
-            const response = await axios.get<Company[]>("http://localhost:8080/companies");
-            let newState = {...this.state};
-            newState.companies = response.data;
-            console.log(newState.companies);
-            this.setState(newState);
-        } catch (err) {
-            console.log(err.message);
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
-        }
     }
 
-    private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
-        let username = event.target.value;
-        this.setState({ username });
+    private setName = (event: ChangeEvent<HTMLInputElement>) => {
+        let name = event.target.value;
+        this.setState({ name });
     }
 
     private setPassword = (event: ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +61,7 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
 
     private update = async () => {
         try {
-            const user = new User(this.state.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
+            const user = new User(this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.id, this.state.companyId);
             await axios.put("http://localhost:8080/users", user);
             alert("Successfuly updated!");
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })

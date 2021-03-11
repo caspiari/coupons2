@@ -26,11 +26,6 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
     this.unsubscribeStore = store.subscribe(
       () => this.setState({})
     );
-    const userType = sessionStorage.getItem("userType");
-    if (userType == null) {
-      alert("Please log in first");
-      this.props.history.push('/home');
-    }
     const id = +sessionStorage.getItem("id");
     const token = sessionStorage.getItem("token");
     try {
@@ -64,7 +59,7 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
 
   public render() {
     return (
-      <div className="myCoupons"> {/* Card css is in Coupons.css */}
+      <div className="myCoupons">
         <br />
         <h2>My purchased coupons:</h2><br />
         Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;

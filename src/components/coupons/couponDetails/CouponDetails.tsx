@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
-import { Coupon } from '../../models/Coupon';
-import { Purchase } from '../../models/Purchase';
-import { UserType } from '../../models/enums/UserType';
-import { store } from '../../redux/store';
-import Card from '../card/Card';
+import { Coupon } from '../../../models/Coupon';
+import { Purchase } from '../../../models/Purchase';
+import { UserType } from '../../../models/enums/UserType';
+import { store } from '../../../redux/store';
+import Card from '../../card/Card';
 import "./CouponDetails.css";
 
 interface CouponDetailsState {

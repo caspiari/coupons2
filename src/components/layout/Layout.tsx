@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import About from '../about/About';
 import Coupons from '../coupons/Coupons';
-import CouponDetails from '../couponDetails/CouponDetails';
+import CouponDetails from '../coupons/couponDetails/CouponDetails';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
 import Login from '../login/Login';
@@ -17,9 +17,10 @@ import UpdateUser from '../update/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
 import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
-import UpdateCoupon from '../coupons/updateCoupon/UpdateCoupon';
-import CreateCoupon from '../createCoupon/CreateCoupon';
+import UpdateCoupon from '../update/updateCoupon/UpdateCoupon';
+import CreateCoupon from '../coupons/createCoupon/CreateCoupon';
 import MyCoupons from '../customer/myCoupons/MyCoupons';
+import CompanyDetails from '../company/companyDetails/CompanyDetails';
 
 export default class Layout extends Component {
   public render() {
@@ -49,6 +50,7 @@ export default class Layout extends Component {
               <Route path="/userDetails" component={UserDetails} exact />
               <Route path="/myCoupons" component={MyCoupons} exact />
               <Route path="/company" component={Company} exact /> {/*  //////////Company */}
+              <Route path="/companyDetails" component={CompanyDetails} exact />
               <Route path="/couponDetails" component={CouponDetails} exact />
               <Route path="/createCoupon" component={CreateCoupon} exact />
               <Route path="/updateCoupon" component={UpdateCoupon} exact />

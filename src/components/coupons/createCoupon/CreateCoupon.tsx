@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { ChangeEvent, Component } from 'react'
-import { Company } from '../../models/Company';
-import { Coupon } from '../../models/Coupon';
-import { CouponType } from '../../models/enums/CouponType';
-import { UserType } from '../../models/enums/UserType';
+import { Company } from '../../../models/Company';
+import { Coupon } from '../../../models/Coupon';
+import { CouponType } from '../../../models/enums/CouponType';
 import "./CreateCoupon.css";
 
 interface ICreateCouponState {
@@ -29,7 +28,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
 
   public async componentDidMount() {
     try {
-      if (sessionStorage.getItem("userType") === UserType.ADMIN.valueOf()) {
+      if (sessionStorage.getItem("userType") === "ADMIN") {
         const response = await axios.get<Company[]>("http://localhost:8080/companies");
         this.setState({ companies: response.data });
       }
@@ -84,8 +83,8 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
     const coupon = new Coupon(this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price,
       this.state.amount, this.state.startDate, this.state.endDate);
     try {
-      await axios.post("http://localhost:8080/coupons", coupon);
-      alert("Coupon successfuly created!");
+      const response = await axios.post<number>("http://localhost:8080/coupons", coupon);
+      alert("Coupon successfuly created! Id: " + response.data);
       this.props.history.goBack();
     }
     catch (err) {
@@ -104,7 +103,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
       <div className="createCoupon">
         <br />
         <h3>Create coupon</h3>
-        {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;
+        {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company user, company id gets picked automaticly in server */}
           <select name="company select" onChange={this.setCompanyId}>
             <option defaultValue="" key="default company">
               -- Select company --

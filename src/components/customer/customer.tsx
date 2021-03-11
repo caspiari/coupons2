@@ -54,9 +54,9 @@ export default class Customer extends Component<any, ICustomerState> {
   public render() {
     return (
       <div className="customer">
-        <h2>Hello {this.state.user.firstName}</h2>
+        <h2>Hello {this.state.user.firstName} :)</h2>
         <br /><input type="button" value="My details" onClick={this.myDetails} />
-
+        <br /><input type="button" value="My coupons" onClick={this.props.history.push('/myCoupons')} />
       </div>
     );
   }

@@ -1,18 +1,14 @@
-.home {
+.companyDetails {
     text-align: center;
     font-size: 15px;
 }
 
-.home a{
-    font-style: normal;
-}
-
-.home input {
+.companyDetails input {
     font-size: large;
     padding : 5px;
     margin: 2px;
 }
   
-.home input:hover{
+.companyDetails input:hover{
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
