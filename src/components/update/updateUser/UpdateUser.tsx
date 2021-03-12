@@ -27,13 +27,13 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
     }
 
     private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
-    private user = new User(this.props.match.params);
-
+    
     public async componentDidMount() {
         const token = sessionStorage.getItem("token");
         axios.defaults.headers.common["Authorization"] = token;
         try {
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
+            const userResponse = await axios.get<User>("http://localhost:8080/user/" + this.props.match.params);
             const companies = response.data;
             this.setState({ companies });
         } catch (err) {

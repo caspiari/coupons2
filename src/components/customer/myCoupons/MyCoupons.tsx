@@ -3,6 +3,7 @@ import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
 import { Coupon } from '../../../models/Coupon';
+import { CouponType } from '../../../models/enums/CouponType';
 import { store } from '../../../redux/store';
 import Card from '../../card/Card';
 import './MyCoupons.css';
@@ -11,15 +12,17 @@ interface IMyCouponsState {
   coupons: Coupon[];
   nameFilter: string;
   companyFilter: string;
+  categoryFilter: string;
 }
 
 export default class MyCoupons extends Component<any, IMyCouponsState> {
 
   private unsubscribeStore: Unsubscribe;
+  private couponTypes: CouponType[] = [CouponType.COMPUTERS, CouponType.KITCHEN, CouponType.STEREO];
 
   constructor(props: any) {
     super(props);
-    this.state = { coupons: [], nameFilter: "", companyFilter: "" };
+    this.state = { coupons: [], nameFilter: "", companyFilter: "", categoryFilter: "" };
   }
 
   public async componentDidMount() {
@@ -57,6 +60,11 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
     this.setState({ companyFilter: text });
   }
 
+  public onCategoryPipeChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    let categoryFilter = event.target.value.valueOf();
+    this.setState({ categoryFilter });
+  }
+
   private onCardClick = (id: number) => {
     this.props.history.push('/couponDetails/' + id);
   }
@@ -70,7 +78,9 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
         Search by company: <input type="text" onChange={this.onCompanyPipeChanged} />
         {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
-            .map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={this.onCardClick(coupon.id)} />)}
+          .filter(coupon => coupon.companyName.toLowerCase().includes(this.state.companyFilter))
+          .filter(coupon => coupon.category.valueOf().includes(this.state.categoryFilter))
+          .map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={() => this.onCardClick(coupon.id)} />)}
         </ol>}
       </div>
     );

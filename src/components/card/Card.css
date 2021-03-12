@@ -11,4 +11,7 @@
     word-wrap: break-word;
     /* max-width: 100%; */
     overflow-x: hidden;
+    cursor: pointer;
  }
+
+ 

@@ -21,6 +21,7 @@ import UpdateCoupon from '../update/updateCoupon/UpdateCoupon';
 import CreateCoupon from '../coupons/createCoupon/CreateCoupon';
 import MyCoupons from '../customer/myCoupons/MyCoupons';
 import CompanyDetails from '../company/companyDetails/CompanyDetails';
+import UpdateCompany from '../update/updateCompany/UpdateCompany';
 
 export default class Layout extends Component {
   public render() {
@@ -47,15 +48,15 @@ export default class Layout extends Component {
               <Route path="/registerCompany" component={RegisterCompany} exact />
               <Route path="/customer" component={Customer} exact />{/* ////////Customer */}
               <Route path="/registerUser" component={RegisterUser} exact />
-              <Route path="/updateUser:id" component={UpdateUser} exact />
-              <Route path="/userDetails:id" component={UserDetails} exact />
+              <Route path="/updateUser/:id" component={UpdateUser} exact />
+              <Route path="/userDetails/:id" component={UserDetails} exact />
               <Route path="/myCoupons" component={MyCoupons} exact />
-              <Route path="/company" component={Company} exact /> {/*  //////////Company */}
-              <Route path="/companyDetails:id" component={CompanyDetails} exact />
-              <Route path="/updateCompany:id" component={UpdateCoupon} exact />
-              <Route path="/couponDetails" component={CouponDetails} exact />
+              <Route path="/company" component={Company} exact /> {/* //////////Company */}
+              <Route path="/companyDetails/:id" component={CompanyDetails} exact />
+              <Route path="/updateCompany/:id" component={UpdateCompany} exact />
+              <Route path="/couponDetails/:id" component={CouponDetails} exact />{/*/////Coupon */}
               <Route path="/createCoupon" component={CreateCoupon} exact />
-              <Route path="/updateCoupon:id" component={UpdateCoupon} exact />
+              <Route path="/updateCoupon/:id" component={UpdateCoupon} exact />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </main>
