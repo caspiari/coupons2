@@ -33,9 +33,11 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
         axios.defaults.headers.common["Authorization"] = token;
         try {
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
-            const userResponse = await axios.get<User>("http://localhost:8080/user/" + this.props.match.params);
             const companies = response.data;
-            this.setState({ companies });
+            const userResponse = await axios.get<User>("http://localhost:8080/user/" + this.props.match.params);
+            const user = userResponse.data;
+            this.setState({ companies, username: user.username, password: user.password, firstName: user.firstName,
+            lastName: user.lastName, userType: user.userType, companyId: user.companyId });
         } catch (err) {
             console.log(err.message);
             if (err.response != null) {
@@ -84,9 +86,9 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
 
     private update = async () => {
         try {
-            const user = new User(this.user.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
+            const user = new User(this.props.match.params, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
             await axios.put("http://localhost:8080/users", user);
-            alert("Successfuly updated!");
+            alert("User successfuly updated!");
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
             this.props.history.goBack();
         }
@@ -108,7 +110,7 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
     public render() {
         return (
             <div className="update">
-                <h3>Update user [Id: {this.user.id}]</h3>
+                <h3>Update user [Id: {this.props.match.params}]</h3>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
