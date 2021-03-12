@@ -3,6 +3,7 @@ import React from 'react';
 import { Component } from 'react'
 import { Unsubscribe } from 'redux';
 import { Coupon } from '../../models/Coupon';
+import { CouponType } from '../../models/enums/CouponType';
 import { UserType } from '../../models/enums/UserType';
 import { store } from '../../redux/store';
 import Card from '../card/Card';
@@ -13,15 +14,17 @@ interface CouponsState {
   coupons: Coupon[];
   nameFilter: string;
   companyFilter: string;
+  categoryFilter: CouponType;
 }
 
 export default class Coupons extends Component<any, CouponsState> {
 
   private unsubscribeStore: Unsubscribe;
+  private couponTypes: CouponType[] = [CouponType.COMPUTERS, CouponType.KITCHEN, CouponType.STEREO];
 
   constructor(props: any) {
     super(props);
-    this.state = { cards: [], coupons: [], nameFilter: "", companyFilter: "" };
+    this.state = { cards: [], coupons: [], nameFilter: "", companyFilter: "", categoryFilter: null };
   }
 
   public async componentDidMount() {
@@ -50,13 +53,18 @@ export default class Coupons extends Component<any, CouponsState> {
   }
 
   public onNamePipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let text = event.target.value;
-    this.setState({ nameFilter: text });
+    let nameFilter = event.target.value;
+    this.setState({ nameFilter });
   }
 
   public onCompanyPipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let text = event.target.value;
-    this.setState({ companyFilter: text });
+    let companyFilter = event.target.value;
+    this.setState({ companyFilter });
+  }
+
+  public onCategoryPipeChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    let categoryFilter = event.target.value as CouponType;
+    this.setState({ categoryFilter });
   }
 
   private onCardClick = (id: number) => {
@@ -75,8 +83,18 @@ export default class Coupons extends Component<any, CouponsState> {
     return (
       <div className="coupons">
         <br />
-        Search by name: <input type="text" onChange={this.onNamePipeChanged} /> &nbsp;&nbsp;
-        {sessionStorage.getItem("userType") !== "COMPANY" && <span> Search by company: <input type="text" onChange={this.onCompanyPipeChanged} /> </span>}
+        <h3>Search</h3><br />
+        <label htmlFor="name">By name:</label><input type="text" id="name" onChange={this.onNamePipeChanged} />
+        {sessionStorage.getItem("userType") !== "COMPANY" && <span> <label htmlFor="company">By company:</label> 
+        <input type="text" id="company" onChange={this.onCompanyPipeChanged} /> </span>}
+        <label htmlFor="category">By category:</label>
+                <select name="coupon type select" id="category" onChange={this.onCategoryPipeChanged}>
+                    <option defaultValue={null} key="defaultValue">
+                        -- Select category --
+                    </option>
+                    {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
+                        <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+                </select><br />
         <br />
         {/* {<ol>
           {this.state.coupons.filter(coupon => coupon.name.toLowerCase().includes(this.state.nameFilter.toLowerCase()))
