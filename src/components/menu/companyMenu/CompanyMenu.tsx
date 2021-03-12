@@ -15,7 +15,7 @@ export default class CompanyMenu extends Component<ICompanyMenuProps> {
   public render() {
     return (
       <span className="menu">
-        <NavLink to="/company" exact>&ensp;Management</NavLink>
+        <NavLink to="/company" exact>&ensp;Home</NavLink>
         &ensp; | &ensp;
         <NavLink to="/coupons" exact>Coupons</NavLink>
         &ensp; | &ensp;

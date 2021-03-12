@@ -32,7 +32,7 @@ export default class Customer extends Component<any, ICustomerState> {
   }
 
   private onMyDetailsClick = () => {
-    this.props.history.push('/userDetails' + this.state.user.id);
+    this.props.history.push('/userDetails/' + this.state.user.id);
   }
 
   private onMyCouponsClick = () => {

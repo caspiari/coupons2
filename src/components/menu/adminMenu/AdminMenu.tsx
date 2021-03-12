@@ -15,7 +15,7 @@ export default class AdminMenu extends Component<IAdminMenuProps> {
   public render() {
     return (
       <span className="menu">
-            <NavLink to="/admin" exact>&ensp;Management</NavLink>
+            <NavLink to="/admin" exact>&ensp;Home</NavLink>
             &ensp; | &ensp;
             <NavLink to="/coupons" exact>Coupons</NavLink>
             &ensp; | &ensp;
