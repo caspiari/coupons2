@@ -38,12 +38,12 @@ export default class Login extends Component<any, ILoginState> {
             let userLoginDetails = new UserLoginDetails(this.state.username, this.state.password);
             const response = await axios.post<SuccessfulLoginServerResponse>("http://localhost:8080/users/login", userLoginDetails);
             const serverResponse = response.data;
-            let userType: UserType = serverResponse.userType as UserType;
+            const userType: UserType = serverResponse.userType;
             store.dispatch({ type: ActionType.LOGIN, payload: userType });
             sessionStorage.setItem("id", String(serverResponse.id));
             sessionStorage.setItem("token", serverResponse.token);
             sessionStorage.setItem("userType", serverResponse.userType.valueOf());
-            if (userType.valueOf() === UserType.COMPANY.valueOf()) {
+            if (userType === UserType.COMPANY) {
                 sessionStorage.setItem("companyId", String(serverResponse.companyId));
             }
             axios.defaults.headers.common["Authorization"] = serverResponse.token;

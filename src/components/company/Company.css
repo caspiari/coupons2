@@ -2,3 +2,7 @@
 .Company {
     text-align: center;
 }
+
+.Company button {
+    font-size: larger;
+}

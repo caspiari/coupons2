@@ -8,12 +8,12 @@ interface ICustomerState {
 }
 
 export default class Customer extends Component<any, ICustomerState> {
-
+  
   constructor(props: any) {
     super(props);
     this.state = { user: new User() }
   }
-
+  
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
     const id = sessionStorage.getItem("id");
@@ -30,9 +30,9 @@ export default class Customer extends Component<any, ICustomerState> {
       }
     }
   }
-
+  
   private onMyDetailsClick = () => {
-    this.props.history.push('/userDetails/' + this.state.user.id);
+    this.props.history.push("/userDetails/" + this.state.user.id);
   }
 
   private onMyCouponsClick = () => {

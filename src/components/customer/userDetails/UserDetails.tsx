@@ -32,6 +32,10 @@ export default class UserDetails extends Component<any, IUserDetailsState> {
     }
   }
 
+  private edit = () => {
+    this.props.history.push('/updateUser/' + this.state.user.id);
+  }
+
   private delete = async () => {
     if (window.confirm("Do you want to delete this user?") === true) {
       try {
@@ -63,7 +67,7 @@ export default class UserDetails extends Component<any, IUserDetailsState> {
         Type: {this.state.user.userType}<br />
           {this.state.user.companyId != null && `Company id: ${this.state.user.companyId}`}</h3>
         <br /><br />
-        <input type="button" value="Edit" onClick={this.props.history.push('/updateUser' + this.state.user.id)} />
+        <input type="button" value="Edit" onClick={this.edit} />
         {sessionStorage.getItem("userType") === "ADMIN" && <input type="button" value="Delete" onClick={this.delete} />}
         <input type="button" value="Back" onClick={this.back} />
 

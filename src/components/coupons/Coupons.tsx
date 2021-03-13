@@ -64,15 +64,11 @@ export default class Coupons extends Component<any, CouponsState> {
     this.props.history.push('/couponDetails/' + id);
   }
 
-  public createNewCoupon = () => {
-    this.props.history.push('/createCoupon')
-  }
-
   public render() {
     return (
       <div className="coupons">
         <br />
-        <h1><b>Our coupons</b></h1>
+        <h1><b>{sessionStorage.getItem("userType") === "COMPANY" ? "Your" : "Our"} coupons</b></h1>
         <label htmlFor="name"><b>Search: </b>By name:</label><input type="text" id="name" onChange={this.onNamePipeChanged} />
         {sessionStorage.getItem("userType") !== "COMPANY" && <span> <label htmlFor="company">By company:</label> 
         <input type="text" id="company" onChange={this.onCompanyPipeChanged} /> </span>}
