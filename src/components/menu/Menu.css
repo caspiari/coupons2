@@ -4,13 +4,10 @@ menu {
 }
 
 .menu {
-    padding-left: 15px;
-    padding: 0px;
     color: whitesmoke;
     display: inline;
     font-weight: bold;
     font-size: large;
-    transform: translate(20px);
 }
 
 .menu a:link {

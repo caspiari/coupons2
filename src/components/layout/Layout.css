@@ -15,6 +15,7 @@
   background-image: url(menu.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  padding-top: 17px;
 }
 
 .layout>main {

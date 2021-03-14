@@ -78,6 +78,7 @@ export default class Company extends Component<any, ICompanyState> {
     this.props.history.push('/createCoupon');
   }
 
+
   public render() {
     return (
       <div className="Company">

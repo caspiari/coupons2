@@ -37,7 +37,6 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
       const response = await axios.get<Coupon[]>("http://localhost:8080/coupons/byUserId/?id=" + id);
       this.setState({ coupons: response.data });
     } catch (err) {
-      console.log(err.message);
       Home.exceptionTreatment(err, this.props);
     }
   }

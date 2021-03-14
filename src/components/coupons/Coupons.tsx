@@ -69,8 +69,7 @@ export default class Coupons extends Component<any, CouponsState> {
     return (
       <div className="coupons">
         <br />
-        <h1><b>{sessionStorage.getItem("userType") === "COMPANY" ? "Your" : "Our"} Coupons</b>
-        <input type="button" value="Back" onClick={this.onBackClick} /></h1>
+        <h1><b>{sessionStorage.getItem("userType") === "COMPANY" ? "Your" : "Our"} Coupons</b></h1>
         <label htmlFor="name"><b>Search: </b>By name: </label><input type="text" id="name" onChange={this.onNamePipeChanged} />
         {sessionStorage.getItem("userType") !== "COMPANY" && <span> <label htmlFor="company">By company: </label> 
         <input type="text" id="company" onChange={this.onCompanyPipeChanged} /> </span>}

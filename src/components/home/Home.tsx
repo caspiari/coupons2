@@ -18,6 +18,7 @@ export default class Home extends Component<any> {
     public static exceptionTreatment = (err: any, props: Readonly<any>) => {
         if(err.message.includes("status code 600")){
             Home.loginRequset(props);
+            return;
         }
         if (err.response.data != null) {
             let errorMessage: string = err.response.data.errorMessage;
