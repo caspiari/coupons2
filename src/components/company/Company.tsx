@@ -3,17 +3,23 @@ import { Component } from 'react'
 import { User } from '../../models/User';
 import { Company as CompanyBean } from '../../models/Company';
 import "./Company.css"
+import { store } from '../../redux/store';
+import { ActionType } from '../../redux/action-type';
+import UserDetails from '../customer/userDetails/UserDetails';
+import UpdateUser from '../update/updateUser/UpdateUser';
 
 interface ICompanyState {
   user: User;
   company: CompanyBean;
+  showUserDetails: boolean;
+  editMode: boolean;
 }
 
 export default class Company extends Component<any, ICompanyState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { user: new User(), company: new CompanyBean() }
+    this.state = { user: new User(), company: new CompanyBean(), showUserDetails: false, editMode: false }
   }
 
   private userId = sessionStorage.getItem("id");
@@ -36,9 +42,16 @@ export default class Company extends Component<any, ICompanyState> {
     }
   }
 
+  private setShowDetails = (showUserDetails: boolean) => {
+    this.setState({ showUserDetails });
+  }
+
+  private setEditMode = (editMode: boolean) => {
+    this.setState({ editMode });
+  }
+
   private onMyUserDetailsClick = () => {
-    console.log('/userDetails/' + sessionStorage.getItem("id"));
-    this.props.history.push('/userDetails/' + sessionStorage.getItem("id"));
+    this.setState({ showUserDetails : true });
   }
 
   private onMyCompanyDetailsClick = () => {
@@ -58,6 +71,8 @@ export default class Company extends Component<any, ICompanyState> {
       <div className="Company">
         <br />
         <h2>Welcome! {this.state.user.firstName} from {this.state.company.name} :)</h2>
+        <div>{this.state.showUserDetails === true && (this.state.editMode === true ? <UpdateUser user={this.state.user} setEditMode={this.setEditMode} /> 
+        : <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />)}</div>
         <br /><br />
         <br /><input type="button" value="My user details" onClick={this.onMyUserDetailsClick} />
         <br /><input type="button" value="My company details" onClick={this.onMyCompanyDetailsClick} />

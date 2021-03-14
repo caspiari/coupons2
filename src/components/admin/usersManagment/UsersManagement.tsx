@@ -5,6 +5,7 @@ import { User } from '../../../models/User';
 import axios from 'axios';
 import { ChangeEvent } from 'react';
 import UserCard from '../../card/userCard/UserCard';
+import Home from '../../home/Home';
 
 interface IUsersManagementState {
     userIdFilter: number;
@@ -24,8 +25,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         try {
             const token = sessionStorage.getItem("token");
             if(token == null) {
-                alert("Please login");
-                this.props.history.push('/home');
+                Home.loginRequset(this.props);
             }
             axios.defaults.headers.common["Authorization"] = token;
             const response = await axios.get<User[]>("http://localhost:8080/users");

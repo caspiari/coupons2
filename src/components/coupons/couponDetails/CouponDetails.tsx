@@ -5,6 +5,7 @@ import { Purchase } from '../../../models/Purchase';
 import { UserType } from '../../../models/enums/UserType';
 import Card from '../../card/Card';
 import "./CouponDetails.css";
+import Home from '../../home/Home';
 
 interface CouponDetailsState {
   coupon: Coupon;
@@ -22,7 +23,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     const token = sessionStorage.getItem("token");
     if (token == null) {
       alert("Please login/register in order to see coupon details and to purchase");
-      this.props.history.goBack();
     }
     axios.defaults.headers.common["Authorization"] = token;
     const id = this.props.match.params;

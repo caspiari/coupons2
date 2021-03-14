@@ -12,6 +12,9 @@ export function reduce(oldAppState: AppState, action: Action): AppState {
         case ActionType.IS_COMPANY:
             newAppState.isCompany = action.payload;
             break;
+        case ActionType.ADD_USER:
+            newAppState.user = action.payload;
+            break;
     }
 
     return newAppState;

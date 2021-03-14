@@ -13,7 +13,6 @@ export default class Card extends Component<ICardProps> {
     super(props);
   }
 
-
   public static formatTime(time, prefix = "") {
     let date = Date.parse(time); // returns NaN if it can't parse
     let dateObject = new Date(date);

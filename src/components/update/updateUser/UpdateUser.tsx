@@ -8,6 +8,12 @@ import { ActionType } from '../../../redux/action-type';
 import { store } from '../../../redux/store';
 import { User } from '../../../models/User';
 import { ChangeEvent } from 'react';
+import Home from '../../home/Home';
+
+interface IUpdateUserProps {
+    user: User;
+    setEditMode: any;
+}
 
 interface IUpdateUserState {
     companies: Company[];
@@ -19,36 +25,16 @@ interface IUpdateUserState {
     companyId?: number;
 }
 
-export default class UpdateUser extends Component<any, IUpdateUserState> {
+export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserState> {
 
-    public constructor(props: any) {
+    public constructor(props: IUpdateUserProps) {
         super(props);
-        this.state = { companies: [], username: "", password: "", firstName: "", lastName: "", userType: null, companyId: 0 };
+        this.state = { companies: [], username: this.props.user.username, password: this.props.user.password, firstName: this.props.user.firstName, 
+            lastName: this.props.user.lastName, userType: this.props.user.userType, companyId: this.props.user.companyId };
     }
 
     private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
     
-    public async componentDidMount() {
-        const token = sessionStorage.getItem("token");
-        axios.defaults.headers.common["Authorization"] = token;
-        try {
-            const response = await axios.get<Company[]>("http://localhost:8080/companies");
-            const companies = response.data;
-            const userResponse = await axios.get<User>("http://localhost:8080/user/" + this.props.match.params);
-            const user = userResponse.data;
-            this.setState({ companies, username: user.username, password: user.password, firstName: user.firstName,
-            lastName: user.lastName, userType: user.userType, companyId: user.companyId });
-        } catch (err) {
-            console.log(err.message);
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
-        }
-    }
-
     private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
         let username = event.target.value;
         this.setState({ username });
@@ -84,33 +70,27 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
         this.setState({ companyId });
     }
 
-    private update = async () => {
+    private onEditClick = async () => {
         try {
-            const user = new User(this.props.match.params, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
+            const user = new User(this.props.user.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
             await axios.put("http://localhost:8080/users", user);
             alert("User successfuly updated!");
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
-            this.props.history.goBack();
+            this.props.setEditMode(false);
         }
         catch (err) {
-            console.log(err.message);
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 
-    private back = () => {
-        this.props.history.goBack();
+    private onCloseClick = () => {
+        this.props.setEditMode(false);
     }
 
     public render() {
         return (
             <div className="update">
-                <h3>Update user [Id: {this.props.match.params}]</h3>
+                <h3>Update user [ Id: {this.props.user.id} ]</h3>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
@@ -118,8 +98,8 @@ export default class UpdateUser extends Component<any, IUpdateUserState> {
                 {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin key={"ifAdmin"} userTypes={this.userTypes} companies={this.state.companies}
                     userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
-                <input type="button" value="Update" onClick={this.update} />
-                <input type="button" value="Back" onClick={this.back} />
+                <input type="button" value="Edit" onClick={this.onEditClick} />
+                <input type="button" value="Close" onClick={this.onCloseClick} />
             </div>
         );
     }
