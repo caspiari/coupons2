@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Component } from 'react'
 import { User } from '../../../models/User';
 import "./UserDetails.css";
@@ -20,18 +21,18 @@ export default class UserDetails extends Component<IUserDetailsProps> {
 
   private onDeleteClick = async () => {
     if (window.confirm("Do you want to delete this user?") === true) {
-      // try {
-      //   await axios.delete("http://localhost:8080/users/" + this.state.user.id);
-      //   alert("User was successfuly deleted");
-      //   // this.props.history.goBack();
-      // } catch (err) {
-      //   if (err.response != null) {
-      //     let errorMessage: string = err.response.data.errorMessage;
-      //     alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      //   } else {
-      //     console.log(JSON.stringify(err.data))
-      //   }
-      // }
+      try {
+        await axios.delete("http://localhost:8080/users/" + this.props.user.id);
+        alert("User was successfuly deleted");
+        // this.props.history.goBack();
+      } catch (err) {
+        if (err.response != null) {
+          let errorMessage: string = err.response.data.errorMessage;
+          alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
+        } else {
+          console.log(JSON.stringify(err.data))
+        }
+      }
     }
   }
 
@@ -51,7 +52,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
         <br /><br />
         <input type="button" value="Edit" onClick={this.onEditClick} />
         {sessionStorage.getItem("userType") === "ADMIN" && <input type="button" value="Delete" onClick={this.onDeleteClick} />}
-        <input type="button" value="Close" onClick={this.onCloseClick} />
+        <input type="button" value="Close" onClick={this.onCloseClick} /><br /><br />
       </div>
     );
   }

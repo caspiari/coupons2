@@ -2,7 +2,7 @@
   background-color: white;
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: 5% 10% 75% 10%; 
+  grid-template-rows: 5vh 10vh 75vh 10vh; 
   font-family: arial, sans-serif;
 }
 

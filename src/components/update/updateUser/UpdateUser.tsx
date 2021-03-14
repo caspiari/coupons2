@@ -90,7 +90,7 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
     public render() {
         return (
             <div className="update">
-                <h3>Update user [ Id: {this.props.user.id} ]</h3>
+                <h3>Edit user [ Id: {this.props.user.id} ]</h3>
                 User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
@@ -99,7 +99,7 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
                     userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
                 <input type="button" value="Edit" onClick={this.onEditClick} />
-                <input type="button" value="Close" onClick={this.onCloseClick} />
+                <input type="button" value="Close" onClick={this.onCloseClick} /><br /><br />
             </div>
         );
     }
