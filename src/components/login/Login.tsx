@@ -6,6 +6,7 @@ import { SuccessfulLoginServerResponse } from '../../models/SuccessfulLoginServe
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
 import { UserType } from '../../models/enums/UserType';
+import Home from '../home/Home';
 
 interface ILoginState {
     username: string,
@@ -58,12 +59,7 @@ export default class Login extends Component<any, ILoginState> {
                 this.props.history.push('/company')
             }
         } catch (err) {
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
         console.log("Login ended");
     }

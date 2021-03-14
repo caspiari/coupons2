@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react'
 import { User } from '../../models/User';
+import Home from '../home/Home';
 import './Customer.css';
 
 interface ICustomerState {
@@ -22,12 +23,7 @@ export default class Customer extends Component<any, ICustomerState> {
       const response = await axios.get<User>("http://localhost:8080/users/" + id);
       this.setState({ user: response.data });
     } catch (err) {
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else {
-        console.log(JSON.stringify(err))
-      }
+      Home.exceptionTreatment(err);
     }
   }
   

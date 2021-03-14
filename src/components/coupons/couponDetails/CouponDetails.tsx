@@ -31,12 +31,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       const coupon = response.data;
       this.setState({ coupon });
     } catch (err) {
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else {
-        console.log(JSON.stringify(err))
-      }
+      Home.exceptionTreatment(err);
     }
   }
 
@@ -47,12 +42,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         alert("Coupon was successfuly deleted");
         this.props.history.goBack();
       } catch (err) {
-        if (err.response != null) {
-          let errorMessage: string = err.response.data.errorMessage;
-          alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-        } else {
-          console.log(JSON.stringify(err))
-        }
+        Home.exceptionTreatment(err);
       }
     }
   }
@@ -71,12 +61,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       alert("Successful purchase! Your purchase id is: " + serverResponse);
       this.props.history.push('/coupons');
     } catch (err) {
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else {
-        console.log(JSON.stringify(err))
-      }
+      Home.exceptionTreatment(err);
     }
   }
 

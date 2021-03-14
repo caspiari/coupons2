@@ -32,12 +32,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             const users = response.data;
             this.setState({ users });
         } catch (err) {
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 

@@ -5,6 +5,7 @@ import { Unsubscribe } from 'redux';
 import { UserType } from '../../models/enums/UserType';
 import { ActionType } from '../../redux/action-type';
 import { store } from '../../redux/store';
+import Home from '../home/Home';
 import AdminMenu from './adminMenu/AdminMenu';
 import CompanyMenu from './companyMenu/CompanyMenu';
 import CustomerMenu from './customerMenu/CustomerMenu';
@@ -34,10 +35,7 @@ export default class Menu extends Component<any, IMenuState> {
     try {
       await axios.post("http://localhost:8080/users/logout");
     } catch (err) {
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else { console.log(JSON.stringify(err)) }
+      Home.exceptionTreatment(err);
     }
     sessionStorage.clear();
     store.dispatch({ type: ActionType.LOGIN, payload: null });

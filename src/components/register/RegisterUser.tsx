@@ -7,6 +7,7 @@ import { Company } from '../../models/Company';
 import IfAdmin from './ifAdmin/IfAdmin';
 import { store } from '../../redux/store';
 import { ActionType } from '../../redux/action-type';
+import Home from '../home/Home';
 
 interface RegisterUserState {
     username: string;
@@ -34,13 +35,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
             this.setState({ companies: response.data });
         } catch (err) {
-            console.log(err.message);
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 
@@ -90,13 +85,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             this.props.history.goBack();
         }
         catch (err) {
-            console.log(JSON.stringify(err));
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 
@@ -115,7 +104,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
                 {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} setUserType={this.setUserType}
                     setCompanyId={this.setCompanyId} companies={this.state.companies} />}
                 <br />
-                <input type="button" value="Register" onClick={this.register} /> 
+                <input type="button" value="Register" onClick={this.register} />
                 <input type="button" value="Back" onClick={this.back} />
             </div>
         );

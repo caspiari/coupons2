@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Component } from 'react'
 import { User } from '../../../models/User';
+import Home from '../../home/Home';
 import "./UserDetails.css";
 
 interface IUserDetailsProps {
@@ -24,14 +25,9 @@ export default class UserDetails extends Component<IUserDetailsProps> {
       try {
         await axios.delete("http://localhost:8080/users/" + this.props.user.id);
         alert("User was successfuly deleted");
-        // this.props.history.goBack();
+        this.props.setShowDetails(false);
       } catch (err) {
-        if (err.response != null) {
-          let errorMessage: string = err.response.data.errorMessage;
-          alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-        } else {
-          console.log(JSON.stringify(err.data))
-        }
+        Home.exceptionTreatment(err);
       }
     }
   }
@@ -43,7 +39,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
   public render() {
     return (
       <div className="userDetails">
-        <br />
+        <br /><h3>User details:</h3><br />
         <h3>Id: {this.props.user.id}<br />
         User name: {this.props.user.username}<br />
         Name: {this.props.user.firstName} {this.props.user.lastName}<br />

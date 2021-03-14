@@ -5,6 +5,7 @@ import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
 import "react-datepicker/dist/react-datepicker.css";
+import Home from '../../home/Home';
 
 interface IUpdateCouponState {
     id: number;
@@ -39,13 +40,8 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     //         const companies = response.data;
     //         this.setState({ companies });
     //     } catch (err) {
-    //         console.log(err.message);
-    //         if (err.response != null) {
-    //             let errorMessage: string = err.response.data.errorMessage;
-    //             alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-    //         } else {
-    //             console.log(JSON.stringify(err))
-    //         }
+    //       Home.exceptionTreatment(err);
+
     //     }
     // }
 
@@ -95,13 +91,7 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
             this.props.history.goBack();
         }
         catch (err) {
-            console.log(err.message);
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 

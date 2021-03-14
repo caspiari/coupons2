@@ -2,6 +2,7 @@ import { Component, ChangeEvent } from 'react';
 import axios from "axios";
 import "./Register.css";
 import { Company } from '../../models/Company';
+import Home from '../home/Home';
 
 interface RegisterState {
     name: string;
@@ -40,12 +41,7 @@ export default class Register extends Component<any, RegisterState> {
             this.props.history.goBack();
         }
         catch (err) {
-            if (err.response != null) {
-                let errorMessage: string = err.response.data.errorMessage;
-                alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-            } else {
-                console.log(JSON.stringify(err))
-            }
+            Home.exceptionTreatment(err);
         }
     }
 

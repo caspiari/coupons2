@@ -6,6 +6,7 @@ import { Coupon } from '../../../models/Coupon';
 import { CouponType } from '../../../models/enums/CouponType';
 import { store } from '../../../redux/store';
 import Card from '../../card/Card';
+import Home from '../../home/Home';
 import './MyCoupons.css';
 
 interface IMyCouponsState {
@@ -37,12 +38,7 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
       this.setState({ coupons: response.data });
     } catch (err) {
       console.log(err.message);
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else {
-        console.log(JSON.stringify(err))
-    }
+      Home.exceptionTreatment(err);
     }
   }
 

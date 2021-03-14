@@ -4,6 +4,7 @@ import { Company } from '../../../models/Company';
 import { Coupon } from '../../../models/Coupon';
 import { CouponType } from '../../../models/enums/CouponType';
 import Card from '../../card/Card';
+import Home from '../../home/Home';
 import "./CreateCoupon.css";
 
 interface ICreateCouponState {
@@ -87,12 +88,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
       this.props.history.goBack();
     }
     catch (err) {
-      if (err.response != null) {
-        let errorMessage: string = err.response.data.errorMessage;
-        alert(errorMessage.includes("General error") ? "General error, please try again" : errorMessage);
-      } else {
-        console.log(JSON.stringify(err))
-      }
+      Home.exceptionTreatment(err);
     }
   }
 
