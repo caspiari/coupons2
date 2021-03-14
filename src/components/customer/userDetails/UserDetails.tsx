@@ -17,7 +17,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
   }
 
   private onEditClick = () => {
-    this.props.setEditMode(true);
+    this.props.setEditMode(false);
   }
 
   private onDeleteClick = async () => {
@@ -25,9 +25,10 @@ export default class UserDetails extends Component<IUserDetailsProps> {
       try {
         await axios.delete("http://localhost:8080/users/" + this.props.user.id);
         alert("User was successfuly deleted");
+        // this.props.setShowDetails(false);
         this.props.setShowDetails(false);
       } catch (err) {
-        Home.exceptionTreatment(err);
+        Home.exceptionTreatment(err, this.props);
       }
     }
   }
@@ -39,7 +40,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
   public render() {
     return (
       <div className="userDetails">
-        <br /><h3>User details:</h3><br />
+        <br /><h2>User details:</h2><br />
         <h3>Id: {this.props.user.id}<br />
         User name: {this.props.user.username}<br />
         Name: {this.props.user.firstName} {this.props.user.lastName}<br />

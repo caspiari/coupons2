@@ -3,8 +3,6 @@ import { Component } from 'react'
 import { User } from '../../models/User';
 import { Company as CompanyBean } from '../../models/Company';
 import "./Company.css"
-import { store } from '../../redux/store';
-import { ActionType } from '../../redux/action-type';
 import UserDetails from '../customer/userDetails/UserDetails';
 import UpdateUser from '../update/updateUser/UpdateUser';
 import UpdateCompany from '../update/updateCompany/UpdateCompany';
@@ -24,8 +22,10 @@ export default class Company extends Component<any, ICompanyState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { user: new User(), company: new CompanyBean(), showUserDetails: false, showCompanyDetails: false,
-       editMode: false, showCompanyCoupons: false };
+    this.state = {
+      user: new User(), company: new CompanyBean(), showUserDetails: false, showCompanyDetails: false,
+      editMode: false, showCompanyCoupons: false
+    };
   }
 
   private userId = sessionStorage.getItem("id");
@@ -39,7 +39,7 @@ export default class Company extends Component<any, ICompanyState> {
       const companyResponse = await axios.get<Company>("http://localhost:8080/companies/" + this.companyId);
       this.setState({ user: response.data, company: companyResponse.data as CompanyBean });
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
 
@@ -55,20 +55,23 @@ export default class Company extends Component<any, ICompanyState> {
     this.setState({ showCompanyCoupons });
   }
 
-  private setEditMode = (editMode: boolean) => {
-    this.setState({ editMode });
+  private setEditMode = (edited: boolean) => {
+    if(edited === true) {
+      this.componentDidMount();
+    }
+    this.setState({ editMode: !this.state.editMode });
   }
 
   private onMyUserDetailsClick = () => {
-    this.setState({ showUserDetails: true });
+    this.setState({ showUserDetails: !this.state.showUserDetails });
   }
 
   private onMyCompanyDetailsClick = () => {
-    this.setState({ showCompanyDetails: true });
+    this.setState({ showCompanyDetails: !this.state.showCompanyDetails });
   }
 
   private onMyCompanyCouponsClick = () => {
-    this.setState({ showCompanyCoupons: true });
+    this.props.history.push('/coupons');
   }
 
   private onCreateCouponClick = () => {
@@ -79,7 +82,7 @@ export default class Company extends Component<any, ICompanyState> {
     return (
       <div className="Company">
         <br />
-        <h2>Welcome! {this.state.user.firstName} from {this.state.company.name} :)</h2>
+        <h1>Welcome! {this.state.user.firstName} from {this.state.company.name} :)</h1>
         <div>{this.state.showUserDetails === true && (this.state.editMode === true ? <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />
           : <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />)}</div>
         <div>{this.state.showCompanyDetails === true && (this.state.editMode === true ? <UpdateCompany company={this.state.company} setEditMode={this.setEditMode} />

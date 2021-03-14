@@ -39,16 +39,16 @@ export default class IfAdmin extends Component<IIfAdminProps, IIfAdminState> {
   public render() {
     return (
       <div className="update">
-        User type:&nbsp;&nbsp;
-        <select name="user type select" onChange={this.props.setUserType}>
+         <label htmlFor="userType">User type:</label>
+        <select name="user type select" id="userType" onChange={this.props.setUserType}>
           <option defaultValue={this.props.userType} key="defaultValue">
             {this.props.userType}
           </option>
           {this.props.userTypes.filter(userType => userType !== this.props.userType).map((userType, index) => (
             <option value={userType} key={index}>{userType.valueOf()}</option>))}
         </select>
-        {store.getState().isCompany && <div>Company:&nbsp;
-          <select name="company select" onChange={this.props.setCompanyId}>
+        {store.getState().isCompany && <div><label htmlFor="company">Company:</label>
+          <select name="company select" id="company" onChange={this.props.setCompanyId}>
             <option defaultValue={this.props.companyId == null? 0 : this.props.companyId} key="default company">
             {this.props.companyId == null? '-- Select company --' : this.props.companies.find(company => company.id === this.props.companyId).name}
             </option>

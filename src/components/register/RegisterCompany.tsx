@@ -41,7 +41,7 @@ export default class Register extends Component<any, RegisterState> {
             this.props.history.goBack();
         }
         catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 

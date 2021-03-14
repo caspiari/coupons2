@@ -76,10 +76,10 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
             await axios.put("http://localhost:8080/users", user);
             alert("User successfuly updated!");
             store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
-            this.props.setEditMode(false);
+            this.props.setEditMode(true);
         }
         catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 
@@ -90,11 +90,15 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
     public render() {
         return (
             <div className="update">
-                <h3>Edit user [ Id: {this.props.user.id} ]</h3>
-                User name: <input type="text" name="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
-                Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
-                First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
-                Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
+                <h2>Update user: Id: {this.props.user.id}</h2>
+                <label htmlFor="username">User name:</label>
+                <input type="text" name="username" id="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
+                <label htmlFor="password">Password:</label>
+                <input type="password" name="password" id="password" value={this.state.password} onChange={this.setPassword} /><br />
+                <label htmlFor="firstName">First name:</label>
+                <input type="text" name="firstName" id="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
+                <label htmlFor="lastName">Last name:</label>
+                <input type="text" name="lastName" id="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
                 {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin key={"ifAdmin"} userTypes={this.userTypes} companies={this.state.companies}
                     userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />

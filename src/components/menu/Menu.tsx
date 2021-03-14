@@ -35,7 +35,7 @@ export default class Menu extends Component<any, IMenuState> {
     try {
       await axios.post("http://localhost:8080/users/logout");
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
     sessionStorage.clear();
     store.dispatch({ type: ActionType.LOGIN, payload: null });

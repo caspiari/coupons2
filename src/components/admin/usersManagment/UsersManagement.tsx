@@ -32,7 +32,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             const users = response.data;
             this.setState({ users });
         } catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 

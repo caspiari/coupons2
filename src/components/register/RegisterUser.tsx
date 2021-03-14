@@ -35,7 +35,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             const response = await axios.get<Company[]>("http://localhost:8080/companies");
             this.setState({ companies: response.data });
         } catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 
@@ -85,7 +85,7 @@ export default class RegisterUser extends Component<any, RegisterUserState> {
             this.props.history.goBack();
         }
         catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 

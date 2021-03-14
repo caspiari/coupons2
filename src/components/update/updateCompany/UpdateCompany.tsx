@@ -1,10 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
 import "../Update.css";
-import { UserType } from '../../../models/enums/UserType';
-import { ActionType } from '../../../redux/action-type';
-import { store } from '../../../redux/store';
-import { User } from '../../../models/User';
 import { ChangeEvent } from 'react';
 import { Company } from '../../../models/Company';
 import Home from '../../home/Home';
@@ -44,17 +40,17 @@ export default class UpdateCompany extends Component<IUpdateCompanyProps, IUpdat
         this.setState({ phone });
     }
 
-    private onUpdateClick = async () => {
+    private onEditClick = async () => {
         try {
             const token = sessionStorage.getItem("token");
             axios.defaults.headers.common["Authorization"] = token;
             const company = new Company(this.state.id, this.state.name, this.state.address, this.state.phone);
             await axios.put("http://localhost:8080/companies", company);
             alert("Successfuly updated!");
-            this.props.setEditMode(false);
+            this.props.setEditMode(true);
         }
         catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 
@@ -65,16 +61,16 @@ export default class UpdateCompany extends Component<IUpdateCompanyProps, IUpdat
     public render() {
         return (
             <div className="update">
-                <h3>Update company: Id: {this.state.id}]</h3>
-                Name: <input type="text" name="name" placeholder={this.state.name} value={this.state.name} onChange={this.setName} /><br />
-                Password:&nbsp; <input type="password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
-                First name: <input type="text" name="firstName" value={this.state.firstName} onChange={this.setFirstName} /><br />
-                Last name: <input type="text" name="lastName" value={this.state.lastName} onChange={this.setLastName} /><br />
-                {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() && <IfAdmin userTypes={this.userTypes} companies={this.state.companies} 
-                 userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
+                <h2>Update company: Id: {this.state.id}</h2>
+                <label htmlFor="name">Name:</label>
+                <input type="text" name="name" id="name" placeholder={this.state.name} value={this.state.name} onChange={this.setName} /><br />
+                <label htmlFor="address">Address:</label>
+                <input type="text" name="address" id="address" value={this.state.address} onChange={this.setAddress} /><br />
+                <label htmlFor="phone">Phone:</label>
+                <input type="numbers" name="phone" value={this.state.phone} onChange={this.setPhone} /><br />
                 <br />
-                <input type="button" value="Update" onClick={this.onUpdateClick} />
-                <input type="button" value="Back" onClick={this.onCloseClick} />
+                <input type="button" value="Edit" onClick={this.onEditClick} />
+                <input type="button" value="Close" onClick={this.onCloseClick} /><br /><br />
             </div>
         );
     }

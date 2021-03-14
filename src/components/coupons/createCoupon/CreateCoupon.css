@@ -1,14 +1,13 @@
 .createCoupon {
     text-align: center;
-    font-size: 15px;
-    /* padding-left: 30%; */
+    font-size: large;
 }
 
 .createCoupon input {
     font-size: large;
     padding : 5px;
     margin: 2px;
-    display: block;
+    /* display: block; */
 }
   
 .createCoupon input:hover{

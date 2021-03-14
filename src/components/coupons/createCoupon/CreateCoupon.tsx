@@ -3,7 +3,6 @@ import { ChangeEvent, Component } from 'react'
 import { Company } from '../../../models/Company';
 import { Coupon } from '../../../models/Coupon';
 import { CouponType } from '../../../models/enums/CouponType';
-import Card from '../../card/Card';
 import Home from '../../home/Home';
 import "./CreateCoupon.css";
 
@@ -35,7 +34,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
         this.setState({ companies: response.data });
       }
     } catch (err) {
-      console.log(JSON.stringify(err), err.response.data)
+      Home.exceptionTreatment(err, this.props);
     }
   }
 
@@ -79,7 +78,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
     this.setState({ companyId });
   }
 
-  public create = async () => {
+  public onCreateClick = async () => {
     const coupon = new Coupon(null, this.state.category, this.state.name, this.state.companyId, this.state.description, this.state.price,
       this.state.amount, this.state.startDate, this.state.endDate);
     try {
@@ -88,16 +87,19 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
       this.props.history.goBack();
     }
     catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
 
+  private onBackClick = () => {
+    this.props.history.goBack();
+  }
 
   public render() {
     return (
       <div className="createCoupon">
         <br />
-        <h3>Create coupon</h3>
+        <h2>Create coupon</h2>
         {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company user, company id gets picked automaticly in server */}
           <select name="company select" onChange={this.setCompanyId}>
             <option defaultValue="" key="default company">
@@ -106,28 +108,21 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
             {this.state.companies.map((Company, index) => (<option value={Company.id} key={index}>{Company.name}</option>))}
           </select>
         </div>}
-                Category:
-        <select name="coupon type select" onChange={this.setCategory}>
+        Category: <select name="coupon type select" onChange={this.setCategory}>
           <option defaultValue="" key="defaultValue">
             -- Select category --
           </option>
-          {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
-            <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+          {this.couponTypes.map((couponType, index) => (<option value={couponType} key={index}>{couponType.valueOf()}</option>))}
         </select><br />
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" value={this.state.name} onChange={this.setName} />
-        <label htmlFor="description">Description: </label>
-        <input type="text" id="description" name="description" value={this.state.description} onChange={this.setDescription} /><br />
-        <label htmlFor="price">Price: </label>
-        <input type="number" id="price" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-        <label htmlFor="amount">Amount in stock: </label>
-        <input type="text" id="amount  " name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
+        Name: <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
+        Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
         Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-        Start date: <input type="date" value={String(this.state.startDate)} onChange={this.setStartDate} name="startDate" />
-        End date: <input type="date" value={Card.formatTime(this.state.endDate)} onChange={date => this.setEndDate(date)} name="endDate" />
+        Amount in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
+        Start date: <input type="date" name="startDate" placeholder="Start date" onChange={this.setStartDate}  /><br />
+        End date: <input type="date" name="endDate" placeholder="End date" onChange={this.setEndDate} />
         <br />
-        {/* <input type="button" value="Update" onClick={this.update} />
-        <input type="button" value="Back" onClick={this.back} />       */}
+        <input type="button" value="Create" onClick={this.onCreateClick} />
+        <input type="button" value="Back" onClick={this.onBackClick} />      
       </div>
     );
   }

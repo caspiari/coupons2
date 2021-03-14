@@ -40,7 +40,7 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
     //         const companies = response.data;
     //         this.setState({ companies });
     //     } catch (err) {
-    //       Home.exceptionTreatment(err);
+    //       Home.exceptionTreatment(err, this.props);
 
     //     }
     // }
@@ -91,7 +91,7 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
             this.props.history.goBack();
         }
         catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
     }
 

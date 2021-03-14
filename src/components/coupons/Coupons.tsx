@@ -5,6 +5,7 @@ import { Coupon } from '../../models/Coupon';
 import { CouponType } from '../../models/enums/CouponType';
 import { UserType } from '../../models/enums/UserType';
 import Card from '../card/Card';
+import Home from '../home/Home';
 import "./Coupons.css";
 
 interface CouponsState {
@@ -37,7 +38,8 @@ export default class Coupons extends Component<any, CouponsState> {
         this.setState({ coupons: response.data });
       }
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
+    }
   }
 
   public onNamePipeChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,15 +61,20 @@ export default class Coupons extends Component<any, CouponsState> {
     this.props.history.push('/couponDetails/' + id);
   }
 
+  private onBackClick = () => {
+    this.props.history.goBack();
+  }
+
   public render() {
     return (
       <div className="coupons">
         <br />
-        <h1><b>{sessionStorage.getItem("userType") === "COMPANY" ? "Your" : "Our"} coupons</b></h1>
-        <label htmlFor="name"><b>Search: </b>By name:</label><input type="text" id="name" onChange={this.onNamePipeChanged} />
-        {sessionStorage.getItem("userType") !== "COMPANY" && <span> <label htmlFor="company">By company:</label> 
+        <h1><b>{sessionStorage.getItem("userType") === "COMPANY" ? "Your" : "Our"} Coupons</b>
+        <input type="button" value="Back" onClick={this.onBackClick} /></h1>
+        <label htmlFor="name"><b>Search: </b>By name: </label><input type="text" id="name" onChange={this.onNamePipeChanged} />
+        {sessionStorage.getItem("userType") !== "COMPANY" && <span> <label htmlFor="company">By company: </label> 
         <input type="text" id="company" onChange={this.onCompanyPipeChanged} /> </span>}
-        <label htmlFor="category">By category:</label>
+        <label htmlFor="category">By category: </label>
                 <select name="coupon type select" id="category" onChange={this.onCategoryPipeChanged}>
                     <option defaultValue="" key="defaultValue">
                         -- Select category --

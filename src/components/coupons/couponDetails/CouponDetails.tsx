@@ -21,9 +21,6 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
-    if (token == null) {
-      alert("Please login/register in order to see coupon details and to purchase");
-    }
     axios.defaults.headers.common["Authorization"] = token;
     const id = this.props.match.params;
     try {
@@ -31,7 +28,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       const coupon = response.data;
       this.setState({ coupon });
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
 
@@ -42,7 +39,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
         alert("Coupon was successfuly deleted");
         this.props.history.goBack();
       } catch (err) {
-        Home.exceptionTreatment(err);
+        Home.exceptionTreatment(err, this.props);
       }
     }
   }
@@ -61,7 +58,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
       alert("Successful purchase! Your purchase id is: " + serverResponse);
       this.props.history.push('/coupons');
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
 

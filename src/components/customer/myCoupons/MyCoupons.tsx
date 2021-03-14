@@ -38,7 +38,7 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
       this.setState({ coupons: response.data });
     } catch (err) {
       console.log(err.message);
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
 

@@ -12,12 +12,8 @@ interface ICompanyDetailsProps {
 
 export default class CompanyDetails extends Component<ICompanyDetailsProps> {
 
-    constructor(props: ICompanyDetailsProps) {
-        super(props);
-    }
-
     private onEditClick = () => {
-        this.props.setEditMode(true);
+        this.props.setEditMode(false);
     }
 
     private onDeleteClick = async () => {
@@ -27,7 +23,7 @@ export default class CompanyDetails extends Component<ICompanyDetailsProps> {
                 alert("company was successfuly deleted");
                 this.props.setShowDetails(false);
             } catch (err) {
-                Home.exceptionTreatment(err);
+                Home.exceptionTreatment(err, this.props);
             }
         }
     }
@@ -39,7 +35,8 @@ export default class CompanyDetails extends Component<ICompanyDetailsProps> {
     public render() {
         return (
             <div className="userDetails">
-            <h3><br />Company details:<br />
+            <h2><br />Company details:<br /><br /></h2>
+            <h3>
             Id: {this.props.company.id}<br />
             Name: {this.props.company.name}<br />
             Address: {this.props.company.address}<br />

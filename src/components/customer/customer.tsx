@@ -23,7 +23,7 @@ export default class Customer extends Component<any, ICustomerState> {
       const response = await axios.get<User>("http://localhost:8080/users/" + id);
       this.setState({ user: response.data });
     } catch (err) {
-      Home.exceptionTreatment(err);
+      Home.exceptionTreatment(err, this.props);
     }
   }
   

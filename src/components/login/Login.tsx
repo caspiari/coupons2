@@ -59,7 +59,7 @@ export default class Login extends Component<any, ILoginState> {
                 this.props.history.push('/company')
             }
         } catch (err) {
-            Home.exceptionTreatment(err);
+            Home.exceptionTreatment(err, this.props);
         }
         console.log("Login ended");
     }
