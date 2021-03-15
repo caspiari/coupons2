@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
-import "../Update.css";
+import "./UpdateUser.css";
 import { UserType } from '../../../models/enums/UserType';
 import { Company } from '../../../models/Company';
 import IfAdmin from './ifAdmin/IfAdmin';

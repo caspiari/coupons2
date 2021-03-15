@@ -13,15 +13,15 @@ import RegisterUser from '../register/RegisterUser';
 import Admin from '../admin/Admin';
 import Company from '../company/Company';
 import RegisterCompany from '../register/RegisterCompany';
-import UpdateUser from '../update/updateUser/UpdateUser';
+import UpdateUser from '../customer/updateUser/UpdateUser';
 import UsersManagement from '../admin/usersManagment/UsersManagement';
 import UserDetails from '../customer/userDetails/UserDetails';
 import Home from '../home/Home';
-import UpdateCoupon from '../update/updateCoupon/UpdateCoupon';
+import UpdateCoupon from '../coupons/updateCoupon/UpdateCoupon';
 import CreateCoupon from '../coupons/createCoupon/CreateCoupon';
 import MyCoupons from '../customer/myCoupons/MyCoupons';
 import CompanyDetails from '../company/companyDetails/CompanyDetails';
-import UpdateCompany from '../update/updateCompany/UpdateCompany';
+import UpdateCompany from '../company/updateCompany/UpdateCompany';
 
 export default class Layout extends Component {
   public render() {

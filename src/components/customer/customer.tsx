@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { User } from '../../models/User';
 import Home from '../home/Home';
-import UpdateUser from '../update/updateUser/UpdateUser';
+import UpdateUser from './updateUser/UpdateUser';
 import './Customer.css';
 import UserDetails from './userDetails/UserDetails';
 

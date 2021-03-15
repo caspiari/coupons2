@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
-import "../Update.css";
+import "./UpdateCompany.css";
 import { ChangeEvent } from 'react';
 import { Company } from '../../../models/Company';
 import Home from '../../home/Home';

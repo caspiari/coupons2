@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import axios from "axios";
-import "../Update.css";
+import "./UpdateCoupon.css";
 import { ChangeEvent } from 'react';
 import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
@@ -114,7 +114,7 @@ export default class UpdateCoupon extends Component<IUpdateCouponProps, IUpdateC
     public render() {
         return (
             <div className="updateCoupon">
-                <h3>Update coupon [Id: {this.state.id}]</h3>
+                <h2><u>Update coupon: Id: {this.state.id}</u></h2>
                 {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company-user the company id gets picked automaticly in server */}
                     <select name="company select" onChange={this.setCompanyId}>
                         <option defaultValue="" key="default company">

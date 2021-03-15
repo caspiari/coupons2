@@ -35,7 +35,7 @@ export default class CompanyDetails extends Component<ICompanyDetailsProps> {
     public render() {
         return (
             <div className="userDetails">
-            <h2><br />Company details:<br /><br /></h2>
+            <h2><br /><u>Company details:</u><br /><br /></h2>
             <h3>
             Id: {this.props.company.id}<br />
             Name: {this.props.company.name}<br />

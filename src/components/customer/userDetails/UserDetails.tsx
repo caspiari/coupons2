@@ -22,7 +22,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
         await axios.delete("http://localhost:8080/users/" + this.props.user.id);
         alert("User was successfuly deleted");
         // this.props.setShowDetails(false);
-        this.props.setShowDetails(false);
+        this.props.setShowDetails();
       } catch (err) {
         Home.exceptionTreatment(err, this.props);
       }
@@ -30,7 +30,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
   }
 
   private onBackClick = () => {
-    this.props.setShowDetails(false);
+    this.props.setShowDetails();
   }
 
   public render() {

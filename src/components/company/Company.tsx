@@ -4,17 +4,17 @@ import { User } from '../../models/User';
 import { Company as CompanyBean } from '../../models/Company';
 import "./Company.css"
 import UserDetails from '../customer/userDetails/UserDetails';
-import UpdateUser from '../update/updateUser/UpdateUser';
-import UpdateCompany from '../update/updateCompany/UpdateCompany';
+import UpdateUser from '../customer/updateUser/UpdateUser';
+import UpdateCompany from './updateCompany/UpdateCompany';
 import CompanyDetails from './companyDetails/CompanyDetails';
 import Home from '../home/Home';
 
 interface ICompanyState {
   user: User;
   company: CompanyBean;
+  showCompanyMenu: boolean;
   showUserDetails: boolean;
   showCompanyDetails: boolean;
-  showCompanyCoupons: boolean;
   editMode: boolean;
 }
 
@@ -23,8 +23,8 @@ export default class Company extends Component<any, ICompanyState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      user: new User(), company: new CompanyBean(), showUserDetails: false, showCompanyDetails: false,
-      editMode: false, showCompanyCoupons: false
+      user: new User(), company: new CompanyBean(), showCompanyMenu: true, showUserDetails: false, 
+      showCompanyDetails: false, editMode: false
     };
   }
 
@@ -43,16 +43,12 @@ export default class Company extends Component<any, ICompanyState> {
     }
   }
 
-  private setShowDetails = (showUserDetails: boolean) => {
-    this.setState({ showUserDetails });
+  private setShowUserDetails = (showUserDetails: boolean) => {
+    this.setState({ showUserDetails, showCompanyMenu: !showUserDetails });
   }
 
   private setShowCompanyDetails = (showCompanyDetails: boolean) => {
-    this.setState({ showCompanyDetails });
-  }
-
-  private setShowCompanyCoupons = (showCompanyCoupons: boolean) => {
-    this.setState({ showCompanyCoupons });
+    this.setState({ showCompanyDetails, showCompanyMenu: !showCompanyDetails });
   }
 
   private setEditMode = (edited: boolean) => { //Refresh component if edited
@@ -63,11 +59,11 @@ export default class Company extends Component<any, ICompanyState> {
   }
 
   private onMyUserDetailsClick = () => {
-    this.setState({ showUserDetails: !this.state.showUserDetails });
+    this.setState({ showUserDetails: true, showCompanyMenu: false });
   }
 
   private onMyCompanyDetailsClick = () => {
-    this.setState({ showCompanyDetails: !this.state.showCompanyDetails });
+    this.setState({ showCompanyDetails: true, showCompanyMenu: false });
   }
 
   private onMyCompanyCouponsClick = () => {
@@ -84,17 +80,17 @@ export default class Company extends Component<any, ICompanyState> {
       <div className="Company">
         <br />
         <h1>Welcome! {this.state.user.firstName} from {this.state.company.name} :)</h1>
-        <div>{this.state.showUserDetails === true && (this.state.editMode === true ? <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />
-          : <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />)}</div>
-        <div>{this.state.showCompanyDetails === true && (this.state.editMode === true ? <UpdateCompany company={this.state.company} setEditMode={this.setEditMode} />
-          : <CompanyDetails company={this.state.company} setShowDetails={this.setShowCompanyDetails} setEditMode={this.setEditMode} />)}</div>
-        <div>{this.state.showCompanyCoupons === true && (this.state.editMode === true ? <UpdateCompany company={this.state.company} setEditMode={this.setEditMode} />
+        <div>{this.state.showUserDetails && (this.state.editMode ? <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />
+          : <UserDetails user={this.state.user} setShowDetails={this.setShowUserDetails} setEditMode={this.setEditMode} />)}</div>
+        <div>{this.state.showCompanyDetails && (this.state.editMode ? <UpdateCompany company={this.state.company} setEditMode={this.setEditMode} />
           : <CompanyDetails company={this.state.company} setShowDetails={this.setShowCompanyDetails} setEditMode={this.setEditMode} />)}</div>
         <br /><br />
-        <br /><input type="button" value="My user details" onClick={this.onMyUserDetailsClick} />
-        <br /><input type="button" value="My company details" onClick={this.onMyCompanyDetailsClick} />
-        <br /><input type="button" value="My company coupons" onClick={this.onMyCompanyCouponsClick} />
-        <br /><input type="button" value="Create coupon" onClick={this.onCreateCouponClick} />
+        {this.state.showCompanyMenu && <div>
+          <br /><input type="button" value="My user details" onClick={this.onMyUserDetailsClick} />
+          <br /><input type="button" value="My company details" onClick={this.onMyCompanyDetailsClick} />
+          <br /><input type="button" value="My company coupons" onClick={this.onMyCompanyCouponsClick} />
+          <br /><input type="button" value="Create coupon" onClick={this.onCreateCouponClick} />
+        </div>}
       </div>
     );
   }

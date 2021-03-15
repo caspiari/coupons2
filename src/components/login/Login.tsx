@@ -68,13 +68,18 @@ export default class Login extends Component<any, ILoginState> {
         this.props.history.push('/registerUser');
     }
 
+    private onBackClick = () => {
+        this.props.history.goBack();
+    }
+
     public render() {
         return (
             <div className="login">
                 <input type="text" placeholder="User name" name="username" value={this.state.username} onChange={this.setUsername} /><br />
                 <input type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.setPassword} /><br />
                 <input type="button" value="Login" onClick={this.login} /><br />
-                <input type="button" value="Register" onClick={this.onRegisterClick} />
+                <input type="button" value="Register" onClick={this.onRegisterClick} /><br />
+                <input type="button" value="Back" onClick={this.onBackClick} />
             </div>
         );
     }

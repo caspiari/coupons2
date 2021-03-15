@@ -3,7 +3,7 @@ import { Unsubscribe } from 'redux';
 import { Company } from '../../../../models/Company';
 import { UserType } from '../../../../models/enums/UserType';
 import { store } from '../../../../redux/store';
-import "../../Update.css";
+import "../UpdateUser.css";
 
 interface IIfAdminProps {
   userTypes: UserType[];

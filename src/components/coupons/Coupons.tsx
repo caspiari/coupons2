@@ -86,6 +86,7 @@ export default class Coupons extends Component<any, CouponsState> {
           .filter(coupon => coupon.category.valueOf().includes(this.state.categoryFilter))
           .map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={() => this.onCardClick(coupon.id)} />)}
         </ol>}
+        <br /><input type="button" className="back" value="Back" onClick={this.onBackClick} />
       </div>
     );
   }

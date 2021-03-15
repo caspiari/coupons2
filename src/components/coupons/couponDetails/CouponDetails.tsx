@@ -6,10 +6,11 @@ import { UserType } from '../../../models/enums/UserType';
 import Card from '../../card/Card';
 import "./CouponDetails.css";
 import Home from '../../home/Home';
-import UpdateCoupon from '../../update/updateCoupon/UpdateCoupon';
+import UpdateCoupon from '../updateCoupon/UpdateCoupon';
 
 interface CouponDetailsState {
   coupon: Coupon;
+  isAdminOrCompany: boolean; //Because "no-mixed-operators"
   purchaseAmount: number;
   editMode: boolean;
 }
@@ -18,10 +19,12 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupon: new Coupon(), purchaseAmount: 0, editMode: false };
+    this.state = { coupon: new Coupon(), isAdminOrCompany: false, purchaseAmount: 0, editMode: false };
   }
 
   public async componentDidMount() {
+    sessionStorage.getItem("userType") === "ADMIN"? this.setState({ isAdminOrCompany: true }) : this.setState({ isAdminOrCompany: false });
+    sessionStorage.getItem("userType") === "COMPANY"? this.setState({ isAdminOrCompany: true }) : this.setState({ isAdminOrCompany: false });
     const token = sessionStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const id = +this.props.match.params.id;
@@ -95,8 +98,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
           {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
           && <div><span>How many I want: </span><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
           <input type="button" value="purchase" onClick={this.purchase} /></div>}
-          {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() || sessionStorage.getItem("userType") === UserType.COMPANY.valueOf() 
-          && <span>
+          {this.state.isAdminOrCompany && <span>
           <input type="button" value="Delete" onClick={this.onDeleteClick} />&nbsp;
           <input type="button" value="Edit" onClick={this.onEditClick} /></span>}
           <br /><input type="button" value="Back" onClick={this.back} />
