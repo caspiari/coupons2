@@ -37,9 +37,7 @@ export default class Menu extends Component<any, IMenuState> {
     } catch (err) {
       Home.exceptionTreatment(err, this.props);
     }
-    console.log("Before clear: " +sessionStorage);
     sessionStorage.clear();
-    console.log("After clear: " + sessionStorage);
     store.dispatch({ type: ActionType.LOGIN, payload: null });
     axios.defaults.headers.common["Authorization"] = "";
   }

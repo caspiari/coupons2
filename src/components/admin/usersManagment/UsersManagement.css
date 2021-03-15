@@ -3,6 +3,10 @@
     font-size: 15px;
 }
 
+.usersManagement b {
+    margin-right: 17px;
+}
+
 .usersManagement input {
     font-size: large;
     padding : 5px;
@@ -13,10 +17,26 @@
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
+.usersManagement table {
+    margin: 17px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: x-large;
+    width: 70%;
+}
+
+.usersManagement table, th, td {
+    border: 1px solid rgb(47, 2, 2);
+}
+
+.usersManagement td {
+    padding: 7px;
+}
+
 .userCard {
         text-align: center;
         display: inline-block;
-        height: 80px;
+        height: 87px;
         width: 200px;
         margin: 1px;
         padding: 2px;

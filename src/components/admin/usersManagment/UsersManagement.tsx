@@ -1,11 +1,10 @@
 import { Component } from 'react'
 import "./UsersManagement.css"
-import { NavLink } from 'react-router-dom';
 import { User } from '../../../models/User';
 import axios from 'axios';
 import { ChangeEvent } from 'react';
-import UserCard from '../../card/userCard/UserCard';
 import Home from '../../home/Home';
+import { NavLink } from 'react-router-dom';
 
 interface IUsersManagementState {
     userIdFilter: number;
@@ -46,24 +45,59 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.setState({ userIdFilter });
     }
 
+    private onRegisterNewUserClick = () => {
+        this.props.history.push("/registerUser");
+    }
+
+    private onUserClick = () => {
+        
+    }
+
     private back = () => {
         this.props.history.goBack();
     }
 
     public render() {
         return (
-            <div className="admin">
+            <div className="usersManagement">
                 <br />
-                <h3>Users management</h3>
-                <NavLink to={"/registerUser"}>Register new user</NavLink><br /><br />
+                <h2><u>Users management</u></h2>
+                <br /><input type="button" value="Register new user" onClick={this.onRegisterNewUserClick} /><br /><br />
+                <b>Search:</b>By user name: <input type="text" id="name" onChange={this.onUserNamePipeChanged} />
+                &nbsp;By user id: <input type="numbers" id="id" onChange={this.onUserIdPipeChanged} />
                 <br />
-
-                {this.state.users.map(user => <UserCard key={user.id} user={user} />)}
-
-                {/* {this.state.users.map(user => <input type="radio" checked={this.state.selectedUser === user}>{user.username}</input>)} */}
-              
+                <table>
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>User name</th>
+                        <th>Full name</th>
+                        <th>User type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            this.state.users.filter(user => user.username.includes(this.state.userNameFilter))
+                            .filter(user => {
+                                if(this.state.userIdFilter === 0) {
+                                    return true;
+                                } else {
+                                    return user.id === this.state.userIdFilter;
+                                }
+                            })
+                            .map(user => {
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.username}</td>
+                                    <td>{user.firstName} {user.lastName}</td>
+                                    <td>{user.userType}</td>
+                                </tr>
+                            }
+                            )
+                        }
+                    </tbody>
+                </table>
                 <br /><input type="button" value="Back" onClick={this.back} />
-
             </div>
         );
     }

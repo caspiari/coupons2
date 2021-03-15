@@ -5,9 +5,13 @@ import Home from '../../home/Home';
 import "./UserDetails.css";
 
 interface IUserDetailsProps {
-  user: User;
-  setShowDetails: any;
-  setEditMode: any;
+  user?: User;
+  setShowDetails?: any;
+  setEditMode?: any;
+}
+
+interface IUserDetailsState {
+  
 }
 
 export default class UserDetails extends Component<IUserDetailsProps> {

@@ -23,8 +23,9 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   }
 
   public async componentDidMount() {
-    sessionStorage.getItem("userType") === "ADMIN"? this.setState({ isAdminOrCompany: true }) : this.setState({ isAdminOrCompany: false });
-    sessionStorage.getItem("userType") === "COMPANY"? this.setState({ isAdminOrCompany: true }) : this.setState({ isAdminOrCompany: false });
+    if(sessionStorage.getItem("userType") === "ADMIN" || sessionStorage.getItem("userType") === "COMPANY") {
+      this.setState({ isAdminOrCompany: true });
+    }
     const token = sessionStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const id = +this.props.match.params.id;
