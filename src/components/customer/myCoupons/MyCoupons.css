@@ -1,3 +1,9 @@
 .myCoupons {
     text-align: center;
 }
+
+.myCoupons input {
+    font-size: large;
+    padding : 5px;
+    margin: 2px;
+}

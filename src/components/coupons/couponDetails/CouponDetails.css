@@ -9,9 +9,11 @@
     margin-left: 0.5cm;
 }
 
-.CouponDetails > h2 {
-    display: inline-block;
+.CouponDetails span {
+    font-size: larger;
+    font-weight: bold;
 }
+
 
 .CouponDetails input {
     font-size: large;

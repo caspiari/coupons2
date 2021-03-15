@@ -83,14 +83,14 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
         }
     }
 
-    private onCloseClick = () => {
+    private onBackClick = () => {
         this.props.setEditMode(false);
     }
 
     public render() {
         return (
             <div className="update">
-                <h2>Update user: Id: {this.props.user.id}</h2>
+                <h2><u>Update user: Id: {this.props.user.id}</u></h2>
                 <label htmlFor="username">User name:</label>
                 <input type="text" name="username" id="username" placeholder="E-mail" value={this.state.username} onChange={this.setUsername} /><br />
                 <label htmlFor="password">Password:</label>
@@ -103,7 +103,7 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
                     userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
                 <input type="button" value="Edit" onClick={this.onEditClick} />
-                <input type="button" value="Close" onClick={this.onCloseClick} /><br /><br />
+                <input type="button" value="Back" onClick={this.onBackClick} /><br /><br />
             </div>
         );
     }

@@ -6,6 +6,12 @@ import { CouponType } from '../../../models/enums/CouponType';
 import { Coupon } from '../../../models/Coupon';
 import "react-datepicker/dist/react-datepicker.css";
 import Home from '../../home/Home';
+import { Company } from '../../../models/Company';
+
+interface IUpdateCouponProps {
+    coupon: Coupon;
+    setEditMode: any;
+}
 
 interface IUpdateCouponState {
     id: number;
@@ -18,32 +24,35 @@ interface IUpdateCouponState {
     startDate: Date;
     endDate: Date;
     companyId: number;
+    companies: Company[];
 }
 
-export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
+export default class UpdateCoupon extends Component<IUpdateCouponProps, IUpdateCouponState> {
 
     public constructor(props: any) {
         super(props);
         this.state = {
-            id: this.props.location.state.id, companyName: "", category: null, name: "", description: "",
-            price: 0, amount: 0, startDate: null, endDate: null, companyId: 0
+            id: this.props.coupon.id, companyName: this.props.coupon.companyName, category: this.props.coupon.category, name: this.props.coupon.name,
+            description: this.props.coupon.description, price: this.props.coupon.price, amount: this.props.coupon.amount, startDate: this.props.coupon.startDate,
+            endDate: this.props.coupon.endDate, companyId: this.props.coupon.companyId, companies: []
         };
     }
 
     private couponTypes: CouponType[] = [CouponType.COMPUTERS, CouponType.KITCHEN, CouponType.STEREO];
-
-    // public async componentDidMount() {
-    //     const token = sessionStorage.getItem("token");
-    //     axios.defaults.headers.common["Authorization"] = token;
-    //     try {
-    //         const response = await axios.get<Company[]>("http://localhost:8080/companies");
-    //         const companies = response.data;
-    //         this.setState({ companies });
-    //     } catch (err) {
-    //       Home.exceptionTreatment(err, this.props);
-
-    //     }
-    // }
+    
+    public async componentDidMount() {
+        if (sessionStorage.getItem("userType") === "ADMIN") {
+            const token = sessionStorage.getItem("token");
+            axios.defaults.headers.common["Authorization"] = token;
+            try {
+                const response = await axios.get<Company[]>("http://localhost:8080/companies");
+                const companies = response.data;
+                this.setState({ companies });
+            } catch (err) {
+                Home.exceptionTreatment(err, this.props);
+            }
+        }
+    }
 
     private setCategory = (event: ChangeEvent<HTMLSelectElement>) => {
         const category = event.target.value as CouponType;
@@ -70,59 +79,65 @@ export default class UpdateCoupon extends Component<any, IUpdateCouponState> {
         this.setState({ amount });
     }
 
-    private setStartDate = (date) => {
-        // const startDate = date;
-        // this.setState({ startDate });
-        // this.date = date;
-        // console.log(date);
+    private setStartDate = (event: ChangeEvent<HTMLInputElement>) => {
+        const startDate = new Date(event.target.value);
+        this.setState({ startDate });
     }
 
-    private setEndDate = (date) => {
-        const endDate = date;
+    private setEndDate = (event: ChangeEvent<HTMLInputElement>) => {
+        const endDate = new Date(event.target.value);
         this.setState({ endDate });
     }
 
+    private setCompanyId = (event: ChangeEvent<HTMLSelectElement>) => {
+        const companyId = +event.target.value;
+        this.setState({ companyId });
+    }
+
     private update = async () => {
-        const coupon = new Coupon(this.state.id, this.state.category, this.state.name, this.state.companyId, 
+        const coupon = new Coupon(this.state.id, this.state.category, this.state.name, this.state.companyId,
             this.state.description, this.state.price, this.state.amount, this.state.startDate, this.state.endDate);
         try {
             await axios.put("http://localhost:8080/coupons", coupon);
             alert("Successfuly updated!");
-            this.props.history.goBack();
+            this.props.setEditMode(true);
         }
         catch (err) {
             Home.exceptionTreatment(err, this.props);
         }
     }
 
-    private back = () => {
-        this.props.history.goBack();
+    private onBackClick = () => {
+        this.props.setEditMode(false);
     }
-
-    // private date = new Date(+this.state.startDate.getFullYear, +this.state.startDate.getMonth, +this.state.startDate.getDate);
 
     public render() {
         return (
             <div className="updateCoupon">
                 <h3>Update coupon [Id: {this.state.id}]</h3>
-                Category:
-                <select name="coupon type select" onChange={this.setCategory}>
-                    <option defaultValue={this.state.category} key="defaultValue">
-                        {this.state.category}
-                    </option>
-                    {this.couponTypes.filter(couponType => couponType !== this.state.category).map((couponType, index) => (
-                        <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+                {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company-user the company id gets picked automaticly in server */}
+                    <select name="company select" onChange={this.setCompanyId}>
+                        <option defaultValue="" key="default company">
+                            -- Select company --
+                        </option>
+                        {this.state.companies.map((Company, index) => (<option value={Company.id} key={index}>{Company.name}</option>))}
+                    </select>
+                </div>}
+                Category: <select name="coupon type select" onChange={this.setCategory}>
+                <option defaultValue={this.props.coupon.category} key="defaultValue">
+                    {this.props.coupon.category}
+                </option>
+                {this.couponTypes.map((couponType, index) => (<option value={couponType} key={index}> {couponType.valueOf()} </option>))}
                 </select><br />
-                Name:&nbsp; <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
+                Name: <input type="text" name="name" value={this.state.name} onChange={this.setName} /><br />
                 Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
                 Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-                Amoun in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
-                Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
-                {/* Start date: <DatePicker value={Card.formatTime(this.date)} selected={this.date} onChange={date => this.setStartDate(date)} name="startDate" dateFormat="DD/MM/YYYY" />
-                End date: <DatePicker value={Card.formatTime(this.date)} selected={ this.date } onChange={date => this.setEndDate(date)} name="endDate" dateFormat="MM-DD-YYYY" /> */}
+                Amount in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
+                Start date: <input type="date" name="startDate" placeholder="Start date" onChange={this.setStartDate} /><br />
+                End date: <input type="date" name="endDate" placeholder="End date" onChange={this.setEndDate} />
                 <br />
                 <input type="button" value="Update" onClick={this.update} />
-                <input type="button" value="Back" onClick={this.back} />
+                <input type="button" value="Back" onClick={this.onBackClick} />
             </div>
         );
     }

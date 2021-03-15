@@ -6,17 +6,19 @@ import { UserType } from '../../../models/enums/UserType';
 import Card from '../../card/Card';
 import "./CouponDetails.css";
 import Home from '../../home/Home';
+import UpdateCoupon from '../../update/updateCoupon/UpdateCoupon';
 
 interface CouponDetailsState {
   coupon: Coupon;
   purchaseAmount: number;
+  editMode: boolean;
 }
 
 export default class CouponDetails extends Component<any, CouponDetailsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { coupon: new Coupon(), purchaseAmount: 0 };
+    this.state = { coupon: new Coupon(), purchaseAmount: 0, editMode: false };
   }
 
   public async componentDidMount() {
@@ -32,7 +34,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
     }
   }
 
-  private delete = async () => {
+  private onDeleteClick = async () => {
     if (window.confirm("Do you want to delete this coupon?") === true) {
       try {
         await axios.delete("http://localhost:8080/coupons/" + this.state.coupon.id);
@@ -63,7 +65,14 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   }
 
   private onEditClick = () => {
-    this.props.history.push('/updateCoupon/' + this.state.coupon.id);
+    this.setState({ editMode: !this.state.editMode });
+  }
+
+  private setEditMode = (edited: boolean) => {
+    if(edited) {
+      this.componentDidMount();
+    }
+    this.setState({ editMode: !this.state.editMode });
   }
 
   private back = () => {
@@ -73,23 +82,26 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   public render() {
     return (
       <div className="CouponDetails">
-        <h2>Coupon details: (id: {this.state.coupon.id})</h2>
-        <br />
-        <h3>Company: {this.state.coupon.companyName}</h3>
-        <h3>Category: {this.state.coupon.category}</h3>
-        <h3>Name: {this.state.coupon.name}</h3>
-        <h3>Description: {this.state.coupon.description}</h3>
-        <h3>Price: {this.state.coupon.price}</h3>
-        <h3>Amount in stock: {this.state.coupon.amount}</h3>
-        <h3>Start date: {Card.formatTime(this.state.coupon.startDate)}</h3>
-        <h3>End date: {Card.formatTime(this.state.coupon.endDate)}</h3>
-        {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
-          && <div><h2>How many I want: </h2><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
-            <input type="button" value="purchase" onClick={this.purchase} /></div>}
-        {sessionStorage.getItem("userType") !== UserType.CUSTOMER.valueOf() && <span>
-          <input type="button" value="Delete" onClick={this.delete} />&nbsp;
+        {!this.state.editMode && <div>
+          <h2><u>Coupon details: (id: {this.state.coupon.id})</u></h2>
+          <h3>Company: {this.state.coupon.companyName}</h3>
+          <h3>Category: {this.state.coupon.category}</h3>
+          <h3>Name: {this.state.coupon.name}</h3>
+          <h3>Description: {this.state.coupon.description}</h3>
+          <h3>Price: {this.state.coupon.price}</h3>
+          <h3>Amount in stock: {this.state.coupon.amount}</h3>
+          <h3>Start date: {Card.formatTime(this.state.coupon.startDate)}</h3>
+          <h3>End date: {Card.formatTime(this.state.coupon.endDate)}</h3>
+          {sessionStorage.getItem("userType") === UserType.CUSTOMER.valueOf()
+          && <div><span>How many I want: </span><input type="number" className="number" onChange={this.onPurchaseAmountChanged} />
+          <input type="button" value="purchase" onClick={this.purchase} /></div>}
+          {sessionStorage.getItem("userType") === UserType.ADMIN.valueOf() || sessionStorage.getItem("userType") === UserType.COMPANY.valueOf() 
+          && <span>
+          <input type="button" value="Delete" onClick={this.onDeleteClick} />&nbsp;
           <input type="button" value="Edit" onClick={this.onEditClick} /></span>}
-        &nbsp;&nbsp;<input type="button" value="Back" onClick={this.back} />
+          <br /><input type="button" value="Back" onClick={this.back} />
+        </div>}
+        {this.state.editMode && <UpdateCoupon coupon={this.state.coupon} setEditMode={this.setEditMode} />}
       </div>
     );
   }

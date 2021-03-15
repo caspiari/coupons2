@@ -16,13 +16,13 @@ export default class Home extends Component<any> {
     }
 
     public static exceptionTreatment = (err: any, props: Readonly<any>) => {
-        // if(err.message != null && err.message.includes("status code 600")){
-        //     Home.loginRequset(props);
-        //     return;
-        // }
+        if(err.message != null && err.message.includes("status code 600")){
+            Home.loginRequset(props);
+            return;
+        }
         if (err.response != null && err.response.data != null && err.response.data.errorMessage != null) {
             let errorMessage: string = err.response.data.errorMessage;
-            alert(errorMessage.includes("General error") ? "General error, please try again" : (errorMessage.includes("You have no access") ? "You have no access to this action" : errorMessage));
+            alert(errorMessage.includes("General error") ? "General error, please try again" : (errorMessage.includes("624") ? "You have no access to this action" : errorMessage));
         } else {
             console.log(JSON.stringify(err), err.message);
         }

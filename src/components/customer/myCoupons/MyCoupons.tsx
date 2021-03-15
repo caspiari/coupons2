@@ -64,6 +64,10 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
     this.props.history.push('/couponDetails/' + id);
   }
 
+  private onBackClick = () => {
+    this.props.history.goBack();
+  }
+
   public render() {
     return (
       <div className="myCoupons">
@@ -77,6 +81,7 @@ export default class MyCoupons extends Component<any, IMyCouponsState> {
           .filter(coupon => coupon.category.valueOf().includes(this.state.categoryFilter))
           .map(coupon => <Card key={coupon.id} coupon={coupon} onCardClick={() => this.onCardClick(coupon.id)} />)}
         </ol>}
+        <br /><input type="button" className="back" value="Back" onClick={this.onBackClick} />
       </div>
     );
   }

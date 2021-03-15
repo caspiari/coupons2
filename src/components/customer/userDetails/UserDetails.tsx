@@ -29,14 +29,14 @@ export default class UserDetails extends Component<IUserDetailsProps> {
     }
   }
 
-  private onCloseClick = () => {
+  private onBackClick = () => {
     this.props.setShowDetails(false);
   }
 
   public render() {
     return (
       <div className="userDetails">
-        <br /><h2>User details:</h2><br />
+        <br /><h2><u>User details:</u></h2><br />
         <h3>Id: {this.props.user.id}<br />
         User name: {this.props.user.username}<br />
         Name: {this.props.user.firstName} {this.props.user.lastName}<br />
@@ -45,7 +45,7 @@ export default class UserDetails extends Component<IUserDetailsProps> {
         <br /><br />
         <input type="button" value="Edit" onClick={this.onEditClick} />
         {sessionStorage.getItem("userType") === "ADMIN" && <input type="button" value="Delete" onClick={this.onDeleteClick} />}
-        <input type="button" value="Close" onClick={this.onCloseClick} /><br /><br />
+        <input type="button" value="Back" onClick={this.onBackClick} /><br /><br />
       </div>
     );
   }
