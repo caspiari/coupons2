@@ -1,5 +1,5 @@
 export enum CouponType{
-    COMPUTERS = "CUMPUTERS", 
+    COMPUTERS = "COMPUTERS", 
     STEREO = "STEREO", 
     KITCHEN = "KITCHEN"
 }

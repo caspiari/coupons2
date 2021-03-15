@@ -1,7 +1,10 @@
+import { CouponType } from "./enums/CouponType";
+
 export class Coupon {
-    public constructor(
+    // Everything optional for easy state initialation  
+    public constructor( 
         public id?:number,
-        public category?:string,
+        public category?:CouponType,
         public name?:string,
         public companyId?:number,
         public description?:string,
@@ -9,6 +12,6 @@ export class Coupon {
         public amount?:number,
         public startDate?:Date,
         public endDate?:Date,
-        public companyName?: string,
+        public companyName?: string
     ){}
 }

@@ -29,6 +29,8 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
 
   public async componentDidMount() {
     try {
+      const token = sessionStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] = token;
       if (sessionStorage.getItem("userType") === "ADMIN") {
         const response = await axios.get<Company[]>("http://localhost:8080/companies");
         this.setState({ companies: response.data });
@@ -63,13 +65,13 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
     this.setState({ amount });
   }
 
-  private setStartDate = (date) => {
-    const startDate = date;
+  private setStartDate = (event: ChangeEvent<HTMLInputElement>) => {
+    const startDate = new Date(event.target.value);
     this.setState({ startDate });
   }
 
-  private setEndDate = (date) => {
-    const endDate = date;
+  private setEndDate = (event: ChangeEvent<HTMLInputElement>) => {
+    const endDate = new Date(event.target.value);
     this.setState({ endDate });
   }
 
@@ -87,6 +89,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
       this.props.history.goBack();
     }
     catch (err) {
+      // console.log(JSON.stringify(err), err.message);
       Home.exceptionTreatment(err, this.props);
     }
   }
@@ -100,7 +103,7 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
       <div className="createCoupon">
         <br />
         <h2>Create coupon</h2>
-        {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company user, company id gets picked automaticly in server */}
+        {sessionStorage.getItem("userType") === "ADMIN" && <div>Company:&nbsp;{/* For company-user the company id gets picked automaticly in server */}
           <select name="company select" onChange={this.setCompanyId}>
             <option defaultValue="" key="default company">
               -- Select company --
@@ -118,11 +121,11 @@ export default class CreateCoupon extends Component<any, ICreateCouponState> {
         Description: <input type="text" name="description" value={this.state.description} onChange={this.setDescription} /><br />
         Price: <input type="number" name="price" value={this.state.price} onChange={this.setPrice} /><br />
         Amount in stock: <input type="text" name="amount" value={this.state.amount} onChange={this.setAmount} /><br />
-        Start date: <input type="date" name="startDate" placeholder="Start date" onChange={this.setStartDate}  /><br />
+        Start date: <input type="date" name="startDate" placeholder="Start date" onChange={this.setStartDate} /><br />
         End date: <input type="date" name="endDate" placeholder="End date" onChange={this.setEndDate} />
         <br />
         <input type="button" value="Create" onClick={this.onCreateClick} />
-        <input type="button" value="Back" onClick={this.onBackClick} />      
+        <input type="button" value="Back" onClick={this.onBackClick} />
       </div>
     );
   }

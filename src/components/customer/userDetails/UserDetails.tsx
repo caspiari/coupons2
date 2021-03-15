@@ -12,10 +12,6 @@ interface IUserDetailsProps {
 
 export default class UserDetails extends Component<IUserDetailsProps> {
 
-  constructor(props: IUserDetailsProps) {
-    super(props);
-  }
-
   private onEditClick = () => {
     this.props.setEditMode(false);
   }

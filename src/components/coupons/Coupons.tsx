@@ -53,7 +53,7 @@ export default class Coupons extends Component<any, CouponsState> {
   }
 
   public onCategoryPipeChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    let categoryFilter = event.target.value.valueOf();
+    let categoryFilter = event.target.value;
     this.setState({ categoryFilter });
   }
 
@@ -75,11 +75,9 @@ export default class Coupons extends Component<any, CouponsState> {
         <input type="text" id="company" onChange={this.onCompanyPipeChanged} /> </span>}
         <label htmlFor="category">By category: </label>
                 <select name="coupon type select" id="category" onChange={this.onCategoryPipeChanged}>
-                    <option defaultValue="" key="defaultValue">
-                        -- Select category --
-                    </option>
+                    <option defaultValue="" key="defaultValue"></option>
                     {(this.couponTypes).map((couponType, index) => (
-                        <option value={couponType} key={index}>{couponType.valueOf()}</option>))}
+                        <option value={couponType.valueOf()} key={index}>{couponType.valueOf()}</option>))}
                 </select><br />
         <br />
         {<ol>

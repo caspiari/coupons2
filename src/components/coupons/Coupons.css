@@ -5,6 +5,7 @@
 .coupons input {
     margin-right: 15px;
     font-size: x-large;
+    width: 5cm;
 }
 
 .coupons select {

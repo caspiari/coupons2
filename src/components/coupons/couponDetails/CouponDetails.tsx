@@ -22,7 +22,7 @@ export default class CouponDetails extends Component<any, CouponDetailsState> {
   public async componentDidMount() {
     const token = sessionStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
-    const id = this.props.match.params;
+    const id = +this.props.match.params.id;
     try {
       const response = await axios.get<Coupon>("http://localhost:8080/coupons/" + id);
       const coupon = response.data;

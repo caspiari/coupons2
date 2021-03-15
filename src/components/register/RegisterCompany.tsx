@@ -57,7 +57,7 @@ export default class Register extends Component<any, RegisterState> {
                 Address: <input type="text" name="address" value={this.state.address} onChange={this.setAddress} /><br />
                 Phone:&ensp;&nbsp; <input type="number" name="phone" value={this.state.phone} onChange={this.setPhone} /><br />
                 <br />
-                <input type="button" value="register" onClick={this.register} />
+                <input type="button" value="Register" onClick={this.register} />
                 <input type="button" value="Back" onClick={this.back} />
             </div>
         );

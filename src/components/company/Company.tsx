@@ -55,7 +55,7 @@ export default class Company extends Component<any, ICompanyState> {
     this.setState({ showCompanyCoupons });
   }
 
-  private setEditMode = (edited: boolean) => {
+  private setEditMode = (edited: boolean) => { //Refresh component if edited
     if(edited === true) {
       this.componentDidMount();
     }
