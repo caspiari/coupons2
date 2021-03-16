@@ -4,20 +4,24 @@ import { User } from '../../../models/User';
 import axios from 'axios';
 import { ChangeEvent } from 'react';
 import Home from '../../home/Home';
-import { NavLink } from 'react-router-dom';
+import UserDetails from '../../customer/userDetails/UserDetails';
+import UpdateUser from '../../customer/updateUser/UpdateUser';
 
 interface IUsersManagementState {
     userIdFilter: number;
     userNameFilter: string;
     users: User[];
-    selectedUser: User;
+    showDetails: boolean;
+    userToShow: User;
+    editMode: boolean;
 }
 
 export default class UsersManagement extends Component<any, IUsersManagementState> {
    
     constructor(props: any) {
         super(props);
-        this.state = { userIdFilter: 0, userNameFilter: "", users: [], selectedUser: new User() };
+        this.state = { userIdFilter: 0, userNameFilter: "", users: [], showDetails: false, userToShow: new User(), 
+        editMode: false };
     }
 
     public async componentDidMount() {
@@ -45,16 +49,23 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.setState({ userIdFilter });
     }
 
+    private setShowDetails = () => {
+        this.setState({ showDetails: !this.state.showDetails });
+    }
+
+    private setEditMode = (edited: boolean) => { //Refresh component if edited
+        if(edited) {
+            this.componentDidMount();
+        }
+        this.setState({ editMode: !this.state.editMode, showDetails: !this.state.editMode });
+    }
+
     private onRegisterNewUserClick = () => {
         this.props.history.push("/registerUser");
     }
 
-    private onUserClick = () => {
-        
-    }
-
-    private back = () => {
-        this.props.history.goBack();
+    private onShowDetailsClick = (user: User) => {
+        this.setState({ userToShow: user, showDetails: true });
     }
 
     public render() {
@@ -62,13 +73,14 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
             <div className="usersManagement">
                 <br />
                 <h2><u>Users management</u></h2>
-                <br /><input type="button" value="Register new user" onClick={this.onRegisterNewUserClick} /><br /><br />
-                <b>Search:</b>By user name: <input type="text" id="name" onChange={this.onUserNamePipeChanged} />
-                &nbsp;By user id: <input type="numbers" id="id" onChange={this.onUserIdPipeChanged} />
-                <br />
-                <table>
+                {!this.state.showDetails && <div>
+                    <br /><input type="button" value="Register new user" onClick={this.onRegisterNewUserClick} /><br /><br />
+                    <b>Search:</b>By user name: <input type="text" id="name" onChange={this.onUserNamePipeChanged} />
+                    &nbsp;By user id: <input type="numbers" id="id" onChange={this.onUserIdPipeChanged} />
+                    <br />
+                    <table>
                     <thead>
-                        <tr>
+                        <tr className="tableHead">
                         <th>ID</th>
                         <th>User name</th>
                         <th>Full name</th>
@@ -85,19 +97,23 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                                     return user.id === this.state.userIdFilter;
                                 }
                             })
-                            .map(user => {
+                            .map(user =>
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.firstName} {user.lastName}</td>
                                     <td>{user.userType}</td>
+                                    <td className="button"><input type="button" value="Show details" onClick={() => this.onShowDetailsClick(user)} /></td>
                                 </tr>
-                            }
                             )
                         }
                     </tbody>
-                </table>
-                <br /><input type="button" value="Back" onClick={this.back} />
+                    </table> 
+                <br /><input type="button" value="Back" onClick={() => this.props.history.goBack()} />
+                </div>}
+                {this.state.showDetails && <UserDetails user={this.state.userToShow} setShowDetails={this.setShowDetails} 
+                                              setEditMode={this.setEditMode} />}
+                {this.state.editMode && <UpdateUser user={this.state.userToShow} setEditMode={this.setEditMode} />}
             </div>
         );
     }

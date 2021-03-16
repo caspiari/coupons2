@@ -18,19 +18,27 @@
 }
 
 .usersManagement table {
-    margin: 17px;
+    margin: 27px;
     margin-left: auto;
     margin-right: auto;
     font-size: x-large;
     width: 70%;
 }
 
-.usersManagement table, th, td {
+.usersManagement th, td {
     border: 1px solid rgb(47, 2, 2);
 }
 
 .usersManagement td {
     padding: 7px;
+}
+
+.tableHead th {
+    border: none;
+}
+
+.button {
+    border: none;
 }
 
 .userCard {

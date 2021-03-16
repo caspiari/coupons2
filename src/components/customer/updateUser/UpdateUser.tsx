@@ -83,9 +83,9 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
         }
     }
 
-    private onBackClick = () => {
-        this.props.setEditMode(false);
-    }
+    // private onBackClick = () => {
+    //     this.props.setEditMode(false);
+    // }
 
     public render() {
         return (
@@ -103,7 +103,7 @@ export default class UpdateUser extends Component<IUpdateUserProps, IUpdateUserS
                     userType={this.state.userType} companyId={this.state.companyId} setUserType={this.setUserType} setCompanyId={this.setCompanyId} />}
                 <br />
                 <input type="button" value="Edit" onClick={this.onEditClick} />
-                <input type="button" value="Back" onClick={this.onBackClick} /><br /><br />
+                <input type="button" value="Back" onClick={() => this.props.setEditMode(false)} /><br /><br />
             </div>
         );
     }

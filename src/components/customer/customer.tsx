@@ -31,12 +31,12 @@ export default class Customer extends Component<any, ICustomerState> {
     }
   }
 
-  private setShowDetails = (showDetails: boolean) => {
-    this.setState({ showDetails });
+  private setShowDetails = () => {
+    this.setState({ showDetails: !this.state.showDetails });
   }
 
   private setEditMode = (edited: boolean) => { //Refresh component if edited
-    if(edited === true) {
+    if(edited) {
       this.componentDidMount();
     }
     this.setState({ editMode: !this.state.editMode });
@@ -54,12 +54,13 @@ export default class Customer extends Component<any, ICustomerState> {
     return (
       <div className="customer">
         <h1>Hello {this.state.user.firstName} :)</h1>
-        <div>{this.state.showDetails === true && (this.state.editMode === true ? <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />
-             : <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />)}
-             {!this.state.showDetails && <div>
-              <br /><input type="button" value="My details" onClick={this.onMyDetailsClick} />
-              <br /><input type="button" value="My coupons" onClick={this.onMyCouponsClick} />
-              </div>}
+        <div>
+          {this.state.showDetails && <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />}
+          {this.state.editMode && <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />}
+          {!this.state.showDetails && <div>
+            <br /><input type="button" value="My details" onClick={this.onMyDetailsClick} />
+            <br /><input type="button" value="My coupons" onClick={this.onMyCouponsClick} />
+          </div>}
         </div>
       </div>
     );
