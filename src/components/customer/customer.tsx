@@ -55,7 +55,7 @@ export default class Customer extends Component<any, ICustomerState> {
       <div className="customer">
         <h1>Hello {this.state.user.firstName} :)</h1>
         <div>
-          {this.state.showDetails && <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />}
+          {/* {this.state.showDetails && <UserDetails user={this.state.user} setShowDetails={this.setShowDetails} setEditMode={this.setEditMode} />} */}
           {this.state.editMode && <UpdateUser user={this.state.user} setEditMode={this.setEditMode} />}
           {!this.state.showDetails && <div>
             <br /><input type="button" value="My details" onClick={this.onMyDetailsClick} />

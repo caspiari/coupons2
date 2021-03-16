@@ -14,7 +14,7 @@ interface IUsersManagementState {
     userNameFilter: string;
     users: User[];
     showDetails: boolean;
-    userToShow: User;
+    userIndexToShow: number;
     editMode: boolean;
 }
 
@@ -22,7 +22,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
    
     constructor(props: any) {
         super(props);
-        this.state = { userIdFilter: 0, userNameFilter: "", users: [], showDetails: false, userToShow: new User(), 
+        this.state = { userIdFilter: 0, userNameFilter: "", users: [], showDetails: false, userIndexToShow: undefined, 
         editMode: false };
     }
 
@@ -30,7 +30,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
 
     public async componentDidMount() {
         this.unsubscribeStore = store.subscribe(
-            () => this.setState({ })
+            () => this.setState({ users: store.getState().users })
         );
         try {
             const token = sessionStorage.getItem("token");
@@ -46,7 +46,7 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         }
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         this.unsubscribeStore();
     }
 
@@ -75,8 +75,8 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         this.props.history.push("/registerUser");
     }
 
-    private onShowDetailsClick = (user: User) => {
-        this.setState({ userToShow: user, showDetails: true });
+    private onShowDetailsClick = (userIndexToShow: number) => {
+        this.setState({ userIndexToShow, showDetails: true });
     }
 
     public render() {
@@ -108,13 +108,13 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                                     return user.id === this.state.userIdFilter;
                                 }
                             })
-                            .map(user =>
+                            .map((user, index) =>
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.firstName} {user.lastName}</td>
                                     <td>{user.userType}</td>
-                                    <td className="button"><input type="button" value="Show details" onClick={() => this.onShowDetailsClick(user)} /></td>
+                                    <td className="button"><input type="button" value="Show details" onClick={() => this.onShowDetailsClick(index)} /></td>
                                 </tr>
                             )
                         }
@@ -122,9 +122,9 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
                     </table> 
                 <br /><input type="button" value="Back" onClick={() => this.props.history.goBack()} />
                 </div>}
-                {this.state.showDetails && <UserDetails user={this.state.userToShow} setShowDetails={this.setShowDetails} 
+                {/* {this.state.showDetails && <UserDetails user={this.state.userIndexToShow} setShowDetails={this.setShowDetails} 
                                               setEditMode={this.setEditMode} />}
-                {this.state.editMode && <UpdateUser user={this.state.userToShow} setEditMode={this.setEditMode} />}
+                {this.state.editMode && <UpdateUser user={this.state.userIndexToShow} setEditMode={this.setEditMode} />} */}
             </div>
         );
     }
