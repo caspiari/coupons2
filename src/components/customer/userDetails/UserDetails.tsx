@@ -47,55 +47,6 @@ export default class UserDetails extends Component<IUserDetailsProps, IUserDetai
     }
   }
 
-  private userTypes: UserType[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
-    
-  private setUsername = (event: ChangeEvent<HTMLInputElement>) => {
-      let username = event.target.value;
-      this.setState({ username });
-  }
-
-  private setPassword = (event: ChangeEvent<HTMLInputElement>) => {
-      let password = event.target.value;
-      this.setState({ password });
-  }
-
-  private setFirstName = (event: ChangeEvent<HTMLInputElement>) => {
-      let firstName = event.target.value;
-      this.setState({ firstName });
-  }
-
-  private setLastName = (event: ChangeEvent<HTMLInputElement>) => {
-      let lastName = event.target.value;
-      this.setState({ lastName });
-  }
-
-  private setUserType = (event: ChangeEvent<HTMLSelectElement>) => {
-      if (event.target.value === UserType.COMPANY) {
-          store.dispatch({ type: ActionType.IS_COMPANY, payload: true })
-      } else {
-          store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
-      }
-      let userType = event.target.value as UserType;
-      this.setState({ userType });
-  }
-
-  private setCompanyId = (event: ChangeEvent<HTMLSelectElement>) => {
-      let companyId = +event.target.value;
-      this.setState({ companyId });
-  }
-
-  private onEditClick = async () => {
-      try {
-          const user = new User(this.props.user.id, this.state.username, this.state.password, this.state.firstName, this.state.lastName, this.state.userType, this.state.companyId);
-          await axios.put("http://localhost:8080/users", user);
-          alert("User successfuly updated!");
-          store.dispatch({ type: ActionType.IS_COMPANY, payload: false })
-          this.setState({ editMode: false });
-      }
-      catch (err) {
-          Home.exceptionTreatment(err, this.props);
-      }
-  }
   //   private onEditClick = () => {
   //     this.props.setEditMode(false);
   //   }

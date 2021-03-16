@@ -7,4 +7,5 @@ export class AppState {
     public isCompany: boolean = false; //For registration and update
     public companies: Company[] = [];
     public user: User;
+    public users: User[];
 }

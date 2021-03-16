@@ -6,6 +6,8 @@ import { ChangeEvent } from 'react';
 import Home from '../../home/Home';
 import UserDetails from '../../customer/userDetails/UserDetails';
 import UpdateUser from '../../customer/updateUser/UpdateUser';
+import { Unsubscribe } from 'redux';
+import { store } from '../../../redux/store';
 
 interface IUsersManagementState {
     userIdFilter: number;
@@ -24,7 +26,12 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         editMode: false };
     }
 
+    private unsubscribeStore: Unsubscribe;
+
     public async componentDidMount() {
+        this.unsubscribeStore = store.subscribe(
+            () => this.setState({ })
+        );
         try {
             const token = sessionStorage.getItem("token");
             if(token == null) {
@@ -37,6 +44,10 @@ export default class UsersManagement extends Component<any, IUsersManagementStat
         } catch (err) {
             Home.exceptionTreatment(err, this.props);
         }
+    }
+
+    componentWillUnmount() {
+        this.unsubscribeStore();
     }
 
     public onUserNamePipeChanged = (event: ChangeEvent<HTMLInputElement>) => {
